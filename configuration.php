@@ -1,5 +1,5 @@
 <?php 
-	class MConfig{
+	class SConfig{
 		var $_base_url           = 'http://localhost/tugas-sbd/';
 		var $_document_root      = 'C:/xampp/htdocs/tugas-sbd';
 		var $_host_name          = 'localhost';
