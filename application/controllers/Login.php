@@ -32,11 +32,14 @@ class Login extends CI_Controller {
 			$password	= $this->input->post('password',TRUE);
 			$this->M_login->cek_login($username,$password);
 
-
-
-
 		}
 
+	}
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('Login');
 	}
 
 }

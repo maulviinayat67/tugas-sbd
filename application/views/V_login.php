@@ -34,7 +34,7 @@
 
                     <form id="loginform" class="form-horizontal" role="form" method="POST" action="<?php echo base_url('Login/cek_login') ?>">
 
-                     <?php echo form_error('username', '<div class="alert alert-danger" role="alert" > <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                       <?php echo form_error('username', '<div class="alert alert-danger" role="alert" > <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>', '</div>'); ?>
                     <div style="margin-bottom: 25px" class="input-group">

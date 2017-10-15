@@ -1,13 +1,14 @@
 
 <aside class="main-sidebar">
   <section class="sidebar">
-    <ul class="sidebar-menu" data-widget="tree">
-      <li class="header">MAIN NAVIGATION</li>
+    <ul class="sidebar-menu tree" data-widget="tree">
 
+      <li><a href="#"><i class="fa fa-home text-primary"></i> <span>Acces to the Website</span></a></li>
+      <li class="header">MAIN NAVIGATION</li>
       <li class="active treeview menu-open">
         <a href="#">
           <i class="fa fa-dashboard"></i> 
-          <span><?php echo $user ?></span>
+          <span>Dashboard</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -31,22 +32,6 @@
           <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
           <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
           <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-        </ul>
-      </li>
-
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-pie-chart"></i>
-          <span>Charts</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-          <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-          <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-          <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
         </ul>
       </li>
 
@@ -82,7 +67,7 @@
         </ul>
       </li>
 
-
+      <li><a href="<?php echo base_url('Login/logout') ?>"><i class="fa fa-power-off text-primary"></i> <span>Logout</span></a></li>
 
     </ul>
   </section>
