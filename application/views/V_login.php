@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
+    <title>Login</title>
+    <link href='<?php echo base_url('assets/img/icon_title.png') ?>' rel='shortcut icon'>
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
     <script src="<?php echo base_url('assets/jquery/jquery-3.2.1.min.js') ?>"></script>
     <script src="<?php echo base_url('assets/bootstrap/js/bootstrap.min.js') ?>"></script>
@@ -25,7 +26,7 @@
             <div class="panel panel-info" >
                 <div class="panel-heading">
                     <div class="panel-title">Sign In</div>
-                    <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
+                    
                 </div>     
 
                 <div style="padding-top:30px" class="panel-body" >
@@ -35,38 +36,38 @@
                     <form id="loginform" class="form-horizontal" role="form" method="POST" action="<?php echo base_url('Login/cek_login') ?>">
 
                        <?php echo form_error('username', '<div class="alert alert-danger" role="alert" > <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>', '</div>'); ?>
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="username" type="text" class="form-control" name="username" value="<?php echo set_value('username') ?>" placeholder="Username">                                        
-                    </div>
+                       <span aria-hidden="true">&times;</span>
+                   </button>', '</div>'); ?>
+                   <div style="margin-bottom: 25px" class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input id="username" type="text" class="form-control" name="username" value="<?php echo set_value('username') ?>" placeholder="Username">                                        
+                </div>
 
-                    <?php echo form_error('password', '<div class="alert alert-danger" role="alert">  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>', '</div>'); ?>
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="password" type="password" class="form-control" name="password" placeholder="Password">
-                    </div>
-
-
-                    <div class="input-group">
-                      <div class="checkbox">
-                        <label>
-                          <input  type="checkbox" id="remember" name="remember" value="1"> Remember me
-                      </label>
-                  </div>
-              </div>
+                <?php echo form_error('password', '<div class="alert alert-danger" role="alert">  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>', '</div>'); ?>
+            <div style="margin-bottom: 25px" class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+            </div>
 
 
-              <div style="margin-top:10px" class="form-group">
-                <!-- Button -->
-
-                <div class="col-sm-12 controls">
-                  <input type="submit" id="btn-login"  class="btn btn-success" value="Login">
-              </div>
+            <div class="input-group">
+              <div class="checkbox">
+                <label>
+                  <input  type="checkbox" id="remember" name="remember" value="1"> Remember me
+              </label>
           </div>
+      </div>
+
+
+      <div style="margin-top:10px" class="form-group">
+        <!-- Button -->
+
+        <div class="col-sm-12 controls">
+          <input type="submit" id="btn-login"  class="btn btn-success" value="Login">
+      </div>
+  </div>
 
 <!-- 
               <div class="form-group">
