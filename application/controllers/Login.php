@@ -12,7 +12,7 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('V_login');
+		$this->load->view('v_login');
 	}
 
 	public function cek_login()
@@ -30,6 +30,15 @@ class Login extends CI_Controller {
 
 			$username 	= $this->input->post('username',TRUE);
 			$password	= $this->input->post('password',TRUE);
+
+			
+			if(isset($post['remember']))
+			{
+				$expire = time() * (86400 * 7);
+				$this->input->set_cookie('username', $post['username'], $expire,'/');
+				$this->input->set_cookie('password', $post['password'], $expire ,'/');
+
+			}
 
 			$this->M_login->cek_login($username,$password);
 
@@ -63,17 +72,17 @@ class Login extends CI_Controller {
 	{
 		$password 	= $this->input->post('password',TRUE);
 		$query 		= $this->db->get_where('tbl_pegawai',array('password'=>$password))->row();
-		if($password == $query->password)
-		{
-			return TRUE;
-		}
-		else 
-		{
-			$this->form_validation->set_message('password_cek', '<strong>Password</strong> anda salah !!!');
-			return FALSE;
-			
-		}
-	}
+if($password == $query->password)
+{
+	return TRUE;
+}
+else 
+{
+	$this->form_validation->set_message('password_cek', '<strong>Password</strong> anda salah !!!');
+	return FALSE;
+	
+}
+}
 
 }
 
