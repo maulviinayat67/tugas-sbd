@@ -30,16 +30,36 @@ class Makanan extends CI_Controller {
 	public function ajax_add()
 	{
 		$this->validasi_data();
-		$data = array(
-			'id_makanan'=>$this->input->post('id_makanan'),
-			'nama'=> $this->input->post('nama_makanan'),
-			'tipe'=> $this->input->post('jenis_makanan'),
-			'harga'=> $this->input->post('harga_makanan')
-		);
+				
+				$config['upload_path']          = './assets/gambar/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 2048;
+                // $config['max_width']            = 1024;
+                // $config['max_height']           = 768;
+                $config['remove_space'] = TRUE;
 
-		$this->M_makanan->add_data($data);
+               $this->load->library('upload',$config);
 
-		echo json_encode(array('status'=>TRUE));
+    if($this->upload->do_upload('gambar_makanan'))
+        {
+        	$upload_data = $this->upload->data();
+        	$path_gambar = base_url().'/assets/gambar/'.$upload_data['file_name'];
+
+			$data = array(
+				'id_makanan'=> $this->input->post('id_makanan'),
+				'nama'		=> $this->input->post('nama_makanan'),
+				'tipe'		=> $this->input->post('jenis_makanan'),
+				'harga'		=> $this->input->post('harga_makanan'),
+				'gambar'	=> $path_gambar
+			);
+
+
+			$this->M_makanan->add_data($data);
+			echo json_encode(array('status'=>TRUE));
+		}
+
+		
+
 	}
 
 	public function ajax_edit($id)
@@ -51,16 +71,32 @@ class Makanan extends CI_Controller {
 
 	public function ajax_update()
 	{
+			$config['upload_path']          = './assets/gambar/';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 2048;
+            // $config['max_width']            = 1024;
+            // $config['max_height']           = 768;
+           	$config['remove_space'] = TRUE;
+
+            $this->load->library('upload',$config);
+
+    if($this->upload->do_upload('gambar_makanan'))
+      {
+        $upload_data = $this->upload->data();
+        	$path_gambar = base_url().'/assets/gambar/'.$upload_data['file_name'];
+
 		$data = array(
 			'id_makanan'=>$this->input->post('id_makanan'),
 			'nama'=> $this->input->post('nama_makanan'),
 			'tipe'=> $this->input->post('jenis_makanan'),
-			'harga'=> $this->input->post('harga_makanan')
+			'harga'=> $this->input->post('harga_makanan'),
+			'gambar'	=> $path_gambar
 		);
 
 		$this->M_makanan->update_data(array('id_makanan'=>$this->input->post('id_makanan')),$data);
 
 		echo json_encode(array('status'=>TRUE));
+		}
 	}
 
 	public function ajax_delete($id)
@@ -96,6 +132,7 @@ class Makanan extends CI_Controller {
 			$row[] = $makanan->nama;
 			$row[] = $makanan->tipe;
 			$row[] = $makanan->harga;
+			$row[] = '<img src= "'.$makanan->gambar.'" width="100" height="100">';
 
 			$row[] = '<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_makanan('."'".$makanan->id_makanan."'".') "><span class="fa fa-pencil"></span> Edit</a>&nbsp; 
 			<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="hapus_makanan('."'".$makanan->id_makanan."'".') "><span class="fa fa-trash"></span> Hapus</a>';

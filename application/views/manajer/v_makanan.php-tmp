@@ -3,8 +3,8 @@
 		Makanan & Minuman
 	</h1>
 	<ol class="breadcrumb">
-		<li><a href="<?php echo base_url('Home') ?>"><i class="fa fa-dashboard"></i> <?php echo $judul ?></a></li>
-		<li class="active"><?php echo $sub_judul ?></li>
+		<li><a href="<?php echo base_url('Home')?>"><i class="fa fa-dashboard"></i> <?php echo $judul?></a></li>
+		<li class="active"><?php echo $sub_judul?></li>
 	</ol>
 </section>
 
@@ -32,7 +32,7 @@
 							<tr>
 								<th><input type="checkbox" id="check-all"></th>
 		<!-- 						<th>ID Makanan</th>
-		-->								
+		-->
 										<th>Nama Makanan/Minuman</th>
 										<th>Jenis</th>
 										<th>Harga (IDR)</th>
@@ -42,18 +42,18 @@
 								</thead>
 								<tbody>
 					<!-- 		<?php foreach ($data_makanan as $row) {
-								
-								?>
-								<tr>
-									<td><input type="checkbox" class="data-check" value="<?php echo $row->id_makanan ?>"></td>
-									<td><?php echo $row->id_makanan ?></td>
-									<td><?php echo $row->nama ?></td>
-									<td><?php echo $row->tipe ?></td>
-									<td><?php echo $row->harga ?></td>
-									<td><a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_person(<?php echo $row->id_makanan ?>)"><span class="fa fa-pencil"></span> Edit</a>&nbsp; 
-										<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="edit_person(<?php echo $row->id_makanan ?>)"><span class="fa fa-trash"></span> Hapus</a></td>
-									</tr>
-									<?php } ?>	 -->				
+
+	?>
+									<tr>
+										<td><input type="checkbox" class="data-check" value="<?php echo $row->id_makanan?>"></td>
+										<td><?php echo $row->id_makanan?></td>
+										<td><?php echo $row->nama?></td>
+										<td><?php echo $row->tipe?></td>
+										<td><?php echo $row->harga?></td>
+										<td><a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_person(<?php echo $row->id_makanan?>)"><span class="fa fa-pencil"></span> Edit</a>&nbsp;
+											<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="edit_person(<?php echo $row->id_makanan?>)"><span class="fa fa-trash"></span> Hapus</a></td>
+										</tr>
+	<?php }?>	 -->
 								</tbody>
 							</table>
 						</div>
@@ -70,14 +70,14 @@
 			function showallmakanan()
 			{
 				$.ajax({
-					url: '<?php echo base_url('manajer/makanan/showalldata') ?>',
+					url: '<?php echo base_url('manajer/makanan/showalldata')?>',
 					type: 'POST',
 					dataType: 'JSON',
 					success :function(data)
 					{
 						var html;
 						var i;
-						for ( i = 0 ; i < data.length; i++) 
+						for ( i = 0 ; i < data.length; i++)
 						{
 							html +='<tr>'+
 							'<td><input type="checkbox" class="data-check" value="'+data.id_makanan+'"></td>'+
@@ -121,7 +121,7 @@ function edit_makanan(id)
   // $(".form-group").removeClass('has-error');
   // $(".help-block").empty();
   $.ajax({
-  	url: '<?php echo base_url('manajer/makanan/ajax_edit') ?>/'+id,
+  	url: '<?php echo base_url('manajer/makanan/ajax_edit')?>/'+id,
   	type: 'POST',
   	dataType: 'JSON',
   	success:function(data)
@@ -131,7 +131,7 @@ function edit_makanan(id)
   		$('[name = "nama_makanan"]').val(data.nama);
   		$('[name = "jenis_makanan"]').val(data.tipe);
   		$('[name = "harga_makanan"]').val(data.harga);
-  		
+
 
 
   		$("#makanan_modal").modal("show");
@@ -152,13 +152,13 @@ function hapus_makanan(id)
 	// $('#makanan_modal form').hide();
  //    $('#makanan_modal .modal-header #myModalLabel').text('Hapus Artikel');
  //    $('#makanan_modal .modal-footer #btnSave').text('Hapus!!!');
- //    $('#myModal #form-artikel').attr('action','hapus');   
+ //    $('#myModal #form-artikel').attr('action','hapus');
  //    $('#makanan_modal .modal-body').prepend('<p id="hapus-notif">Apakah Anda yakin akan menghapus data ini?</p>');
- //     $('#makanan_modal').modal('show'); 
+ //     $('#makanan_modal').modal('show');
  if(confirm('Apakah Anda yakin ingin menghapus data ini ?'))
  {
  	$.ajax({
- 		url: '<?php echo base_url('manajer/makanan/ajax_delete') ?>/'+id,
+ 		url: '<?php echo base_url('manajer/makanan/ajax_delete')?>/'+id,
  		type: 'POST',
  		dataType: 'JSON',
  		success:function(data)
@@ -167,7 +167,7 @@ function hapus_makanan(id)
      		$('#myModal #hapus-notif').remove();
      		reload_table();
      	},
-     	error:function(jqXHR, textStatus, errorThrown) 
+     	error:function(jqXHR, textStatus, errorThrown)
      	{
      		alert('Error hapus data');
      	}
@@ -187,7 +187,7 @@ function bulk_delete()
 		if(confirm('Apakah anda serius ingin menghapus '+list_id.length+' data?'))
 		{
 			$.ajax({
-				url: '<?php echo base_url('manajer/makanan/ajax_bulk_delete') ?>',
+				url: '<?php echo base_url('manajer/makanan/ajax_bulk_delete')?>',
 				type: 'POST',
 				dataType: 'JSON',
 				data: {id_makanan: list_id},
@@ -197,19 +197,19 @@ function bulk_delete()
 					{
 						reload_table();
 					}
-					else 
+					else
 					{
-						alert('Failed');	
+						alert('Failed');
 					}
 				},
-				error:function(jqXHR, textStatus, errorThrown) 
+				error:function(jqXHR, textStatus, errorThrown)
 				{
 					alert('Error hapus data');
 				}
 
 
 			});
-			
+
 		}
 	}
 	else
@@ -226,16 +226,16 @@ function reload_table()
 function simpan()
 {
 	$('#btnSave').text('saving...'); //change button text
-    $('#btnSave').attr('disabled',true); //set button disable 
+    $('#btnSave').attr('disabled',true); //set button disable
 
     var url;
     if(save_method == 'add')
     {
-    	url = "<?php echo base_url('manajer/makanan/ajax_add') ?>";
+    	url = "<?php echo base_url('manajer/makanan/ajax_add')?>";
     }
     else
     {
-    	url = "<?php echo base_url('manajer/makanan/ajax_update') ?>";
+    	url = "<?php echo base_url('manajer/makanan/ajax_update')?>";
     }
 
     var formData = new FormData($('#form_makanan')[0]);
@@ -260,7 +260,7 @@ function simpan()
             $('#btnSave').attr('disabled',false); //set button
 
         },
-        error:function(jqXHR, textStatus, errorThrown) 
+        error:function(jqXHR, textStatus, errorThrown)
         {
         	alert('Error adding / update data');
         	console.log(data.status);
