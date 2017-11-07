@@ -7,7 +7,7 @@
   <link href='<?php echo base_url('assets/img/icon_title.png') ?>' rel='shortcut icon'>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap-theme.min.css') ?>">
+
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/DataTables/css/dataTables.bootstrap.min.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/fonts/css/font-awesome.min.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/icons/css/ionicons.min.css') ?>">
@@ -17,18 +17,19 @@
   
 
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
     <header class="main-header">
 
-      <a href="<?php echo base_url('home') ?>" class="logo">
+      <a href="<?php echo base_url('Home') ?>" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>A</b>DM</span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><?php echo $user ?></span>
       </a>
 
-      <nav class="navbar navbar-fixed-top ">
+      <nav class="navbar navbar-static-top">
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
           <span class="sr-only">Toggle navigation</span>
         </a>
