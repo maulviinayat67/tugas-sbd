@@ -16,6 +16,9 @@
       font-weight: bold;
       color: white; }
 
+section {
+  margin-bottom: 32px; }
+
 #hero .hero-welcome {
   width: 100%;
   overflow: hidden;
@@ -38,7 +41,7 @@
     #hero .hero-welcome .item figcaption {
       text-transform: uppercase;
       text-align: center;
-      color: #fff;
+      color: white;
       position: absolute;
       z-index: 99; }
       #hero .hero-welcome .item figcaption p:first-child {
@@ -49,6 +52,29 @@
         font-size: 1.5em;
         font-weight: 300;
         margin-top: 0; }
+
+#food-list .container, #food-list .container-fluid {
+  margin-bottom: 32px; }
+
+#food-list header h3 {
+  font-size: 3em;
+  text-transform: uppercase;
+  font-weight: 300; }
+
+#food-list .item {
+  height: 150px; }
+  #food-list .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; }
+  #food-list .item figcaption {
+    position: absolute;
+    z-index: 99;
+    text-transform: uppercase;
+    left: 10px;
+    bottom: 5px; }
+    #food-list .item figcaption p {
+      margin: 0px; }
 
 .btn.btn-custom-dark {
   color: white;
@@ -62,6 +88,6 @@
     color: #F32C33;
     background-color: white; }
 
-body {
+html, body, h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto", sans-serif !important;
   color: #282830; }

@@ -1,5 +1,9 @@
 $hero-hg: 699px;
 
+section{
+	margin-bottom: 32px;
+}
+
 #hero {
 	.hero-welcome {
 		width: 100%;
@@ -29,7 +33,7 @@ $hero-hg: 699px;
 			figcaption {
 				text-transform: uppercase;
 				text-align: center;
-				color: #fff;
+				color: white;
 				position: absolute;
 				z-index: 99;
 
@@ -44,6 +48,37 @@ $hero-hg: 699px;
 					font-weight: 300;
 					margin-top: 0;
 				}
+			}
+		}
+	}
+}
+
+#food-list{
+	.container, .container-fluid{
+		margin-bottom: 32px;
+	}
+	header{
+		h3{
+			font-size: 3em;
+			text-transform: uppercase;
+			font-weight: 300;
+		}
+	}
+	.item{
+		height: 150px;
+		img{
+			width:100%;
+			height: 100%;
+			object-fit: cover;
+		}
+		figcaption{
+			position: absolute;
+			z-index: 99;
+			text-transform: uppercase;
+			left:10px; 
+			bottom : 5px;
+			p{
+				margin : 0px;
 			}
 		}
 	}

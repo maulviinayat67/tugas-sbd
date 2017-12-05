@@ -14076,19 +14076,24 @@ if (false) {(function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_hero_image_vue__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_foods_vue__ = __webpack_require__(23);
 //
 //
 //
 //
 //
 //
+//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
   components: {
-    'home-hero': __WEBPACK_IMPORTED_MODULE_0__home_hero_image_vue__["a" /* default */]
+    'home-hero': __WEBPACK_IMPORTED_MODULE_0__home_hero_image_vue__["a" /* default */],
+    'home-foods': __WEBPACK_IMPORTED_MODULE_1__home_foods_vue__["a" /* default */]
+
   }
 });
 
@@ -14172,7 +14177,7 @@ var render = function() {
               {
                 staticClass: "btn btn-lg btn-default btn-custom-dark",
                 staticStyle: { "margin-top": "32px" },
-                attrs: { href: "#menu" }
+                attrs: { href: "#food-list" }
               },
               [_vm._v("Pick Now")]
             )
@@ -14202,7 +14207,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [_c("home-hero")], 1)
+  return _c("div", {}, [_c("home-hero"), _vm._v(" "), _c("home-foods")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -14263,6 +14268,244 @@ if (false) {
 		};
 	}
 });
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_home_foods_vue__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5c247ec4_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_home_foods_vue__ = __webpack_require__(25);
+var disposed = false
+var normalizeComponent = __webpack_require__(12)
+/* script */
+
+/* template */
+
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_home_foods_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5c247ec4_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_home_foods_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\components\\home\\home-foods.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5c247ec4", Component.options)
+  } else {
+    hotAPI.reload("data-v-5c247ec4", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  data() {
+    return {
+      foods: [],
+      drinks: []
+    };
+  },
+  created() {
+    this.$http.get('api/v1/makanan').then(response => {
+      console.log(response);
+      this.foods = categorized('makanan', response.data);
+      this.drinks = categorized('minuman', response.data);
+    });
+  }
+
+});
+
+function categorized(categoryType, data) {
+  let temp = [];
+  data.forEach(item => {
+    if (item.tipe == categoryType) {
+      temp.push(item);
+    }
+  });
+
+  return temp;
+}
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { attrs: { id: "food-list" } }, [
+    _c("div", { staticClass: "container" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row" },
+        _vm._l(_vm.foods, function(item) {
+          return _c("div", { staticClass: "col-md-2 col-sm-4 col-xs-4" }, [
+            _c("div", { staticClass: "item" }, [
+              _c("img", { attrs: { src: item.gambar, alt: "gambar makanan" } }),
+              _vm._v(" "),
+              _c("figcaption", {}, [
+                _c("p", [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(item.nama) +
+                      "\n              "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                IDR " +
+                      _vm._s(item.harga) +
+                      "\n              "
+                  )
+                ])
+              ])
+            ])
+          ])
+        })
+      )
+    ]),
+    _vm._v(" "),
+    _c("p"),
+    _vm._v(" "),
+    _c("div", { staticClass: "container" }, [
+      _vm._m(1),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row" },
+        _vm._l(_vm.drinks, function(item) {
+          return _c("div", { staticClass: "col-md-2 col-sm-4 col-xs-4" }, [
+            _c("div", { staticClass: "item" }, [
+              _c("img", { attrs: { src: item.gambar, alt: "gambar makanan" } }),
+              _vm._v(" "),
+              _c("div", {}, [
+                _c("p", [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(item.nama) +
+                      "\n              "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(item.harga) +
+                      "\n              "
+                  )
+                ])
+              ])
+            ])
+          ])
+        })
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", [_c("h3", [_vm._v("Foods")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", [_c("h3", [_vm._v("Drinks")])])
+  }
+]
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5c247ec4", esExports)
+  }
+}
 
 /***/ })
 /******/ ]);
