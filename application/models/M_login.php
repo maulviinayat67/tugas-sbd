@@ -40,7 +40,7 @@ class M_login extends CI_Model {
 
 				);
 				$this->session->set_userdata($sess);	
-				redirect('Home');	
+				redirect('home');	
 			}	
 		}
 		else

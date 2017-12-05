@@ -7,12 +7,17 @@
   <link href='<?php echo base_url('assets/img/icon_title.png') ?>' rel='shortcut icon'>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
+
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/DataTables/css/dataTables.bootstrap.min.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/fonts/css/font-awesome.min.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/icons/css/ionicons.min.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/dist/AdminLTE.min.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/dist/skins/_all-skins.min.css') ?>">
+  
+
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
     <header class="main-header">

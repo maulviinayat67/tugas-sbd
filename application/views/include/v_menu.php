@@ -10,8 +10,8 @@ $level = $this->session->userdata('level');
 
       <?php if($level == 'manajer') 
       {?>
-        <li class="active">
-          <a href="<?php echo base_url('Home') ?>">
+        <li class="<?php if($this->uri->segment(1)=="home"){echo "active";}?>">
+          <a href="<?php echo base_url('home') ?>">
             <i class="fa fa-dashboard" aria-hidden="true"></i> 
             <span>Dashboard</span>
             <span class="pull-right-container">
@@ -19,25 +19,16 @@ $level = $this->session->userdata('level');
           </a>
         </li>
 
-          <li>
+          <li class="<?php if($this->uri->segment(2)=="makanan"){echo "active";}?>">
             <a href="<?php echo base_url('manajer/makanan') ?>">
               <i class="fa fa-cutlery" aria-hidden="true"></i>
-              <span>Makanan</span>
+              <span>Makanan & Minuman</span>
               <span class="pull-right-container">
               </span>
             </a>
           </li>
 
-          <li>
-            <a href="<?php echo base_url('manajer/minuman') ?>">
-              <i class="fa fa-glass" aria-hidden="true"></i>
-              <span>Minuman</span>
-              <span class="pull-right-container">
-              </span>
-            </a>
-          </li>
-
-          <li>
+          <li class="<?php if($this->uri->segment(2)=="transaksi"){echo "active";}?>">
             <a href="<?php echo base_url('manajer/transaksi') ?>">
               <i class="fa fa-money" aria-hidden="true"></i>
               <span>Transaksi</span>
@@ -50,7 +41,7 @@ $level = $this->session->userdata('level');
           else if($level == 'kasir')
           {
            ?>
-           <li class="active treeview menu-open">
+           <li class="<?php if($this->uri->segment(1)=="home"){echo "active";}?>">
             <a href="#">
               <i class="fa fa-dashboard"></i> 
               <span>Dashboard</span>
