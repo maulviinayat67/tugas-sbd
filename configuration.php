@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	class MConfig{
 		var $_site_url = 'http://localhost/tugas-sbd';

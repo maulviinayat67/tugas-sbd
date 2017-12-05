@@ -1,0 +1,67 @@
+.navbar {
+  min-height: 80px;
+  display: flex;
+  justify-content: center; }
+  .navbar.navbar-transparent {
+    background-color: transparent !important;
+    border-bottom: none !important; }
+  .navbar .navbar-header {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; }
+    .navbar .navbar-header .navbar-brand {
+      font-size: 2em;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: white; }
+
+#hero .hero-welcome {
+  width: 100%;
+  overflow: hidden;
+  display: flex !important;
+  align-items: center; }
+  #hero .hero-welcome .item {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    #hero .hero-welcome .item .overlay {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.1);
+      height: 100%;
+      width: 100%;
+      z-index: 2; }
+    #hero .hero-welcome .item img {
+      height: 699px;
+      width: 100%;
+      object-fit: cover; }
+    #hero .hero-welcome .item figcaption {
+      text-transform: uppercase;
+      text-align: center;
+      color: #fff;
+      position: absolute;
+      z-index: 99; }
+      #hero .hero-welcome .item figcaption p:first-child {
+        font-size: 3em;
+        font-weight: 400;
+        margin-bottom: 0; }
+      #hero .hero-welcome .item figcaption p:last-child {
+        font-size: 1.5em;
+        font-weight: 300;
+        margin-top: 0; }
+
+.btn.btn-custom-dark {
+  color: white;
+  font-weight: bold;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 2.5px;
+  border: 2px solid white;
+  transition: all ease 0.3s; }
+  .btn.btn-custom-dark:hover {
+    color: #F32C33;
+    background-color: white; }
+
+body {
+  font-family: "Roboto", sans-serif !important;
+  color: #282830; }

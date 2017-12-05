@@ -1,0 +1,50 @@
+$hero-hg: 699px;
+
+#hero {
+	.hero-welcome {
+		width: 100%;
+		overflow: hidden;
+		display: flex!important;
+		align-items: center;
+
+		.item {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			.overlay {
+				position: absolute;
+				background-color: rgba(0,0,0,0.1);
+				height: 100%;
+				width: 100%;
+				z-index: 2;
+			}
+
+			img {
+				height: $hero-hg;
+				width: 100%;
+				object-fit: cover;
+			}
+
+			figcaption {
+				text-transform: uppercase;
+				text-align: center;
+				color: #fff;
+				position: absolute;
+				z-index: 99;
+
+				p:first-child {
+					font-size: 3em;
+					font-weight: 400;
+					margin-bottom: 0;
+				}
+
+				p:last-child {
+					font-size: 1.5em;
+					font-weight: 300;
+					margin-top: 0;
+				}
+			}
+		}
+	}
+}
