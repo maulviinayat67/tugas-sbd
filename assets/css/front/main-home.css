@@ -27,8 +27,7 @@
     justify-content: center; }
     #hero .hero-welcome .item .overlay {
       position: absolute;
-      background-color: black;
-      opacity: 0.5;
+      background-color: rgba(0, 0, 0, 0.1);
       height: 100%;
       width: 100%;
       z-index: 2; }
@@ -50,6 +49,17 @@
         font-size: 1.5em;
         font-weight: 300;
         margin-top: 0; }
+
+.btn.btn-custom {
+  color: white;
+  padding: 8px 16px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 2.5px;
+  border: 2px solid white;
+  transition: all ease 0.3s; }
+  .btn.btn-custom:hover {
+    color: #F32C33;
+    background-color: white; }
 
 body {
   font-family: "Roboto", sans-serif !important;

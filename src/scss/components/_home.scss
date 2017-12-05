@@ -14,8 +14,7 @@ $hero-hg: 699px;
 
 			.overlay {
 				position: absolute;
-				background-color: black;
-				opacity: 0.5;
+				background-color: rgba(0,0,0,0.1);
 				height: 100%;
 				width: 100%;
 				z-index: 2;

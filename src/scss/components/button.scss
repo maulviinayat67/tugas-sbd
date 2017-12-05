@@ -1,0 +1,15 @@
+.btn{
+  &.btn-custom{
+    color : white;
+    padding : 8px 16px;
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 2.5px;
+    border:2px solid white;
+    transition: all ease 0.3s;
+
+    &:hover{
+      color : $color-accent;
+      background-color: white;
+    }
+  }
+}

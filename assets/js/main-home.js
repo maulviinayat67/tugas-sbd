@@ -14165,7 +14165,17 @@ var render = function() {
           _c("figcaption", [
             _c("p", [_vm._v(_vm._s(item.header))]),
             _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(item.subheader))])
+            _c("p", [_vm._v(_vm._s(item.subheader))]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-lg btn-default btn-custom",
+                staticStyle: { "margin-top": "32px" },
+                attrs: { href: "#menu" }
+              },
+              [_vm._v("Pick Now")]
+            )
           ])
         ])
       })
@@ -14226,6 +14236,7 @@ if (false) {
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 
@@ -14235,8 +14246,7 @@ if (false) {
 			slidesToShow: 1,
 			slidesToScroll: 1,
 			autoplay: true,
-			speed: 500,
-			fade: true
+			speed: 500
 		});
 	},
 	data() {
