@@ -53,3 +53,6 @@ $route['default_controller'] = 'LandingPage';
 $route['login'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+// API
+$route['api/v1/makanan']['GET'] = 'API/APIMakanan/getMakanan';
