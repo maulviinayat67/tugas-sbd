@@ -5,7 +5,7 @@
         <h3>Foods</h3>
       </header>
       <div class="row">
-        <div v-for="item in foods" class="col-md-2 col-sm-4 col-xs-4">
+        <div v-for="item in foodData.foods" class="col-md-3 col-sm-6 col-xs-12 card">
           <div class="item">
             <img :src="item.gambar" alt="gambar makanan">
             <figcaption class="">
@@ -28,17 +28,17 @@
         <h3>Drinks</h3>
       </header>
       <div class="row">
-        <div v-for="item in drinks" class="col-md-2 col-sm-4 col-xs-4">
+        <div v-for="item in foodData.drinks" class="col-md-3 col-sm-6 col-xs-12 card">
           <div class="item">
             <img :src="item.gambar" alt="gambar makanan">
-            <div class="">
+            <figcaption class="">
               <p>
                 {{item.nama}}
               </p>
               <p>
-                {{item.harga}}
+                IDR {{item.harga}}
               </p>
-            </div>
+            </figcaption>
           </div>
         </div>
       </div>
@@ -46,6 +46,7 @@
   </section>
 </template>
 <script type="text/javascript">
+import {mapGetters} from 'vuex'
 
 export default {
   data(){
@@ -54,25 +55,6 @@ export default {
         drinks : []
     }
   },
-  created(){
-    this.$http.get('api/v1/makanan').then((response) => {
-      console.log(response);
-      this.foods = categorized('makanan',response.data)
-      this.drinks = categorized('minuman',response.data)
-    })
-  }
-
-}
-
-
-function categorized(categoryType, data){
-  let temp = []
-  data.forEach((item) => {
-    if(item.tipe == categoryType){
-      temp.push(item)
-    }
-  })
-
-  return temp;
+  computed:mapGetters(['foodData'])
 }
 </script>

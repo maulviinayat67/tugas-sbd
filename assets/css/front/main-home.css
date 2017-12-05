@@ -16,9 +16,6 @@
       font-weight: bold;
       color: white; }
 
-section {
-  margin-bottom: 32px; }
-
 #hero .hero-welcome {
   width: 100%;
   overflow: hidden;
@@ -53,28 +50,48 @@ section {
         font-weight: 300;
         margin-top: 0; }
 
-#food-list .container, #food-list .container-fluid {
-  margin-bottom: 32px; }
-
-#food-list header h3 {
-  font-size: 3em;
-  text-transform: uppercase;
-  font-weight: 300; }
-
-#food-list .item {
-  height: 150px; }
-  #food-list .item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; }
-  #food-list .item figcaption {
-    position: absolute;
-    z-index: 99;
+#food-list {
+  padding-top: 32px; }
+  #food-list .container, #food-list .container-fluid {
+    margin-bottom: 32px; }
+  #food-list header h3 {
+    font-size: 3em;
     text-transform: uppercase;
-    left: 10px;
-    bottom: 5px; }
-    #food-list .item figcaption p {
-      margin: 0px; }
+    font-weight: 300; }
+  #food-list .card {
+    padding-top: 15px; }
+  #food-list .item {
+    border-radius: 2.5px;
+    position: relative;
+    border: 1px solid #CD1A38;
+    height: 250px; }
+    #food-list .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; }
+    #food-list .item figcaption {
+      background-color: #CD1A38;
+      padding: 8px 8px;
+      position: absolute;
+      z-index: 99;
+      text-transform: uppercase;
+      right: 0px;
+      left: 0px;
+      bottom: 0px; }
+      #food-list .item figcaption p {
+        color: white;
+        margin: 0px; }
+        #food-list .item figcaption p:first-child {
+          font-size: 1.5em;
+          font-weight: bold; }
+        #food-list .item figcaption p:last-child {
+          font-size: 1.25em;
+          font-weight: 300; }
+    #food-list .item:hover {
+      border: 1px solid #98091B;
+      cursor: pointer; }
+      #food-list .item:hover figcaption {
+        background-color: #98091B; }
 
 .btn.btn-custom-dark {
   color: white;
