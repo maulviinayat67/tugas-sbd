@@ -1,5 +1,12 @@
-@import 'part/variable';
+// Variable
+@import 'variable/font';
+@import 'variable/color';
+
+//Component
+@import 'components/navbar';
+
 
 html{
   font-family: $font-family;
+  color : $color-black;
 }

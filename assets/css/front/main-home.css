@@ -1,2 +1,18 @@
+.navbar {
+  min-height: 80px;
+  display: flex;
+  justify-content: center; }
+  .navbar.navbar-transparent {
+    background-color: transparent !important;
+    border-bottom: none !important; }
+  .navbar .navbar-header {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; }
+    .navbar .navbar-header .navbar-brand {
+      font-size: 2em; }
+
 html {
-  font-family: "Roboto", sans-serif; }
+  font-family: "Roboto", sans-serif;
+  color: #282830; }
