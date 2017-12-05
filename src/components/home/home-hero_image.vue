@@ -8,7 +8,7 @@
 			<figcaption>
 				<p>{{item.header}}</p>
 				<p>{{item.subheader}}</p>
-        <a style="margin-top:32px" href="#menu" class="btn btn-lg btn-default btn-custom">Pick Now</a>
+        <a style="margin-top:32px" href="#menu" class="btn btn-lg btn-default btn-custom-dark">Pick Now</a>
 			</figcaption>
 		</figure>
 	</div>

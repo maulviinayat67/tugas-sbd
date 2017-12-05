@@ -14170,7 +14170,7 @@ var render = function() {
             _c(
               "a",
               {
-                staticClass: "btn btn-lg btn-default btn-custom",
+                staticClass: "btn btn-lg btn-default btn-custom-dark",
                 staticStyle: { "margin-top": "32px" },
                 attrs: { href: "#menu" }
               },

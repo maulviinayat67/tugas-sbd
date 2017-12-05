@@ -50,14 +50,15 @@
         font-weight: 300;
         margin-top: 0; }
 
-.btn.btn-custom {
+.btn.btn-custom-dark {
   color: white;
+  font-weight: bold;
   padding: 8px 16px;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 2.5px;
   border: 2px solid white;
   transition: all ease 0.3s; }
-  .btn.btn-custom:hover {
+  .btn.btn-custom-dark:hover {
     color: #F32C33;
     background-color: white; }
 
