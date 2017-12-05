@@ -4,9 +4,10 @@
 
 //Component
 @import 'components/navbar';
+@import 'components/home';
 
 
-html{
-  font-family: $font-family;
+body{
+  font-family: $font-family!important;
   color : $color-black;
 }

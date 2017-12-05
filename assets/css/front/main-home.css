@@ -11,8 +11,46 @@
     flex-direction: column;
     justify-content: center; }
     .navbar .navbar-header .navbar-brand {
-      font-size: 2em; }
+      font-size: 2em;
+      text-transform: uppercase;
+      font-weight: bold;
+      color: white; }
 
-html {
-  font-family: "Roboto", sans-serif;
+#hero .hero-welcome {
+  width: 100%;
+  overflow: hidden;
+  display: flex !important;
+  align-items: center; }
+  #hero .hero-welcome .item {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    #hero .hero-welcome .item .overlay {
+      position: absolute;
+      background-color: black;
+      opacity: 0.5;
+      height: 100%;
+      width: 100%;
+      z-index: 2; }
+    #hero .hero-welcome .item img {
+      height: 699px;
+      width: 100%;
+      object-fit: cover; }
+    #hero .hero-welcome .item figcaption {
+      text-transform: uppercase;
+      text-align: center;
+      color: #fff;
+      position: absolute;
+      z-index: 99; }
+      #hero .hero-welcome .item figcaption p:first-child {
+        font-size: 3em;
+        font-weight: 400;
+        margin-bottom: 0; }
+      #hero .hero-welcome .item figcaption p:last-child {
+        font-size: 1.5em;
+        font-weight: 300;
+        margin-top: 0; }
+
+body {
+  font-family: "Roboto", sans-serif !important;
   color: #282830; }
