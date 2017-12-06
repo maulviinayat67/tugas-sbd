@@ -20,7 +20,9 @@ export const store = new Vuex.Store({
     LOAD_FOOD_DATA(state, data){
       state.foods = data
     },
-    PICK_FOOD(state)
+    PICK_FOOD(state,data){
+
+    }
   },
   getters : {
     foodData : (state) => {
