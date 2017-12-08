@@ -93,6 +93,22 @@
       #food-list .item:hover figcaption {
         background-color: #98091B; }
 
+#cart {
+  position: fixed;
+  background-color: white;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  padding: 8px 16px;
+  max-width: 399px; }
+  #cart table td:nth-child(3), #cart table td[colspan="2"] + td {
+    text-align: right; }
+  #cart .input-group.number-custom button.btn {
+    border-radius: 2.5px; }
+  #cart .input-group.number-custom input.form-control {
+    max-width: 50px;
+    text-align: center; }
+
 .btn.btn-custom-dark {
   color: white;
   font-weight: bold;

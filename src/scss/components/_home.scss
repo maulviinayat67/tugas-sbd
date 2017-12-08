@@ -111,3 +111,28 @@ $hero-hg: 699px;
 		}
 	}
 }
+
+#cart{
+	position:fixed;
+	background-color: white;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	padding: 8px 16px;
+	max-width: 399px;
+
+	table{
+		td:nth-child(3), td[colspan="2"] + td{
+			text-align:right;
+		}
+	}
+	.input-group.number-custom{
+		button.btn{
+			border-radius:2.5px;
+		}
+		input.form-control{
+			max-width:50px;
+			text-align: center;
+		}
+	}
+}
