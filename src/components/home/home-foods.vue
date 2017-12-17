@@ -5,7 +5,7 @@
         <h3>Foods</h3>
       </header>
       <div class="row">
-        <div v-for="item in foodData.foods" class="col-md-3 col-sm-6 col-xs-12 card">
+        <div v-for="item in foods" @click="pick(item)" class="col-md-3 col-sm-6 col-xs-12 card">
           <div class="item">
             <img :src="item.gambar" alt="gambar makanan">
             <figcaption class="">
@@ -28,7 +28,7 @@
         <h3>Drinks</h3>
       </header>
       <div class="row">
-        <div v-for="item in foodData.drinks" class="col-md-3 col-sm-6 col-xs-12 card">
+        <div v-for="item in drinks" @click="pick(item)" class="col-md-3 col-sm-6 col-xs-12 card">
           <div class="item">
             <img :src="item.gambar" alt="gambar makanan">
             <figcaption class="">
@@ -49,12 +49,43 @@
 import {mapGetters} from 'vuex'
 
 export default {
+  updated:function(){
+    // console.log(this.foodData);
+  },
   data(){
-    return {
-        foods : [],
-        drinks : []
+    return{
+
     }
   },
-  computed:mapGetters(['foodData'])
+  methods :{
+    pick(foodOrDrink){
+      this.$store.dispatch('pickFood',foodOrDrink)
+      this.$store.dispatch('updateBill')
+    }
+  },
+  computed:{
+      ...mapGetters(['foodData']),
+      foods:function(){
+        let temp = []
+        this.foodData.forEach((item) => {
+          if (item.tipe === "makanan") {
+            temp.push(item)
+          }
+        })
+
+        return temp
+      },
+      drinks:function(){
+        let temp = []
+        this.foodData.forEach((item) => {
+          if (item.tipe === "minuman") {
+            temp.push(item)
+          }
+        })
+
+        return temp
+      }
+  }
+
 }
 </script>
