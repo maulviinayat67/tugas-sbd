@@ -78,6 +78,14 @@
       right: 0px;
       left: 0px;
       bottom: 0px; }
+      #food-list .item figcaption.message {
+        bottom: 50%;
+        padding: 0px 25px;
+        text-align: center;
+        background: none; }
+        #food-list .item figcaption.message p {
+          padding: 20px 0px;
+          background-color: #CD1A38; }
       #food-list .item figcaption p {
         color: white;
         margin: 0px; }
@@ -90,8 +98,14 @@
     #food-list .item:hover {
       border: 1px solid #98091B;
       cursor: pointer; }
-      #food-list .item:hover figcaption {
+      #food-list .item:hover figcaption:not(.message) {
         background-color: #98091B; }
+  #food-list .picked .item {
+    opacity: 0.7;
+    cursor: not-allowed;
+    border: 1px solid #D2D7D3; }
+    #food-list .picked .item figcaption:not(.message) {
+      background-color: #D2D7D3; }
 
 #cart {
   position: fixed;
@@ -100,9 +114,40 @@
   top: 0px;
   bottom: 0px;
   padding: 8px 16px;
-  max-width: 399px; }
-  #cart table td:nth-child(3), #cart table td[colspan="2"] + td {
-    text-align: right; }
+  min-width: 499px; }
+  #cart table {
+    position: relative;
+    width: 100%; }
+    #cart table tr {
+      position: relative;
+      width: 100%;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px; }
+      #cart table tr.message {
+        justify-content: center; }
+        #cart table tr.message td {
+          font-weight: 300;
+          background-color: #D2D7D3;
+          padding: 10px 0px;
+          max-width: none;
+          width: 100%;
+          text-align: center; }
+      #cart table tr td {
+        padding: 10px 0px;
+        min-width: 100px;
+        max-width: 150px; }
+        #cart table tr td:nth-child(2) {
+          padding: 0px; }
+        #cart table tr td:last-child {
+          min-width: 25px;
+          text-align: center; }
+        #cart table tr td .close {
+          float: none; }
+    #cart table td:nth-child(3), #cart table td[colspan="2"] + td {
+      text-align: right; }
   #cart .input-group.number-custom button.btn {
     border-radius: 2.5px; }
   #cart .input-group.number-custom input.form-control {

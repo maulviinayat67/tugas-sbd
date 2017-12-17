@@ -86,6 +86,18 @@ $hero-hg: 699px;
 			right: 0px;
 			left:0px;
 			bottom : 0px;
+
+			&.message{
+				bottom:50%;
+				padding:0px 25px;
+				text-align: center;
+				background: none;
+				p{
+					padding : 20px 0px;
+					background-color: $color-primary;
+				}
+			}
+
 			p{
 				color : white;
 				margin : 0px;
@@ -105,11 +117,26 @@ $hero-hg: 699px;
 		&:hover{
 			border: 1px solid $color-primary-dark;
 			cursor:pointer;
-			figcaption{
+			figcaption:not(.message){
 				background-color: $color-primary-dark;
 			}
 		}
 	}
+
+	.picked{
+		.item{
+
+			
+			opacity: 0.7;
+			cursor:not-allowed;
+			border: 1px solid $color-gray;
+			figcaption:not(.message){
+				background-color : $color-gray;
+			}
+
+		}
+	}
+
 }
 
 #cart{
@@ -119,9 +146,52 @@ $hero-hg: 699px;
 	top: 0px;
 	bottom: 0px;
 	padding: 8px 16px;
-	max-width: 399px;
+	min-width: 499px;
 
 	table{
+		position: relative;
+		width: 100%;
+		tr{
+			position: relative;
+			width: 100%;
+			height:52px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding:4px 8px;
+
+
+			&.message{
+				justify-content: center;
+				// padding:none;
+				td{
+					font-weight: 300;
+					background-color: $color-gray;
+					padding: 10px 0px;
+					max-width: none;
+					width: 100%;
+					text-align: center;
+				}
+			}
+
+			td{
+				padding :10px 0px;
+				// margin: 10px 0px;
+				min-width: 100px;
+				max-width: 150px;
+				&:nth-child(2){
+					padding:0px;
+				}
+				&:last-child{
+					min-width: 25px;
+					text-align: center;
+				}
+
+				.close{
+					float:none;
+				}
+			}
+		}
 		td:nth-child(3), td[colspan="2"] + td{
 			text-align:right;
 		}

@@ -14351,10 +14351,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
+  mounted: function () {},
   updated: function () {
     // console.log(this.foodData);
   },
@@ -14363,8 +14370,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   methods: {
     pick(foodOrDrink) {
-      this.$store.dispatch('pickFood', foodOrDrink);
-      this.$store.dispatch('updateBill');
+      if (!foodOrDrink.picked) {
+        this.$store.dispatch('pickFood', foodOrDrink);
+        this.$store.dispatch('updateBill');
+      }
     }
   },
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])(['foodData']), {
@@ -14413,6 +14422,7 @@ var render = function() {
             "div",
             {
               staticClass: "col-md-3 col-sm-6 col-xs-12 card",
+              class: { picked: item.picked },
               on: {
                 click: function($event) {
                   _vm.pick(item)
@@ -14424,6 +14434,22 @@ var render = function() {
                 _c("img", {
                   attrs: { src: item.gambar, alt: "gambar makanan" }
                 }),
+                _vm._v(" "),
+                _c(
+                  "figcaption",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: item.picked,
+                        expression: "item.picked"
+                      }
+                    ],
+                    staticClass: "message"
+                  },
+                  [_vm._m(1, true)]
+                ),
                 _vm._v(" "),
                 _c("figcaption", {}, [
                   _c("p", [
@@ -14452,7 +14478,7 @@ var render = function() {
     _c("p"),
     _vm._v(" "),
     _c("div", { staticClass: "container" }, [
-      _vm._m(1),
+      _vm._m(2),
       _vm._v(" "),
       _c(
         "div",
@@ -14462,6 +14488,7 @@ var render = function() {
             "div",
             {
               staticClass: "col-md-3 col-sm-6 col-xs-12 card",
+              class: { picked: item.picked },
               on: {
                 click: function($event) {
                   _vm.pick(item)
@@ -14473,6 +14500,22 @@ var render = function() {
                 _c("img", {
                   attrs: { src: item.gambar, alt: "gambar makanan" }
                 }),
+                _vm._v(" "),
+                _c(
+                  "figcaption",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: item.picked,
+                        expression: "item.picked"
+                      }
+                    ],
+                    staticClass: "message"
+                  },
+                  [_vm._m(3, true)]
+                ),
                 _vm._v(" "),
                 _c("figcaption", {}, [
                   _c("p", [
@@ -14510,7 +14553,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("span", [_c("p", [_vm._v("Sudah dipilih")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("header", [_c("h3", [_vm._v("Drinks")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [_c("p", [_vm._v("Sudah dipilih")])])
   }
 ]
 render._withStripped = true
@@ -14632,45 +14687,37 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
 	mounted() {
-		console.log(this.cartData);
+		// console.log(this.cartData);
 	},
 	data() {
-		return {
-			// cartData: {
-			// 	foods: [{
-			// 			id_makanan: "MA1",
-			// 			nama: "Nasi Goreng",
-			// 			tipe: "makanan",
-			//       jumlah:1,
-			// 			harga: "10000",
-			// 			gambar: "http://localhost/tugas-sbd//assets/gambar/6891691.jpg"
-			// 		},
-			// 		{
-			// 			id_makanan: "MA2",
-			// 			nama: "Empal Gentong",
-			//       jumlah:1,
-			// 			tipe: "makanan",
-			// 			harga: "15000",
-			// 			gambar: "http://localhost/tugas-sbd//assets/gambar/6449601.png"
-			// 		},
-			// 		{
-			// 			id_makanan: "MI1",
-			// 			nama: "Jus Mangga",
-			//       jumlah:1,
-			// 			tipe: "minuman",
-			// 			harga: "8000",
-			// 			gambar: "http://localhost/tugas-sbd//assets/gambar/azusa1.jpg"
-			// 		}
-			// 	]
-			// }
-		};
+		return {};
 	},
 	methods: {
+		pick(foodOrDrink) {
+			this.$store.dispatch('pickFood', foodOrDrink);
+			this.$store.dispatch('updateBill');
+		},
 		decrease(target) {
 			let min = null;
 			if ($('input').attr('min') != null) {
@@ -14685,8 +14732,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 				target.jumlah--;
 			}
 
+			if (target.jumlah == 0) {
+				this.$store.dispatch('pickFood', target);
+			}
+
 			this.$store.dispatch('updateBill');
-			console.log(this.cartData);
 		},
 		increase(target) {
 			let max = null;
@@ -14703,10 +14753,38 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			}
 
 			this.$store.dispatch('updateBill');
-			console.log(this.cartData);
 		}
 	},
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])(['cartData']))
+	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])(['cartData']), {
+		hasPickedFood: function () {
+			let temp = [];
+			this.cartData.foods.forEach(item => {
+				if (item.tipe == 'makanan') {
+					temp.push(item);
+				}
+			});
+			console.log(temp);
+			if (temp.length != 0) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		hasPickedDrink: function () {
+			let temp = [];
+			this.cartData.foods.forEach(item => {
+				if (item.tipe == 'minuman') {
+					temp.push(item);
+				}
+			});
+			console.log(temp);
+			if (temp.length != 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	})
 });
 
 /***/ }),
@@ -14726,6 +14804,26 @@ var render = function() {
         "table",
         [
           _c("h5", [_vm._v("Makanan")]),
+          _vm._v(" "),
+          _c(
+            "tr",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.hasPickedFood,
+                  expression: "!hasPickedFood"
+                }
+              ],
+              staticClass: "message"
+            },
+            [
+              _c("td", { attrs: { colspan: "3" } }, [
+                _vm._v("Silahkan Pilih Makanan")
+              ])
+            ]
+          ),
           _vm._v(" "),
           _vm._l(_vm.cartData.foods, function(food) {
             return food.tipe == "makanan"
@@ -14772,12 +14870,52 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("td", [_vm._v("Rp " + _vm._s(food.jumlah * food.harga))])
+                  _c("td", [_vm._v("Rp " + _vm._s(food.jumlah * food.harga))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "close",
+                        attrs: { type: "button", "aria-label": "Close" },
+                        on: {
+                          click: function($event) {
+                            _vm.pick(food)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { attrs: { "aria-hidden": "true" } }, [
+                          _vm._v("×")
+                        ])
+                      ]
+                    )
+                  ])
                 ])
               : _vm._e()
           }),
           _vm._v(" "),
           _c("h5", [_vm._v("Minuman")]),
+          _vm._v(" "),
+          _c(
+            "tr",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.hasPickedDrink,
+                  expression: "!hasPickedDrink"
+                }
+              ],
+              staticClass: "message"
+            },
+            [
+              _c("td", { attrs: { colspan: "3" } }, [
+                _vm._v("Silahkan Pilih Minuman")
+              ])
+            ]
+          ),
           _vm._v(" "),
           _vm._l(_vm.cartData.foods, function(drink) {
             return drink.tipe == "minuman"
@@ -14786,41 +14924,73 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [
                     _c("div", { staticClass: "input-group number-custom" }, [
-                      _vm._m(1, true),
+                      _c("span", { staticClass: "input-group-btn" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default",
+                            on: {
+                              click: function($event) {
+                                _vm.decrease(drink)
+                              }
+                            }
+                          },
+                          [_vm._v("-")]
+                        )
+                      ]),
                       _vm._v(" "),
                       _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: drink.jumlah,
-                            expression: "drink.jumlah"
-                          }
-                        ],
                         staticClass: "form-control",
-                        attrs: { min: "1" },
-                        domProps: { value: drink.jumlah },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(drink, "jumlah", $event.target.value)
-                          }
-                        }
+                        attrs: { min: "1", readonly: "" },
+                        domProps: { value: drink.jumlah }
                       }),
                       _vm._v(" "),
-                      _vm._m(2, true)
+                      _c("span", { staticClass: "input-group-btn" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default",
+                            on: {
+                              click: function($event) {
+                                _vm.increase(drink)
+                              }
+                            }
+                          },
+                          [_vm._v("+")]
+                        )
+                      ])
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("td", [_vm._v("Rp " + _vm._s(drink.jumlah * drink.harga))])
+                  _c("td", [
+                    _vm._v("Rp " + _vm._s(drink.jumlah * drink.harga))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "close",
+                        attrs: { type: "button", "aria-label": "Close" },
+                        on: {
+                          click: function($event) {
+                            _vm.pick(drink)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { attrs: { "aria-hidden": "true" } }, [
+                          _vm._v("×")
+                        ])
+                      ]
+                    )
+                  ])
                 ])
               : _vm._e()
           }),
           _vm._v(" "),
           _c("tr", [
-            _vm._m(3),
+            _vm._m(1),
             _vm._v(" "),
             _c("td", [_c("h3", [_vm._v("Rp " + _vm._s(_vm.cartData.bill))])])
           ])
@@ -14836,22 +15006,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", {}, [_c("h3", [_vm._v("Pesanan")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-btn" }, [
-      _c("button", { staticClass: "btn btn-default" }, [_vm._v("-")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "input-group-btn" }, [
-      _c("button", { staticClass: "btn btn-default" }, [_vm._v("+")])
-    ])
   },
   function() {
     var _vm = this

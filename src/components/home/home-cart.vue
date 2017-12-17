@@ -7,6 +7,9 @@
     <div class="">
       <table>
         <h5>Makanan</h5>
+        <tr class="message" v-show="!hasPickedFood">
+          <td   colspan="3">Silahkan Pilih Makanan</td>
+        </tr>
         <tr v-for="food in cartData.foods" v-if="food.tipe == 'makanan'">
           <td>{{food.nama}}</td>
           <td>
@@ -21,22 +24,35 @@
             </div>
           </td>
           <td>Rp {{food.jumlah * food.harga}}</td>
+          <td>
+            <button type="button" @click="pick(food)" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </td>
         </tr>
         <h5>Minuman</h5>
+        <tr class="message" v-show="!hasPickedDrink">
+          <td colspan="3">Silahkan Pilih Minuman</td>
+        </tr>
         <tr v-for="drink in cartData.foods" v-if="drink.tipe == 'minuman'">
           <td>{{drink.nama}}</td>
           <td>
             <div class="input-group number-custom">
               <span class="input-group-btn">
-                <button class="btn btn-default">-</button>
+                <button class="btn btn-default" @click="decrease(drink)">-</button>
               </span>
-              <input min='1' class="form-control" v-model="drink.jumlah">
+              <input min='1' readonly class="form-control" :value="drink.jumlah">
               <span class="input-group-btn">
-                <button class="btn btn-default">+</button>
+                <button class="btn btn-default" @click="increase(drink)">+</button>
               </span>
             </div>
           </td>
           <td>Rp {{drink.jumlah * drink.harga}}</td>
+          <td>
+            <button type="button" @click="pick(drink)" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </td>
         </tr>
         <tr>
           <td colspan="2"><h3>Total</h3></td>
@@ -55,57 +71,35 @@ import {
 
 export default {
 	mounted() {
-		console.log(this.cartData);
+		// console.log(this.cartData);
 	},
 	data() {
-		return {
-			// cartData: {
-			// 	foods: [{
-			// 			id_makanan: "MA1",
-			// 			nama: "Nasi Goreng",
-			// 			tipe: "makanan",
-			//       jumlah:1,
-			// 			harga: "10000",
-			// 			gambar: "http://localhost/tugas-sbd//assets/gambar/6891691.jpg"
-			// 		},
-			// 		{
-			// 			id_makanan: "MA2",
-			// 			nama: "Empal Gentong",
-			//       jumlah:1,
-			// 			tipe: "makanan",
-			// 			harga: "15000",
-			// 			gambar: "http://localhost/tugas-sbd//assets/gambar/6449601.png"
-			// 		},
-			// 		{
-			// 			id_makanan: "MI1",
-			// 			nama: "Jus Mangga",
-			//       jumlah:1,
-			// 			tipe: "minuman",
-			// 			harga: "8000",
-			// 			gambar: "http://localhost/tugas-sbd//assets/gambar/azusa1.jpg"
-			// 		}
-			// 	]
-			// }
-		}
+		return {}
 	},
 	methods: {
+    pick(foodOrDrink){
+      this.$store.dispatch('pickFood',foodOrDrink)
+      this.$store.dispatch('updateBill')
+    },
 		decrease(target) {
 			let min = null
 			if ($('input').attr('min') != null) {
 				min = $('input').attr('min')
 			}
 
-      if (min != null) {
-        if (target.jumlah > 0) {
-            target.jumlah--
-        }
-      }
-      else{
-        target.jumlah--
+			if (min != null) {
+				if (target.jumlah > 0) {
+					target.jumlah--
+				}
+			} else {
+				target.jumlah--
+			}
+
+      if (target.jumlah == 0) {
+        this.$store.dispatch('pickFood',target)
       }
 
 			this.$store.dispatch('updateBill')
-			console.log(this.cartData);
 		},
 		increase(target) {
 			let max = null
@@ -113,21 +107,47 @@ export default {
 				max = $('input').attr('max')
 			}
 
-      if (max != null) {
-        if (target.jumlah < 0) {
-            target.jumlah++
-        }
-      }
-      else{
-        target.jumlah++
-      }
+			if (max != null) {
+				if (target.jumlah < 0) {
+					target.jumlah++
+				}
+			} else {
+				target.jumlah++
+			}
 
 			this.$store.dispatch('updateBill')
-			console.log(this.cartData);
 		}
 	},
 	computed: {
-		...mapGetters(['cartData'])
+		...mapGetters(['cartData']),
+		hasPickedFood: function() {
+			let temp = [];
+			this.cartData.foods.forEach((item) => {
+				if (item.tipe == 'makanan') {
+					temp.push(item)
+				}
+			})
+			console.log(temp);
+			if (temp.length != 0) {
+				return true
+			} else {
+				return false
+			}
+		},
+		hasPickedDrink: function() {
+			let temp = [];
+			this.cartData.foods.forEach((item) => {
+				if (item.tipe == 'minuman') {
+					temp.push(item)
+				}
+			})
+			console.log(temp);
+			if (temp.length != 0) {
+				return true
+			} else {
+				return false
+			}
+		}
 	}
 }
 </script>
