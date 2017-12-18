@@ -93,8 +93,7 @@ export default {
 	methods: {
     send(){
       console.log(this.cartData);
-
-      this.$http.post('api/v1/order',this.cartData)
+      this.$http.post('api/v1/order',this.cartData,{emulateJSON:true})
         .then((response)=>{
           console.log(response);
         })

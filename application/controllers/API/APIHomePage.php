@@ -23,7 +23,8 @@ class APIHomePage extends CI_Controller{
 
   public function setOrder()
   {
-    $data = $this->input->post('data');
-    print_r($data);
+    $data = $this->input->post();
+
+    echo json_encode($data);
   }
 }
