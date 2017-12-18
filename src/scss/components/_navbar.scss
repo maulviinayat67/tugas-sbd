@@ -4,7 +4,9 @@
     background-color: transparent!important;
     border-bottom: none!important;
   }
-
+  &.navbar-fixed-top{
+    z-index: 100;
+  }
   .navbar-header{
     height: 100%;
     display: flex;

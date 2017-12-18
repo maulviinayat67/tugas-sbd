@@ -5,6 +5,8 @@
   .navbar.navbar-transparent {
     background-color: transparent !important;
     border-bottom: none !important; }
+  .navbar.navbar-fixed-top {
+    z-index: 100; }
   .navbar .navbar-header {
     height: 100%;
     display: flex;
@@ -109,6 +111,7 @@
       background-color: #D2D7D3; }
 
 #cart {
+  z-index: 101;
   position: fixed;
   background-color: white;
   right: 0;

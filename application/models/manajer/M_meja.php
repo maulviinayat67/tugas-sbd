@@ -11,4 +11,10 @@ class M_meja extends CI_Model{
   {
     return $this->db->get($this->table)->result();
   }
+
+  public function updateData($where, $data)
+  {
+      $this->db->update($this->table, $data, $where);
+      return $this->db->affected_rows();
+  }
 }

@@ -14730,7 +14730,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 	},
 	methods: {
 		send() {
-			console.log(this.cartData);
+			// console.log(this.cartData);
+
 			this.$http.post('api/v1/order', this.cartData, { emulateJSON: true }).then(response => {
 				console.log(response);
 			});
