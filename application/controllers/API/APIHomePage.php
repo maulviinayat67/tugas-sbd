@@ -27,20 +27,34 @@ class APIHomePage extends CI_Controller{
   {
     $data['data'] = $this->input->post();
     $data['date'] = date('Y-m-d');
-    $data['id_pemesan'] = $this->generateID();
+    $data['order_id'] = $this->generateOrderID();
+
+    $this->M_pemesanan->addData($this->parseTblPemesanan($data));
+
     echo json_encode($data);
   }
 
-  protected function generateID()
+  protected function parseTblStruk($data){
+    $temp['id_pemesanan'] = $data['order_id'];
+    $temp['pesanan'] = $data['data']['foods'];
+
+    return $temp;
+  }
+
+  protected function parseTblPemesanan($data){
+    $temp['id_pemesanan'] = $data['order_id'];
+    $temp['id_pegawai'] = "PG1";
+    $temp['total_harga'] = $data['data']['bill'];
+    $temp['tanggal'] = $data['date'];
+
+    return $temp;
+  }
+
+  protected function generateOrderID()
   {
     $idNumber = 'PE';
     $countResult = $this->M_pemesanan->countData();
-    if($countResult < 10){
-      $idNumber .= '0'.$countResult;
-    }
-    else{
-      $idNumber .= $countResult;
-    }
+    $idNumber .= $countResult+1;
     return $idNumber;
   }
 }
