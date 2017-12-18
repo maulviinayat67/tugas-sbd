@@ -43,14 +43,14 @@ class Makanan extends CI_Controller {
     if($this->upload->do_upload('gambar_makanan'))
         {
         	$upload_data = $this->upload->data();
-        	$path_gambar = base_url().'/assets/gambar/'.$upload_data['file_name'];
+        	$path_gambar = $upload_data['file_name'];
 
 			$data = array(
-				'id_makanan'=> $this->input->post('id_makanan'),
-				'nama'		=> $this->input->post('nama_makanan'),
-				'tipe'		=> $this->input->post('jenis_makanan'),
-				'harga'		=> $this->input->post('harga_makanan'),
-				'gambar'	=> $path_gambar
+				'id_makanan'	=> $this->input->post('id_makanan'),
+				'nama'			=> $this->input->post('nama_makanan'),
+				'tipe'			=> $this->input->post('jenis_makanan'),
+				'harga'			=> $this->input->post('harga_makanan'),
+				'gambar'		=> $path_gambar
 			);
 
 
@@ -82,15 +82,15 @@ class Makanan extends CI_Controller {
 
     if($this->upload->do_upload('gambar_makanan'))
       {
-        $upload_data = $this->upload->data();
-        	$path_gambar = base_url().'/assets/gambar/'.$upload_data['file_name'];
+    	$upload_data = $this->upload->data();
+        $path_gambar = $upload_data['file_name'];
 
 		$data = array(
-			'id_makanan'=>$this->input->post('id_makanan'),
-			'nama'=> $this->input->post('nama_makanan'),
-			'tipe'=> $this->input->post('jenis_makanan'),
-			'harga'=> $this->input->post('harga_makanan'),
-			'gambar'	=> $path_gambar
+			'id_makanan'	=> $this->input->post('id_makanan'),
+			'nama'			=> $this->input->post('nama_makanan'),
+			'tipe'			=> $this->input->post('jenis_makanan'),
+			'harga'			=> $this->input->post('harga_makanan'),
+			'gambar'		=> $path_gambar
 		);
 
 		$this->M_makanan->update_data(array('id_makanan'=>$this->input->post('id_makanan')),$data);
@@ -126,13 +126,21 @@ class Makanan extends CI_Controller {
 		{
 			// $no++;
 			$row = array();
+			if(empty($makanan->gambar))
+			{
+				$filefoto = '';
+			}
+			else
+			{
+				$filefoto =''.base_url().'assets/gambar/'.$makanan->gambar.''; 
+			}
 			$row[] = '<input type="checkbox" class="data-check" value="'.$makanan->id_makanan .'">'	;
 			// $row[] = $no;
 			// $row[] = $makanan->id_makanan;
 			$row[] = $makanan->nama;
 			$row[] = $makanan->tipe;
 			$row[] = $makanan->harga;
-			$row[] = '<img src= "'.$makanan->gambar.'" width="100" height="100">';
+			$row[] = '<img src="'.$filefoto.'" width="100">';
 
 			$row[] = '<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_makanan('."'".$makanan->id_makanan."'".') "><span class="fa fa-pencil"></span> Edit</a>&nbsp; 
 			<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="hapus_makanan('."'".$makanan->id_makanan."'".') "><span class="fa fa-trash"></span> Hapus</a>';
@@ -145,7 +153,7 @@ class Makanan extends CI_Controller {
 						"draw" =>$_POST['draw'],
 						"recordsTotal" => $this->M_makanan->count_all(),
 						"recordsFiltered" => $this->M_makanan->count_filtered(),
-						"data" => $data,
+						"data" => $data
 				);
 
 		echo json_encode($output);
