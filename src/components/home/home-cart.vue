@@ -5,6 +5,17 @@
         <h3>Pesanan</h3>
     </div>
     <div class="">
+      <h5>Meja</h5>
+      <div class="list">
+        <p>Pilih meja : </p>
+        <div class="meja">
+          <div class="item" v-for="(value, key) in tableData" @click="pickTable(value)" :class="{'not-available':value.isTersedia=='tidak tersedia', picked:value.picked && value.isTersedia=='tersedia'}">
+            <p>{{value.id_meja}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="">
       <table>
         <h5>Makanan</h5>
         <tr class="message" v-show="!hasPickedFood">
@@ -59,6 +70,9 @@
           <td><h3>Rp {{cartData.bill}}</h3></td>
         </tr>
       </table>
+      <div class="send">
+        <button @click="send()" :disabled="!hasOrder" type="button" class="btn btn-default full-width" name="button">Pesan</button>
+      </div>
     </div>
   </section>
 
@@ -77,10 +91,21 @@ export default {
 		return {}
 	},
 	methods: {
-    pick(foodOrDrink){
-      this.$store.dispatch('pickFood',foodOrDrink)
-      this.$store.dispatch('updateBill')
+    send(){
+      console.log(this.cartData);
+
+      this.$http.post('api/v1/order',this.cartData)
+        .then((response)=>{
+          console.log(response);
+        })
     },
+    pickTable(table){
+      this.$store.dispatch('pickTable', table)
+    },
+		pick(foodOrDrink) {
+			this.$store.dispatch('pickFood', foodOrDrink)
+			this.$store.dispatch('updateBill')
+		},
 		decrease(target) {
 			let min = null
 			if ($('input').attr('min') != null) {
@@ -95,9 +120,9 @@ export default {
 				target.jumlah--
 			}
 
-      if (target.jumlah == 0) {
-        this.$store.dispatch('pickFood',target)
-      }
+			if (target.jumlah == 0) {
+				this.$store.dispatch('pickFood', target)
+			}
 
 			this.$store.dispatch('updateBill')
 		},
@@ -119,7 +144,16 @@ export default {
 		}
 	},
 	computed: {
-		...mapGetters(['cartData']),
+    hasOrder(){
+      if(this.cartData.foods.length != 0 && this.cartData.tableNumber.length != 0){
+        return true
+      }
+      else{
+        return false
+      }
+
+    },
+		...mapGetters(['cartData', 'tableData']),
 		hasPickedFood: function() {
 			let temp = [];
 			this.cartData.foods.forEach((item) => {
@@ -127,7 +161,6 @@ export default {
 					temp.push(item)
 				}
 			})
-			console.log(temp);
 			if (temp.length != 0) {
 				return true
 			} else {
@@ -141,7 +174,6 @@ export default {
 					temp.push(item)
 				}
 			})
-			console.log(temp);
 			if (temp.length != 0) {
 				return true
 			} else {

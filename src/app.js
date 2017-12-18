@@ -15,5 +15,6 @@ let app = new Vue({
   store : store,
   beforeCreate(){
     store.dispatch('loadFoods')
+    store.dispatch('loadTable')
   }
 })

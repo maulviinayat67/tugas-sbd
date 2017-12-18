@@ -49,159 +49,246 @@ $hero-hg: 699px;
 	}
 }
 
-#food-list{
+#food-list {
 	// background-color: $color-black;
-	padding-top :32px;
-	.container, .container-fluid{
+	padding-top: 32px;
+
+	.container,
+	.container-fluid {
 		margin-bottom: 32px;
 	}
-	header{
-		h3{
+
+	header {
+		h3 {
 			font-size: 3em;
 			text-transform: uppercase;
 			font-weight: 300;
 		}
 	}
 
-	.card{
-		padding-top : 15px;
+	.card {
+		padding-top: 15px;
 	}
 
-	.item{
+	.item {
 		border-radius: 2.5px;
 		position: relative;
 		border: 1px solid $color-primary;
 		height: 250px;
-		img{
-			width:100%;
+
+		img {
+			width: 100%;
 			height: 100%;
 			object-fit: cover;
 		}
-		figcaption{
+
+		figcaption {
 			background-color: $color-primary;
-			padding : 8px 8px;
+			padding: 8px;
 			position: absolute;
 			z-index: 99;
 			text-transform: uppercase;
-			right: 0px;
-			left:0px;
-			bottom : 0px;
+			right: 0;
+			left: 0;
+			bottom: 0;
 
-			&.message{
-				bottom:50%;
-				padding:0px 25px;
+			&.message {
+				bottom: 50%;
+				padding: 0 25px;
 				text-align: center;
 				background: none;
-				p{
-					padding : 20px 0px;
+
+				p {
+					padding: 20px 0;
 					background-color: $color-primary;
 				}
 			}
 
-			p{
-				color : white;
-				margin : 0px;
+			p {
+				color: white;
+				margin: 0;
 
-				&:first-child{
-					font-size:1.5em;
-					font-weight:bold;
+				&:first-child {
+					font-size: 1.5em;
+					font-weight: bold;
 				}
 
-				&:last-child{
-					font-size:1.25em;
-					font-weight:300;
+				&:last-child {
+					font-size: 1.25em;
+					font-weight: 300;
 				}
 			}
 		}
 
-		&:hover{
+		&:hover {
 			border: 1px solid $color-primary-dark;
-			cursor:pointer;
-			figcaption:not(.message){
+			cursor: pointer;
+
+			figcaption:not(.message) {
 				background-color: $color-primary-dark;
 			}
 		}
 	}
 
-	.picked{
-		.item{
-
-			
+	.picked {
+		.item {
 			opacity: 0.7;
-			cursor:not-allowed;
+			cursor: not-allowed;
 			border: 1px solid $color-gray;
-			figcaption:not(.message){
-				background-color : $color-gray;
+
+			figcaption:not(.message) {
+				background-color: $color-gray;
+			}
+		}
+	}
+}
+
+#cart {
+	position: fixed;
+	background-color: white;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	padding: 8px 16px;
+	width: 499px;
+
+	.send{
+		.btn{
+			border-radius: 0px;
+			text-transform: uppercase;
+			font-weight: bold;
+			padding-top:10px;
+			padding-bottom: 10px;
+
+			&.btn-default{
+				background-color: $color-primary;
+				border:none;
+				color:white;
+
+				&:hover{
+					background-color: $color-primary-dark;
+				}
 			}
 
+			&.full-width{
+				width: 100%;
+			}
 		}
 	}
 
-}
 
-#cart{
-	position:fixed;
-	background-color: white;
-	right: 0px;
-	top: 0px;
-	bottom: 0px;
-	padding: 8px 16px;
-	min-width: 499px;
+	.list{
+		padding : 4px 8px;
 
-	table{
+		.meja{
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			justify-content: space-around;
+
+			.item{
+				margin:10px 0px;
+				min-width: 50px;
+				width:100px;
+				padding:10px;
+				background-color: $color-primary;
+				border:1px solid $color-primary;
+				text-align: center;
+				color:white;
+				font-weight: bold;
+
+				&.not-available{
+					cursor:not-allowed;
+					background-color: $color-gray;
+					border:1px solid $color-gray;
+				}
+
+				&.picked{
+					background-color: white;
+					color:$color-primary;
+					border:1px solid $color-primary;
+					&:hover{
+						background-color: white!important;
+						color:$color-primary;
+						border:1px solid $color-primary;
+					}
+				}
+
+				&:hover{
+					&:not(.not-available){
+						cursor: pointer;
+						background-color: $color-primary-dark;
+					}
+				}
+
+				p{
+					margin:0px;
+				}
+			}
+		}
+	}
+
+
+	table {
 		position: relative;
 		width: 100%;
-		tr{
+
+		tr {
 			position: relative;
 			width: 100%;
-			height:52px;
+			height: 52px;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			padding:4px 8px;
+			padding: 4px 8px;
 
-
-			&.message{
+			&.message {
 				justify-content: center;
 				// padding:none;
-				td{
+				td {
 					font-weight: 300;
 					background-color: $color-gray;
-					padding: 10px 0px;
+					padding: 10px 0;
 					max-width: none;
 					width: 100%;
 					text-align: center;
 				}
 			}
 
-			td{
-				padding :10px 0px;
+			td {
+				padding: 10px 0;
 				// margin: 10px 0px;
 				min-width: 100px;
 				max-width: 150px;
-				&:nth-child(2){
-					padding:0px;
+
+				&:nth-child(2) {
+					padding: 0;
 				}
-				&:last-child{
+
+				&:last-child {
 					min-width: 25px;
 					text-align: center;
 				}
 
-				.close{
-					float:none;
+				.close {
+					float: none;
 				}
 			}
 		}
-		td:nth-child(3), td[colspan="2"] + td{
-			text-align:right;
+
+		td:nth-child(3),
+		td[colspan="2"] + td {
+			text-align: right;
 		}
 	}
-	.input-group.number-custom{
-		button.btn{
-			border-radius:2.5px;
+
+	.input-group.number-custom {
+		button.btn {
+			border-radius: 2.5px;
 		}
-		input.form-control{
-			max-width:50px;
+
+		input.form-control {
+			max-width: 50px;
 			text-align: center;
 		}
 	}

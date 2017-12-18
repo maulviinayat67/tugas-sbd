@@ -55,4 +55,6 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 // API
-$route['api/v1/makanan']['GET'] = 'API/APIMakanan/getMakanan';
+$route['api/v1/makanan']['GET'] = 'API/APIHomePage/getMakanan';
+$route['api/v1/meja']['GET'] = 'API/APIHomePage/getMeja';
+$route['api/v1/order']['POST'] = 'API/APIHomePage/setOrder';

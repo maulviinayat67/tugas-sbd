@@ -12004,6 +12004,7 @@ var app = new _vue2.default({
   store: _Store.store,
   beforeCreate: function beforeCreate() {
     _Store.store.dispatch('loadFoods');
+    _Store.store.dispatch('loadTable');
   }
 });
 
@@ -14361,43 +14362,43 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  mounted: function () {},
-  updated: function () {
-    // console.log(this.foodData);
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    pick(foodOrDrink) {
-      if (!foodOrDrink.picked) {
-        this.$store.dispatch('pickFood', foodOrDrink);
-        this.$store.dispatch('updateBill');
-      }
-    }
-  },
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])(['foodData']), {
-    foods: function () {
-      let temp = [];
-      this.foodData.forEach(item => {
-        if (item.tipe === "makanan") {
-          temp.push(item);
-        }
-      });
+	mounted: function () {},
+	updated: function () {
+		// console.log(this.foodData);
+	},
+	data() {
+		return {};
+	},
+	methods: {
+		pick(foodOrDrink) {
+			if (!foodOrDrink.picked) {
+				this.$store.dispatch('pickFood', foodOrDrink);
+				this.$store.dispatch('updateBill');
+			}
+		}
+	},
+	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])(['foodData']), {
+		foods: function () {
+			let temp = [];
+			this.foodData.forEach(item => {
+				if (item.tipe === "makanan") {
+					temp.push(item);
+				}
+			});
 
-      return temp;
-    },
-    drinks: function () {
-      let temp = [];
-      this.foodData.forEach(item => {
-        if (item.tipe === "minuman") {
-          temp.push(item);
-        }
-      });
+			return temp;
+		},
+		drinks: function () {
+			let temp = [];
+			this.foodData.forEach(item => {
+				if (item.tipe === "minuman") {
+					temp.push(item);
+				}
+			});
 
-      return temp;
-    }
-  })
+			return temp;
+		}
+	})
 
 });
 
@@ -14454,17 +14455,17 @@ var render = function() {
                 _c("figcaption", {}, [
                   _c("p", [
                     _vm._v(
-                      "\n                " +
+                      "\r\n\t\t\t\t\t\t\t" +
                         _vm._s(item.nama) +
-                        "\n              "
+                        "\r\n\t\t\t\t\t\t"
                     )
                   ]),
                   _vm._v(" "),
                   _c("p", [
                     _vm._v(
-                      "\n                IDR " +
+                      "\r\n\t\t\t\t\t\t\tIDR " +
                         _vm._s(item.harga) +
-                        "\n              "
+                        "\r\n\t\t\t\t\t\t"
                     )
                   ])
                 ])
@@ -14520,17 +14521,17 @@ var render = function() {
                 _c("figcaption", {}, [
                   _c("p", [
                     _vm._v(
-                      "\n                " +
+                      "\r\n\t\t\t\t\t\t\t" +
                         _vm._s(item.nama) +
-                        "\n              "
+                        "\r\n\t\t\t\t\t\t"
                     )
                   ]),
                   _vm._v(" "),
                   _c("p", [
                     _vm._v(
-                      "\n                IDR " +
+                      "\r\n\t\t\t\t\t\t\tIDR " +
                         _vm._s(item.harga) +
-                        "\n              "
+                        "\r\n\t\t\t\t\t\t"
                     )
                   ])
                 ])
@@ -14703,6 +14704,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -14714,6 +14729,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 		return {};
 	},
 	methods: {
+		send() {
+			console.log(this.cartData);
+
+			this.$http.post('api/v1/order', this.cartData).then(response => {
+				console.log(response);
+			});
+		},
+		pickTable(table) {
+			this.$store.dispatch('pickTable', table);
+		},
 		pick(foodOrDrink) {
 			this.$store.dispatch('pickFood', foodOrDrink);
 			this.$store.dispatch('updateBill');
@@ -14755,7 +14780,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			this.$store.dispatch('updateBill');
 		}
 	},
-	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])(['cartData']), {
+	computed: _extends({
+		hasOrder() {
+			if (this.cartData.foods.length != 0 && this.cartData.tableNumber.length != 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])(['cartData', 'tableData']), {
 		hasPickedFood: function () {
 			let temp = [];
 			this.cartData.foods.forEach(item => {
@@ -14763,7 +14796,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 					temp.push(item);
 				}
 			});
-			console.log(temp);
 			if (temp.length != 0) {
 				return true;
 			} else {
@@ -14777,7 +14809,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 					temp.push(item);
 				}
 			});
-			console.log(temp);
 			if (temp.length != 0) {
 				return true;
 			} else {
@@ -14798,6 +14829,37 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("section", { attrs: { id: "cart" } }, [
     _vm._m(0),
+    _vm._v(" "),
+    _c("div", {}, [
+      _c("h5", [_vm._v("Meja")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "list" }, [
+        _c("p", [_vm._v("Pilih meja : ")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "meja" },
+          _vm._l(_vm.tableData, function(value, key) {
+            return _c(
+              "div",
+              {
+                staticClass: "item",
+                class: {
+                  "not-available": value.isTersedia == "tidak tersedia",
+                  picked: value.picked && value.isTersedia == "tersedia"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.pickTable(value)
+                  }
+                }
+              },
+              [_c("p", [_vm._v(_vm._s(value.id_meja))])]
+            )
+          })
+        )
+      ])
+    ]),
     _vm._v(" "),
     _c("div", {}, [
       _c(
@@ -14996,7 +15058,23 @@ var render = function() {
           ])
         ],
         2
-      )
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "send" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-default full-width",
+            attrs: { disabled: !_vm.hasOrder, type: "button", name: "button" },
+            on: {
+              click: function($event) {
+                _vm.send()
+              }
+            }
+          },
+          [_vm._v("Pesan")]
+        )
+      ])
     ])
   ])
 }
@@ -15105,14 +15183,18 @@ _vue2.default.use(_vuex2.default);
 
 var store = exports.store = new _vuex2.default.Store({
   state: {
+    meja: [],
     foods: [],
     cart: {
-      tableNumber: '',
+      tableNumber: [],
       foods: [],
       bill: 0
     }
   },
   mutations: {
+    LOAD_TABLE_DATA: function LOAD_TABLE_DATA(state, data) {
+      state.meja = data;
+    },
     LOAD_FOOD_DATA: function LOAD_FOOD_DATA(state, data) {
       state.foods = data;
     },
@@ -15121,9 +15203,17 @@ var store = exports.store = new _vuex2.default.Store({
         return food.picked == true;
       });
     },
+    LOAD_PICKED_TABLE: function LOAD_PICKED_TABLE(state) {
+      state.cart.tableNumber = state.meja.filter(function (table) {
+        return table.picked == true;
+      });
+    },
     PICK_FOOD: function PICK_FOOD(state, data) {
       data.picked = !data.picked;
       data.jumlah = 1;
+    },
+    PICK_TABLE: function PICK_TABLE(state, data) {
+      data.picked = !data.picked;
     },
     BILL: function BILL(state) {
       var t = 0;
@@ -15139,9 +15229,19 @@ var store = exports.store = new _vuex2.default.Store({
     },
     cartData: function cartData(state) {
       return state.cart;
+    },
+    tableData: function tableData(state) {
+      return state.meja;
     }
   },
   actions: {
+    loadTable: function loadTable(state) {
+      _vue2.default.http.get('api/v1/meja').then(function (response) {
+        return response.data;
+      }).then(function (data) {
+        state.commit('LOAD_TABLE_DATA', addAttribute(data));
+      });
+    },
     loadFoods: function loadFoods(state) {
       _vue2.default.http.get('api/v1/makanan').then(function (response) {
         return response.data;
@@ -15152,6 +15252,10 @@ var store = exports.store = new _vuex2.default.Store({
     pickFood: function pickFood(state, data) {
       state.commit('PICK_FOOD', data);
       state.commit('LOAD_PICKED_FOOD_DATA');
+    },
+    pickTable: function pickTable(state, data) {
+      state.commit('PICK_TABLE', data);
+      state.commit('LOAD_PICKED_TABLE');
     },
     updateBill: function updateBill(state) {
       state.commit('BILL');
