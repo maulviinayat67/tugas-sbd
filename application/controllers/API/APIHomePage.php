@@ -9,6 +9,7 @@ class APIHomePage extends CI_Controller{
     $this->load->model('manajer/M_meja');
     $this->load->model('manajer/M_pemesanan');
     $this->load->model('manajer/M_pesan_meja');
+    $this->load->model('manajer/M_struk');
 	}
 
   public function getMakanan()
@@ -30,7 +31,7 @@ class APIHomePage extends CI_Controller{
     $data['order_id'] = $this->generateOrderID();
 
     $this->M_pemesanan->addData($this->parseTblPemesanan($data));
-
+    $this->M_struk->addData($this->parseTblStruk($data));
     echo json_encode($data);
   }
 
