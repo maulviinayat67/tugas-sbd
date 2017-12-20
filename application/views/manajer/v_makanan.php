@@ -27,7 +27,7 @@
 					</div>
 				</div>
 				<div class="box-body">
-					<table id="tabel" class="table table-bordered table-hover" class="display" width="100%">
+					<table id="tabelmakanan" class="table table-bordered table-hover" class="display" width="100%">
 						<thead>
 							<tr>
 								<th><input type="checkbox" id="check-all"></th>
@@ -120,20 +120,27 @@ function edit_makanan(id)
 	$("#form_makanan")[0].reset();
   // $(".form-group").removeClass('has-error');
   // $(".help-block").empty();
+
   $.ajax({
   	url: '<?php echo base_url('manajer/makanan/ajax_edit') ?>/'+id,
   	type: 'POST',
   	dataType: 'JSON',
   	success:function(data)
   	{
+  		dataGambar = "<?php echo base_url() ; ?>/assets/gambar/"+data.gambar;
   		$('[name = "id_makanan"]').val(data.id_makanan);
   		$('#id_makanan').prop('disabled', true);
   		$('[name = "nama_makanan"]').val(data.nama);
   		$('[name = "jenis_makanan"]').val(data.tipe);
   		$('[name = "harga_makanan"]').val(data.harga);
+  	 	// $('[name = "gambar_makanan"]').change(function(e){
+     //        var fileName = e.target.files[0].name;
+     //       $('#gambar_makanan').text(fileName);
+     //         });
+
+  		document.getElementById('gambarMakanan').src = "<?php echo base_url(); ?>/assets/gambar/" + data.gambar;
+
   		
-
-
   		$("#makanan_modal").modal("show");
   		$(".modal-title").text("Edit Makanan");
   	},
@@ -319,9 +326,10 @@ function simpan()
 						</div>
 
 						<div class="form-group">
-							<label class="control-label col-md-3">Gambar</label>
+							<label id="imgGambarMakanan" class="control-label col-md-3" >Gambar</label>
 							<div class="col-md-9">
-								<input type="file" name="gambar_makanan" id="gambar_makanan"  class="form-control"><span class="help-block"></span>
+								<img src="" alt="" id="gambarMakanan" width="100">
+								<input type="file" title="Pilih Gambar" name="gambar_makanan" id="gambar_makanan"  class="form-control" value="" >
 							</div>
 						</div>
 
