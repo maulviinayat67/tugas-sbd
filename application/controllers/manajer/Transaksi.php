@@ -37,7 +37,7 @@ class Transaksi extends CI_Controller {
 	function detail_harga($id)
 	{
 		
-
+		$this->M_security->cek_security();
 		$data['judul']		= 'Transaksi';
 		$data['sub_judul']	= 'Detail Transaksi';
 		$data['user'] 		= 'MANAJER';

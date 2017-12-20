@@ -28,6 +28,15 @@ $level = $this->session->userdata('level');
             </a>
           </li>
 
+          <li class="<?php if($this->uri->segment(2)=="meja"){echo "active";}?>">
+            <a href="<?php echo base_url('manajer/meja') ?>">
+              <i class="fa fa-table" aria-hidden="true"></i>
+              <span>Daftar Meja</span>
+              <span class="pull-right-container">
+              </span>
+            </a>
+          </li>
+
           <li class="<?php if($this->uri->segment(2)=="transaksi"){echo "active";}?>">
             <a href="<?php echo base_url('manajer/transaksi') ?>">
               <i class="fa fa-money" aria-hidden="true"></i>

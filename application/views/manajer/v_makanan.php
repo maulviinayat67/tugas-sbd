@@ -47,10 +47,10 @@
 								<tr>
 									<td><input type="checkbox" class="data-check" value="<?php echo $row->id_makanan ?>"></td>
 									<td><?php echo $row->id_makanan ?></td>
-									<td><?php echo $row->nama ?></td>
-									<td><?php echo $row->tipe ?></td>
-									<td><?php echo $row->harga ?></td>
-									<td><a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_person(<?php echo $row->id_makanan ?>)"><span class="fa fa-pencil"></span> Edit</a>&nbsp; 
+													<td><?php echo $row->nama ?></td>
+													<td><?php echo $row->tipe ?></td>
+													<td><?php echo $row->harga ?></td>
+													<td><a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_person(<?php echo $row->id_makanan ?>)"><span class="fa fa-pencil"></span> Edit</a>&nbsp; 
 										<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="edit_person(<?php echo $row->id_makanan ?>)"><span class="fa fa-trash"></span> Hapus</a></td>
 									</tr>
 									<?php } ?>	 -->				
