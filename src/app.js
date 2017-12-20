@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
 import VueResource from 'vue-resource'
 
 import App from './components/app.vue'
@@ -15,5 +16,6 @@ let app = new Vue({
   store : store,
   beforeCreate(){
     store.dispatch('loadFoods')
+    store.dispatch('loadTable')
   }
 })

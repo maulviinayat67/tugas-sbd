@@ -174,206 +174,17 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* unused harmony export Store */
-/* unused harmony export install */
-/* unused harmony export mapState */
-/* unused harmony export mapMutations */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapGetters; });
-/* unused harmony export mapActions */
-/* unused harmony export createNamespacedHelpers */
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Store", function() { return Store; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapState", function() { return mapState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapMutations", function() { return mapMutations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapGetters", function() { return mapGetters; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapActions", function() { return mapActions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNamespacedHelpers", function() { return createNamespacedHelpers; });
 /**
  * vuex v3.0.1
  * (c) 2017 Evan You
@@ -1304,15 +1115,206 @@ var index_esm = {
 };
 
 
-/* harmony default export */ __webpack_exports__["a"] = (index_esm);
+/* harmony default export */ __webpack_exports__["default"] = (index_esm);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
 
 /***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* WEBPACK VAR INJECTION */(function(process, global, setImmediate) {/*!
  * Vue.js v2.5.3
  * (c) 2014-2017 Evan You
@@ -11925,9 +11927,9 @@ function getOuterHTML (el) {
 
 Vue$3.compile = compileToFunctions;
 
-/* harmony default export */ __webpack_exports__["a"] = (Vue$3);
+/* harmony default export */ __webpack_exports__["default"] = (Vue$3);
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1), __webpack_require__(4), __webpack_require__(7).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2), __webpack_require__(4), __webpack_require__(7).setImmediate))
 
 /***/ }),
 /* 4 */
@@ -11961,37 +11963,48 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(6);
-module.exports = __webpack_require__(26);
+module.exports = __webpack_require__(31);
 
 
 /***/ }),
 /* 6 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_resource__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_app_vue__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Store__ = __webpack_require__(25);
 
 
+var _vue = __webpack_require__(3);
 
+var _vue2 = _interopRequireDefault(_vue);
 
+var _vuex = __webpack_require__(1);
 
+var _vuex2 = _interopRequireDefault(_vuex);
 
-__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_2_vue_resource__["a" /* default */]);
-__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
+var _vueResource = __webpack_require__(9);
 
+var _vueResource2 = _interopRequireDefault(_vueResource);
 
+var _app = __webpack_require__(11);
 
-let app = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
+var _app2 = _interopRequireDefault(_app);
+
+var _Store = __webpack_require__(30);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.use(_vueResource2.default);
+_vue2.default.use(_vuex2.default);
+
+var app = new _vue2.default({
   el: '#RestoApp',
-  render: h => h(__WEBPACK_IMPORTED_MODULE_3__components_app_vue__["a" /* default */]),
-  store: __WEBPACK_IMPORTED_MODULE_4__Store__["a" /* store */],
-  beforeCreate() {
-    __WEBPACK_IMPORTED_MODULE_4__Store__["a" /* store */].dispatch('loadFoods');
+  render: function render(h) {
+    return h(_app2.default);
+  },
+  store: _Store.store,
+  beforeCreate: function beforeCreate() {
+    _Store.store.dispatch('loadFoods');
+    _Store.store.dispatch('loadTable');
   }
 });
 
@@ -12245,16 +12258,17 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(2)))
 
 /***/ }),
 /* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export Url */
-/* unused harmony export Http */
-/* unused harmony export Resource */
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Url", function() { return Url; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Http", function() { return Http; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Resource", function() { return Resource; });
 /*!
  * vue-resource v1.3.4
  * https://github.com/pagekit/vue-resource
@@ -13820,7 +13834,7 @@ if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(plugin);
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (plugin);
+/* harmony default export */ __webpack_exports__["default"] = (plugin);
 
 
 
@@ -13835,8 +13849,9 @@ if (typeof window !== 'undefined' && window.Vue) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_app_vue__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_54dbbc3e_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_app_vue__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_54dbbc3e_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_app_vue__ = __webpack_require__(29);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -13878,7 +13893,7 @@ if (false) {(function () {
   })
 })()}
 
-/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
 
 
 /***/ }),
@@ -13888,6 +13903,7 @@ if (false) {(function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__nav_nav_vue__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_home_main_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(1);
 //
 //
 //
@@ -13895,6 +13911,15 @@ if (false) {(function () {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -13903,7 +13928,8 @@ if (false) {(function () {
 	components: {
 		'nav-bar': __WEBPACK_IMPORTED_MODULE_0__nav_nav_vue__["a" /* default */],
 		'home': __WEBPACK_IMPORTED_MODULE_1__home_home_main_vue__["a" /* default */]
-	}
+	},
+	computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapGetters"])(['progressStatus'])
 });
 
 /***/ }),
@@ -14005,7 +14031,7 @@ if (false) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_home_main_vue__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5a1583cc_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_home_main_vue__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5a1583cc_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_home_main_vue__ = __webpack_require__(28);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -14057,6 +14083,7 @@ if (false) {(function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_hero_image_vue__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_foods_vue__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_cart_vue__ = __webpack_require__(23);
 //
 //
 //
@@ -14064,6 +14091,8 @@ if (false) {(function () {
 //
 //
 //
+//
+
 
 
 
@@ -14072,7 +14101,8 @@ if (false) {(function () {
 /* harmony default export */ __webpack_exports__["a"] = ({
   components: {
     'home-hero': __WEBPACK_IMPORTED_MODULE_0__home_hero_image_vue__["a" /* default */],
-    'home-foods': __WEBPACK_IMPORTED_MODULE_1__home_foods_vue__["a" /* default */]
+    'home-foods': __WEBPACK_IMPORTED_MODULE_1__home_foods_vue__["a" /* default */],
+    'home-cart': __WEBPACK_IMPORTED_MODULE_2__home_cart_vue__["a" /* default */]
 
   }
 });
@@ -14283,7 +14313,15 @@ if (false) {(function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -14335,13 +14373,44 @@ if (false) {(function () {
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  data() {
-    return {
-      foods: [],
-      drinks: []
-    };
-  },
-  computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapGetters */])(['foodData'])
+	mounted: function () {},
+	updated: function () {
+		// console.log(this.foodData);
+	},
+	data() {
+		return {};
+	},
+	methods: {
+		pick(foodOrDrink) {
+			if (!foodOrDrink.picked) {
+				this.$store.dispatch('pickFood', foodOrDrink);
+				this.$store.dispatch('updateBill');
+			}
+		}
+	},
+	computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])(['foodData']), {
+		foods: function () {
+			let temp = [];
+			this.foodData.forEach(item => {
+				if (item.tipe === "makanan") {
+					temp.push(item);
+				}
+			});
+
+			return temp;
+		},
+		drinks: function () {
+			let temp = [];
+			this.foodData.forEach(item => {
+				if (item.tipe === "minuman") {
+					temp.push(item);
+				}
+			});
+
+			return temp;
+		}
+	})
+
 });
 
 /***/ }),
@@ -14360,30 +14429,54 @@ var render = function() {
       _c(
         "div",
         { staticClass: "row" },
-        _vm._l(_vm.foodData.foods, function(item) {
+        _vm._l(_vm.foods, function(item) {
           return _c(
             "div",
-            { staticClass: "col-md-3 col-sm-6 col-xs-12 card" },
+            {
+              staticClass: "col-md-3 col-sm-6 col-xs-12 card",
+              class: { picked: item.picked },
+              on: {
+                click: function($event) {
+                  _vm.pick(item)
+                }
+              }
+            },
             [
               _c("div", { staticClass: "item" }, [
                 _c("img", {
                   attrs: { src: item.gambar, alt: "gambar makanan" }
                 }),
                 _vm._v(" "),
+                _c(
+                  "figcaption",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: item.picked,
+                        expression: "item.picked"
+                      }
+                    ],
+                    staticClass: "message"
+                  },
+                  [_vm._m(1, true)]
+                ),
+                _vm._v(" "),
                 _c("figcaption", {}, [
                   _c("p", [
                     _vm._v(
-                      "\n                " +
+                      "\r\n\t\t\t\t\t\t\t" +
                         _vm._s(item.nama) +
-                        "\n              "
+                        "\r\n\t\t\t\t\t\t"
                     )
                   ]),
                   _vm._v(" "),
                   _c("p", [
                     _vm._v(
-                      "\n                IDR " +
+                      "\r\n\t\t\t\t\t\t\tIDR " +
                         _vm._s(item.harga) +
-                        "\n              "
+                        "\r\n\t\t\t\t\t\t"
                     )
                   ])
                 ])
@@ -14397,35 +14490,59 @@ var render = function() {
     _c("p"),
     _vm._v(" "),
     _c("div", { staticClass: "container" }, [
-      _vm._m(1),
+      _vm._m(2),
       _vm._v(" "),
       _c(
         "div",
         { staticClass: "row" },
-        _vm._l(_vm.foodData.drinks, function(item) {
+        _vm._l(_vm.drinks, function(item) {
           return _c(
             "div",
-            { staticClass: "col-md-3 col-sm-6 col-xs-12 card" },
+            {
+              staticClass: "col-md-3 col-sm-6 col-xs-12 card",
+              class: { picked: item.picked },
+              on: {
+                click: function($event) {
+                  _vm.pick(item)
+                }
+              }
+            },
             [
               _c("div", { staticClass: "item" }, [
                 _c("img", {
                   attrs: { src: item.gambar, alt: "gambar makanan" }
                 }),
                 _vm._v(" "),
+                _c(
+                  "figcaption",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: item.picked,
+                        expression: "item.picked"
+                      }
+                    ],
+                    staticClass: "message"
+                  },
+                  [_vm._m(3, true)]
+                ),
+                _vm._v(" "),
                 _c("figcaption", {}, [
                   _c("p", [
                     _vm._v(
-                      "\n                " +
+                      "\r\n\t\t\t\t\t\t\t" +
                         _vm._s(item.nama) +
-                        "\n              "
+                        "\r\n\t\t\t\t\t\t"
                     )
                   ]),
                   _vm._v(" "),
                   _c("p", [
                     _vm._v(
-                      "\n                IDR " +
+                      "\r\n\t\t\t\t\t\t\tIDR " +
                         _vm._s(item.harga) +
-                        "\n              "
+                        "\r\n\t\t\t\t\t\t"
                     )
                   ])
                 ])
@@ -14448,7 +14565,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("span", [_c("p", [_vm._v("Sudah dipilih")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("header", [_c("h3", [_vm._v("Drinks")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [_c("p", [_vm._v("Sudah dipilih")])])
   }
 ]
 render._withStripped = true
@@ -14466,11 +14595,554 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_home_cart_vue__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_584caffe_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_home_cart_vue__ = __webpack_require__(27);
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+/* template */
+
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_home_cart_vue__["a" /* default */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_584caffe_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_home_cart_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\components\\home\\home-cart.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-584caffe", Component.options)
+  } else {
+    hotAPI.reload("data-v-584caffe", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["a"] = (Component.exports);
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+	mounted() {
+		// console.log(this.cartData);
+	},
+	data() {
+		return {};
+	},
+	methods: {
+		send() {
+			// console.log(this.cartData);
+
+			this.$http.post('api/v1/order', this.cartData, { emulateJSON: true }).then(response => {
+				// console.log(response);
+				this.$store.dispatch('switchProgressStatus');
+				this.$store.dispatch('loadTable');
+				this.$store.dispatch('loadFoods');
+				this.$store.dispatch('clearCart');
+				this.$store.dispatch('updateBill');
+				bootbox.alert('Terima Kasih Sudah Memesan');
+				this.$store.dispatch('switchProgressStatus');
+			});
+		},
+		pickTable(table) {
+			this.$store.dispatch('pickTable', table);
+		},
+		pick(foodOrDrink) {
+			this.$store.dispatch('pickFood', foodOrDrink);
+			this.$store.dispatch('updateBill');
+		},
+		decrease(target) {
+			let min = null;
+			if ($('input').attr('min') != null) {
+				min = $('input').attr('min');
+			}
+
+			if (min != null) {
+				if (target.jumlah > 0) {
+					target.jumlah--;
+				}
+			} else {
+				target.jumlah--;
+			}
+
+			if (target.jumlah == 0) {
+				this.$store.dispatch('pickFood', target);
+			}
+
+			this.$store.dispatch('updateBill');
+		},
+		increase(target) {
+			let max = null;
+			if ($('input').attr('max') != null) {
+				max = $('input').attr('max');
+			}
+
+			if (max != null) {
+				if (target.jumlah < 0) {
+					target.jumlah++;
+				}
+			} else {
+				target.jumlah++;
+			}
+
+			this.$store.dispatch('updateBill');
+		}
+	},
+	computed: _extends({
+		hasOrder() {
+			if (this.cartData.foods.length != 0 && this.cartData.tableNumber.length != 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapGetters"])(['cartData', 'tableData']), {
+		hasPickedFood: function () {
+			let temp = [];
+			this.cartData.foods.forEach(item => {
+				if (item.tipe == 'makanan') {
+					temp.push(item);
+				}
+			});
+			if (temp.length != 0) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+		hasPickedDrink: function () {
+			let temp = [];
+			this.cartData.foods.forEach(item => {
+				if (item.tipe == 'minuman') {
+					temp.push(item);
+				}
+			});
+			if (temp.length != 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	})
+});
+
+/***/ }),
+/* 25 */,
+/* 26 */,
+/* 27 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [_c("home-hero"), _vm._v(" "), _c("home-foods")], 1)
+  return _c("section", { attrs: { id: "cart" } }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", {}, [
+      _c("h5", [_vm._v("Meja")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "list" }, [
+        _c("p", [_vm._v("Pilih meja : ")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "meja" },
+          _vm._l(_vm.tableData, function(value, key) {
+            return _c(
+              "div",
+              {
+                staticClass: "item",
+                class: {
+                  "not-available": value.isTersedia == "tidak tersedia",
+                  picked: value.picked && value.isTersedia == "tersedia"
+                },
+                on: {
+                  click: function($event) {
+                    _vm.pickTable(value)
+                  }
+                }
+              },
+              [_c("p", [_vm._v(_vm._s(value.id_meja))])]
+            )
+          })
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", {}, [
+      _c(
+        "table",
+        [
+          _c("h5", [_vm._v("Makanan")]),
+          _vm._v(" "),
+          _c(
+            "tr",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.hasPickedFood,
+                  expression: "!hasPickedFood"
+                }
+              ],
+              staticClass: "message"
+            },
+            [
+              _c("td", { attrs: { colspan: "3" } }, [
+                _vm._v("Silahkan Pilih Makanan")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.cartData.foods, function(food) {
+            return food.tipe == "makanan"
+              ? _c("tr", [
+                  _c("td", [_vm._v(_vm._s(food.nama))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("div", { staticClass: "input-group number-custom" }, [
+                      _c("span", { staticClass: "input-group-btn" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default",
+                            on: {
+                              click: function($event) {
+                                _vm.decrease(food)
+                              }
+                            }
+                          },
+                          [_vm._v("-")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { min: "1", readonly: "" },
+                        domProps: { value: food.jumlah }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "input-group-btn" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default",
+                            on: {
+                              click: function($event) {
+                                _vm.increase(food)
+                              }
+                            }
+                          },
+                          [_vm._v("+")]
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v("Rp " + _vm._s(food.jumlah * food.harga))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "close",
+                        attrs: { type: "button", "aria-label": "Close" },
+                        on: {
+                          click: function($event) {
+                            _vm.pick(food)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { attrs: { "aria-hidden": "true" } }, [
+                          _vm._v("×")
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              : _vm._e()
+          }),
+          _vm._v(" "),
+          _c("h5", [_vm._v("Minuman")]),
+          _vm._v(" "),
+          _c(
+            "tr",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.hasPickedDrink,
+                  expression: "!hasPickedDrink"
+                }
+              ],
+              staticClass: "message"
+            },
+            [
+              _c("td", { attrs: { colspan: "3" } }, [
+                _vm._v("Silahkan Pilih Minuman")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.cartData.foods, function(drink) {
+            return drink.tipe == "minuman"
+              ? _c("tr", [
+                  _c("td", [_vm._v(_vm._s(drink.nama))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("div", { staticClass: "input-group number-custom" }, [
+                      _c("span", { staticClass: "input-group-btn" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default",
+                            on: {
+                              click: function($event) {
+                                _vm.decrease(drink)
+                              }
+                            }
+                          },
+                          [_vm._v("-")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { min: "1", readonly: "" },
+                        domProps: { value: drink.jumlah }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "input-group-btn" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-default",
+                            on: {
+                              click: function($event) {
+                                _vm.increase(drink)
+                              }
+                            }
+                          },
+                          [_vm._v("+")]
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _vm._v("Rp " + _vm._s(drink.jumlah * drink.harga))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "close",
+                        attrs: { type: "button", "aria-label": "Close" },
+                        on: {
+                          click: function($event) {
+                            _vm.pick(drink)
+                          }
+                        }
+                      },
+                      [
+                        _c("span", { attrs: { "aria-hidden": "true" } }, [
+                          _vm._v("×")
+                        ])
+                      ]
+                    )
+                  ])
+                ])
+              : _vm._e()
+          }),
+          _vm._v(" "),
+          _c("tr", [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("td", [_c("h3", [_vm._v("Rp " + _vm._s(_vm.cartData.bill))])])
+          ])
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "send" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-default full-width",
+            attrs: { disabled: !_vm.hasOrder, type: "button", name: "button" },
+            on: {
+              click: function($event) {
+                _vm.send()
+              }
+            }
+          },
+          [_vm._v("Pesan")]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", {}, [_c("h3", [_vm._v("Pesanan")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { attrs: { colspan: "2" } }, [_c("h3", [_vm._v("Total")])])
+  }
+]
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-584caffe", esExports)
+  }
+}
+
+/***/ }),
+/* 28 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {},
+    [
+      _c("home-hero"),
+      _vm._v(" "),
+      _c("home-foods"),
+      _vm._v(" "),
+      _c("home-cart")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -14484,7 +15156,7 @@ if (false) {
 }
 
 /***/ }),
-/* 24 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14492,7 +15164,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [_c("nav-bar"), _vm._v(" "), _c("home")], 1)
+  return _c("div", {}, [
+    _c(
+      "div",
+      {
+        staticClass: "loader-container",
+        class: { active: _vm.progressStatus }
+      },
+      [_c("div", { staticClass: "loader" })]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "main-content", class: { loading: _vm.progressStatus } },
+      [_c("nav-bar"), _vm._v(" "), _c("home")],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -14506,78 +15194,156 @@ if (false) {
 }
 
 /***/ }),
-/* 25 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.store = undefined;
 
-__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
+var _vue = __webpack_require__(3);
 
-const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vuex = __webpack_require__(1);
+
+var _vuex2 = _interopRequireDefault(_vuex);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.use(_vuex2.default);
+
+var store = exports.store = new _vuex2.default.Store({
   state: {
-    foods: {
-      foods: [],
-      drinks: []
-    },
+    meja: [],
+    foods: [],
     cart: {
-      tableNumber: '',
+      tableNumber: [],
       foods: [],
-      drinks: [],
-      bill: ''
-    }
+      bill: 0
+    },
+    onProcess: false
   },
   mutations: {
-    LOAD_FOOD_DATA(state, data) {
+    LOAD_TABLE_DATA: function LOAD_TABLE_DATA(state, data) {
+      state.meja = data;
+    },
+    LOAD_FOOD_DATA: function LOAD_FOOD_DATA(state, data) {
       state.foods = data;
     },
-    PICK_FOOD(state, data) {}
+    LOAD_PICKED_FOOD_DATA: function LOAD_PICKED_FOOD_DATA(state) {
+      state.cart.foods = state.foods.filter(function (food) {
+        return food.picked == true;
+      });
+    },
+    LOAD_PICKED_TABLE: function LOAD_PICKED_TABLE(state) {
+      state.cart.tableNumber = state.meja.filter(function (table) {
+        return table.picked == true;
+      });
+    },
+    PICK_FOOD: function PICK_FOOD(state, data) {
+      data.picked = !data.picked;
+      data.jumlah = 1;
+    },
+    PICK_TABLE: function PICK_TABLE(state, data) {
+      data.picked = !data.picked;
+    },
+    CLEAR_CART: function CLEAR_CART(state) {
+      state.cart.foods = [];
+      state.cart.tableNumber = [];
+    },
+    BILL: function BILL(state) {
+      var t = 0;
+      for (var i in state.cart.foods) {
+        t += state.cart.foods[i].jumlah * parseInt(state.cart.foods[i].harga);
+      }
+      state.cart.bill = t;
+    },
+    CHANGE_PROGRESS_STATUS: function CHANGE_PROGRESS_STATUS(state) {
+      state.onProcess = !state.onProcess;
+    }
   },
   getters: {
-    foodData: state => {
+    foodData: function foodData(state) {
       return state.foods;
     },
-    cartData: state => {
+    cartData: function cartData(state) {
       return state.cart;
+    },
+    tableData: function tableData(state) {
+      return state.meja;
+    },
+    progressStatus: function progressStatus(state) {
+      return state.onProcess;
     }
   },
   actions: {
-    loadFoods: state => {
-      __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].http.get('api/v1/makanan').then(response => {
-        // console.log(response);
+    loadTable: function loadTable(state) {
+      _vue2.default.http.get('api/v1/meja').then(function (response) {
         return response.data;
-      }).then(data => {
-        let temp = {
-          foods: categorized('makanan', data),
-          drinks: categorized('minuman', data)
-        };
-
-        state.commit('LOAD_FOOD_DATA', temp);
+      }).then(function (data) {
+        state.commit('LOAD_TABLE_DATA', addAttribute(data));
       });
     },
-    pickFood: state => {}
+    loadFoods: function loadFoods(state) {
+      _vue2.default.http.get('api/v1/makanan').then(function (response) {
+        return response.data;
+      }).then(function (data) {
+        state.commit('LOAD_FOOD_DATA', addAttribute(data));
+      });
+    },
+    loadPickedFoods: function loadPickedFoods(state) {
+      state.commit('LOAD_PICKED_FOOD_DATA');
+    },
+    clearCart: function clearCart(state) {
+      state.commit('CLEAR_CART');
+    },
+    pickFood: function pickFood(state, data) {
+      state.commit('PICK_FOOD', data);
+      state.commit('LOAD_PICKED_FOOD_DATA');
+    },
+    pickTable: function pickTable(state, data) {
+      state.commit('PICK_TABLE', data);
+      state.commit('LOAD_PICKED_TABLE');
+    },
+    updateBill: function updateBill(state) {
+      state.commit('BILL');
+    },
+    switchProgressStatus: function switchProgressStatus(state) {
+      state.commit('CHANGE_PROGRESS_STATUS');
+    }
   }
 });
-/* harmony export (immutable) */ __webpack_exports__["a"] = store;
-
 
 //additionals
-function categorized(categoryType, data) {
-  let temp = [];
-  data.forEach(item => {
-    if (item.tipe == categoryType) {
-      temp.push(item);
-    }
+function addAttribute(data) {
+  var temp = [];
+  data.forEach(function (item) {
+    item.picked = false;
+    temp.push(item);
   });
 
   return temp;
 }
 
+// function categorized(categoryType, data){
+//   let temp = []
+//   data.forEach((item) => {
+//     if(item.tipe == categoryType){
+//       item.picked = false;
+//       temp.push(item)
+//     }
+//   })
+//
+//   return temp;
+// }
+
 /***/ }),
-/* 26 */
+/* 31 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

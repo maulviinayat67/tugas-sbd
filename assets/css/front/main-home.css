@@ -5,6 +5,8 @@
   .navbar.navbar-transparent {
     background-color: transparent !important;
     border-bottom: none !important; }
+  .navbar.navbar-fixed-top {
+    z-index: 100; }
   .navbar .navbar-header {
     height: 100%;
     display: flex;
@@ -52,7 +54,8 @@
 
 #food-list {
   padding-top: 32px; }
-  #food-list .container, #food-list .container-fluid {
+  #food-list .container,
+  #food-list .container-fluid {
     margin-bottom: 32px; }
   #food-list header h3 {
     font-size: 3em;
@@ -71,16 +74,24 @@
       object-fit: cover; }
     #food-list .item figcaption {
       background-color: #CD1A38;
-      padding: 8px 8px;
+      padding: 8px;
       position: absolute;
       z-index: 99;
       text-transform: uppercase;
-      right: 0px;
-      left: 0px;
-      bottom: 0px; }
+      right: 0;
+      left: 0;
+      bottom: 0; }
+      #food-list .item figcaption.message {
+        bottom: 50%;
+        padding: 0 25px;
+        text-align: center;
+        background: none; }
+        #food-list .item figcaption.message p {
+          padding: 20px 0;
+          background-color: #CD1A38; }
       #food-list .item figcaption p {
         color: white;
-        margin: 0px; }
+        margin: 0; }
         #food-list .item figcaption p:first-child {
           font-size: 1.5em;
           font-weight: bold; }
@@ -90,8 +101,111 @@
     #food-list .item:hover {
       border: 1px solid #98091B;
       cursor: pointer; }
-      #food-list .item:hover figcaption {
+      #food-list .item:hover figcaption:not(.message) {
         background-color: #98091B; }
+  #food-list .picked .item {
+    opacity: 0.7;
+    cursor: not-allowed;
+    border: 1px solid #D2D7D3; }
+    #food-list .picked .item figcaption:not(.message) {
+      background-color: #D2D7D3; }
+
+#cart {
+  z-index: 101;
+  position: fixed;
+  background-color: white;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 8px 16px;
+  width: 499px; }
+  #cart .send .btn {
+    border-radius: 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 10px; }
+    #cart .send .btn.btn-default {
+      background-color: #CD1A38;
+      border: none;
+      color: white; }
+      #cart .send .btn.btn-default:hover {
+        background-color: #98091B; }
+    #cart .send .btn.full-width {
+      width: 100%; }
+  #cart .list {
+    padding: 4px 8px; }
+    #cart .list .meja {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: space-around; }
+      #cart .list .meja .item {
+        margin: 10px 0px;
+        min-width: 50px;
+        width: 100px;
+        padding: 10px;
+        background-color: #CD1A38;
+        border: 1px solid #CD1A38;
+        text-align: center;
+        color: white;
+        font-weight: bold; }
+        #cart .list .meja .item.not-available {
+          cursor: not-allowed;
+          background-color: #D2D7D3;
+          border: 1px solid #D2D7D3; }
+        #cart .list .meja .item.picked {
+          background-color: white;
+          color: #CD1A38;
+          border: 1px solid #CD1A38; }
+          #cart .list .meja .item.picked:hover {
+            background-color: white !important;
+            color: #CD1A38;
+            border: 1px solid #CD1A38; }
+        #cart .list .meja .item:hover:not(.not-available) {
+          cursor: pointer;
+          background-color: #98091B; }
+        #cart .list .meja .item p {
+          margin: 0px; }
+  #cart table {
+    position: relative;
+    width: 100%; }
+    #cart table tr {
+      position: relative;
+      width: 100%;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 8px; }
+      #cart table tr.message {
+        justify-content: center; }
+        #cart table tr.message td {
+          font-weight: 300;
+          background-color: #D2D7D3;
+          padding: 10px 0;
+          max-width: none;
+          width: 100%;
+          text-align: center; }
+      #cart table tr td {
+        padding: 10px 0;
+        min-width: 100px;
+        max-width: 150px; }
+        #cart table tr td:nth-child(2) {
+          padding: 0; }
+        #cart table tr td:last-child {
+          min-width: 25px;
+          text-align: center; }
+        #cart table tr td .close {
+          float: none; }
+    #cart table td:nth-child(3),
+    #cart table td[colspan="2"] + td {
+      text-align: right; }
+  #cart .input-group.number-custom button.btn {
+    border-radius: 2.5px; }
+  #cart .input-group.number-custom input.form-control {
+    max-width: 50px;
+    text-align: center; }
 
 .btn.btn-custom-dark {
   color: white;
@@ -104,6 +218,68 @@
   .btn.btn-custom-dark:hover {
     color: #F32C33;
     background-color: white; }
+
+.loader-container {
+  display: none;
+  transition: all ease 0.5s; }
+  .loader-container.active {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.7);
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .loader-container .loader {
+    border: 16px solid #D2D7D3;
+    border-radius: 50%;
+    border-top: 16px solid #F32C33;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite; }
+
+.main-content.loading {
+  filter: blur(1.5px); }
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+.modal .modal-dialog .modal-content {
+  box-shadow: none;
+  border-radius: 0; }
+  .modal .modal-dialog .modal-content .modal-body > .bootbox-body {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 1.25em; }
+  .modal .modal-dialog .modal-content .modal-footer {
+    margin: 0;
+    border-top: none; }
+    .modal .modal-dialog .modal-content .modal-footer button.btn {
+      width: 100%;
+      border-radius: 0;
+      padding: 8px 12px;
+      font-weight: bold; }
+    .modal .modal-dialog .modal-content .modal-footer button.btn.btn-primary {
+      background-color: #CD1A38;
+      border: none;
+      color: white; }
+      .modal .modal-dialog .modal-content .modal-footer button.btn.btn-primary:hover {
+        background-color: #98091B; }
 
 html, body, h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto", sans-serif !important;
