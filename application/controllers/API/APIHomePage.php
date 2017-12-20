@@ -58,8 +58,8 @@ class APIHomePage extends CI_Controller{
 
   protected function parseTblPemesanan($data){
     $temp['id_pemesanan'] = $data['order_id'];
-    $temp['id_pegawai'] = "PG1";
-    $temp['total_harga'] = $data['data']['bill'];
+    $temp['id_pegawai'] = "P001";
+    // $temp['total_harga'] = $data['data']['bill'];
     $temp['tanggal'] = $data['date'];
 
     return $temp;

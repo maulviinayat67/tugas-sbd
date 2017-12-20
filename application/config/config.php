@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 global $SConfig;
-$config['base_url'] = 'http://localhost/tugas-sbd/';
+$config['base_url'] = 'http://localhost/tugas-sbd-2/tugas-sbd';
 
 /*
 |--------------------------------------------------------------------------

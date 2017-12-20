@@ -7,7 +7,7 @@
 		<div class="row">
 			<div v-for="item in foods" @click="pick(item)" :class="{picked:item.picked}" class="col-md-3 col-sm-6 col-xs-12 card">
 				<div class="item">
-					<img :src="item.gambar" alt="gambar makanan">
+					<img :src="'assets/gambar/'+item.gambar" alt="gambar makanan">
 					<figcaption v-show="item.picked" class="message">
 						<span><p>Sudah dipilih</p></span>
 					</figcaption>
@@ -33,7 +33,7 @@
 		<div class="row">
 			<div v-for="item in drinks" @click="pick(item)" class="col-md-3 col-sm-6 col-xs-12 card" :class="{picked:item.picked}">
 				<div class="item">
-					<img :src="item.gambar" alt="gambar makanan">
+					<img :src="'assets/gambar/'+item.gambar" alt="gambar makanan">
 					<figcaption v-show="item.picked" class="message">
 						<span><p>Sudah dipilih</p></span>
 					</figcaption>

@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_pemesanan extends CI_Model{
   var $table = 'tbl_pemesanan';
-  var $column_order = array('id_pemesanan','id_pegawai','harga','tanggal');
+  var $column_order = array('id_pemesanan','id_pegawai','tanggal');
 	var $column_search = array('id_pemesanan');
 	var $order = array('id_pemesanan' => 'asc');
 
