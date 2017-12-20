@@ -2,7 +2,7 @@
 <section id="food-list">
 	<div class="container">
 		<header>
-			<h3>Foods</h3>
+			<h3>Makanan</h3>
 		</header>
 		<div class="row">
 			<div v-for="item in foods" @click="pick(item)" :class="{picked:item.picked}" class="col-md-3 col-sm-6 col-xs-12 card">
@@ -16,7 +16,7 @@
 							{{item.nama}}
 						</p>
 						<p>
-							IDR {{item.harga}}
+							Rp. {{item.harga}}
 						</p>
 					</figcaption>
 				</div>
@@ -28,7 +28,7 @@
 
 	<div class="container">
 		<header>
-			<h3>Drinks</h3>
+			<h3>Minuman</h3>
 		</header>
 		<div class="row">
 			<div v-for="item in drinks" @click="pick(item)" class="col-md-3 col-sm-6 col-xs-12 card" :class="{picked:item.picked}">
@@ -42,7 +42,7 @@
 							{{item.nama}}
 						</p>
 						<p>
-							IDR {{item.harga}}
+							Rp. {{item.harga}}
 						</p>
 					</figcaption>
 				</div>
