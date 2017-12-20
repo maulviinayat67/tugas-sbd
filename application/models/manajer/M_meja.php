@@ -12,9 +12,12 @@ class M_meja extends CI_Model{
     return $this->db->get($this->table)->result();
   }
 
-  public function updateData($where, $data)
+  public function pickOrderedTable($data)
   {
-      $this->db->update($this->table, $data, $where);
-      return $this->db->affected_rows();
+    foreach ($data as $table) {
+      $this->db->set('isTersedia','tidak tersedia');
+      $this->db->where('id_meja',$table['id_meja']);
+      $this->db->update($this->table);
+    }
   }
 }

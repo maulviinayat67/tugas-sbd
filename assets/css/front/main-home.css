@@ -219,6 +219,68 @@
     color: #F32C33;
     background-color: white; }
 
+.loader-container {
+  display: none;
+  transition: all ease 0.5s; }
+  .loader-container.active {
+    display: block;
+    background-color: rgba(255, 255, 255, 0.7);
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .loader-container .loader {
+    border: 16px solid #D2D7D3;
+    border-radius: 50%;
+    border-top: 16px solid #F32C33;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite; }
+
+.main-content.loading {
+  filter: blur(1.5px); }
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
+
+.modal .modal-dialog .modal-content {
+  box-shadow: none;
+  border-radius: 0; }
+  .modal .modal-dialog .modal-content .modal-body > .bootbox-body {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 1.25em; }
+  .modal .modal-dialog .modal-content .modal-footer {
+    margin: 0;
+    border-top: none; }
+    .modal .modal-dialog .modal-content .modal-footer button.btn {
+      width: 100%;
+      border-radius: 0;
+      padding: 8px 12px;
+      font-weight: bold; }
+    .modal .modal-dialog .modal-content .modal-footer button.btn.btn-primary {
+      background-color: #CD1A38;
+      border: none;
+      color: white; }
+      .modal .modal-dialog .modal-content .modal-footer button.btn.btn-primary:hover {
+        background-color: #98091B; }
+
 html, body, h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto", sans-serif !important;
   color: #282830; }

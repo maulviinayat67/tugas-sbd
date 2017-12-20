@@ -83,6 +83,7 @@ import {
 	mapGetters
 } from 'vuex'
 
+
 export default {
 	mounted() {
 		// console.log(this.cartData);
@@ -96,7 +97,14 @@ export default {
 
       this.$http.post('api/v1/order',this.cartData,{emulateJSON:true})
         .then((response)=>{
-          console.log(response);
+          // console.log(response);
+          this.$store.dispatch('switchProgressStatus')
+          this.$store.dispatch('loadTable')
+          this.$store.dispatch('loadFoods')
+          this.$store.dispatch('clearCart')
+          this.$store.dispatch('updateBill')
+          bootbox.alert('Terima Kasih Sudah Memesan')
+          this.$store.dispatch('switchProgressStatus')
         })
     },
     pickTable(table){

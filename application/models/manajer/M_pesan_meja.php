@@ -14,7 +14,13 @@ class M_pesan_meja extends CI_Model{
 
   public function addData($data)
   {
-      $this->db->insert($this->table, $data);
-      return $this->db->insert_id();
+      $queryData = array();
+      foreach ($data['ordered_table'] as $table) {
+        $temp['id_pemesanan'] = $data['id_pemesanan'];
+        $temp['id_meja'] = $table['id_meja'];
+
+        array_push($queryData, $temp);
+      }
+      $this->db->insert_batch($this->table,$queryData);
   }
 }

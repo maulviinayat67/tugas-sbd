@@ -32,7 +32,21 @@ class APIHomePage extends CI_Controller{
 
     $this->M_pemesanan->addData($this->parseTblPemesanan($data));
     $this->M_struk->addData($this->parseTblStruk($data));
+    $this->M_pesan_meja->addData($this->parseTblPesanMeja($data));
+    $this->M_meja->pickOrderedTable($this->parseTblMeja($data));
     echo json_encode($data);
+  }
+
+  protected function parseTblMeja($data)
+  {
+    return $data['data']['tableNumber'];
+  }
+
+  protected function parseTblPesanMeja($data)
+  {
+    $temp['id_pemesanan'] = $data['order_id'];
+    $temp['ordered_table'] = $data['data']['tableNumber'];
+    return $temp;
   }
 
   protected function parseTblStruk($data){

@@ -14,8 +14,13 @@ class M_struk extends CI_Model{
 
   public function addData($data)
   {
+    $packedData = array();
     foreach ($data['pesanan'] as $food) {
-      $this->db->insert($this->table, ['id_pemesanan'=>$data['id_pemesanan'],'id_makanan'=>$food['id_makanan']]);
+      $temp['id_pemesanan'] = $data['id_pemesanan'];
+      $temp['id_makanan'] = $food['id_makanan'];
+
+      array_push($packedData,$temp);
     }
+    $this->db->insert_batch($this->table,$packedData);
   }
 }

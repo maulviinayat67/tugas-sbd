@@ -11963,7 +11963,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(6);
-module.exports = __webpack_require__(29);
+module.exports = __webpack_require__(31);
 
 
 /***/ }),
@@ -11989,7 +11989,7 @@ var _app = __webpack_require__(11);
 
 var _app2 = _interopRequireDefault(_app);
 
-var _Store = __webpack_require__(28);
+var _Store = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13851,7 +13851,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_app_vue__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_54dbbc3e_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_app_vue__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_54dbbc3e_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_app_vue__ = __webpack_require__(29);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -13903,6 +13903,7 @@ if (false) {(function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__nav_nav_vue__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_home_main_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(1);
 //
 //
 //
@@ -13910,6 +13911,15 @@ if (false) {(function () {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -13918,7 +13928,8 @@ if (false) {(function () {
 	components: {
 		'nav-bar': __WEBPACK_IMPORTED_MODULE_0__nav_nav_vue__["a" /* default */],
 		'home': __WEBPACK_IMPORTED_MODULE_1__home_home_main_vue__["a" /* default */]
-	}
+	},
+	computed: Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapGetters"])(['progressStatus'])
 });
 
 /***/ }),
@@ -14020,7 +14031,7 @@ if (false) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_home_main_vue__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5a1583cc_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_home_main_vue__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5a1583cc_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_home_main_vue__ = __webpack_require__(28);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -14585,7 +14596,7 @@ if (false) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_bustCache_home_cart_vue__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_584caffe_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_home_cart_vue__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_584caffe_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_bustCache_home_cart_vue__ = __webpack_require__(27);
 var disposed = false
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -14733,7 +14744,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 			// console.log(this.cartData);
 
 			this.$http.post('api/v1/order', this.cartData, { emulateJSON: true }).then(response => {
-				console.log(response);
+				// console.log(response);
+				this.$store.dispatch('switchProgressStatus');
+				this.$store.dispatch('loadTable');
+				this.$store.dispatch('loadFoods');
+				this.$store.dispatch('clearCart');
+				this.$store.dispatch('updateBill');
+				bootbox.alert('Terima Kasih Sudah Memesan');
+				this.$store.dispatch('switchProgressStatus');
 			});
 		},
 		pickTable(table) {
@@ -14819,7 +14837,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 });
 
 /***/ }),
-/* 25 */
+/* 25 */,
+/* 26 */,
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15103,7 +15123,7 @@ if (false) {
 }
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15136,7 +15156,7 @@ if (false) {
 }
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15144,7 +15164,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [_c("nav-bar"), _vm._v(" "), _c("home")], 1)
+  return _c("div", {}, [
+    _c(
+      "div",
+      {
+        staticClass: "loader-container",
+        class: { active: _vm.progressStatus }
+      },
+      [_c("div", { staticClass: "loader" })]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "main-content", class: { loading: _vm.progressStatus } },
+      [_c("nav-bar"), _vm._v(" "), _c("home")],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -15158,7 +15194,7 @@ if (false) {
 }
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15189,7 +15225,8 @@ var store = exports.store = new _vuex2.default.Store({
       tableNumber: [],
       foods: [],
       bill: 0
-    }
+    },
+    onProcess: false
   },
   mutations: {
     LOAD_TABLE_DATA: function LOAD_TABLE_DATA(state, data) {
@@ -15215,12 +15252,19 @@ var store = exports.store = new _vuex2.default.Store({
     PICK_TABLE: function PICK_TABLE(state, data) {
       data.picked = !data.picked;
     },
+    CLEAR_CART: function CLEAR_CART(state) {
+      state.cart.foods = [];
+      state.cart.tableNumber = [];
+    },
     BILL: function BILL(state) {
       var t = 0;
       for (var i in state.cart.foods) {
         t += state.cart.foods[i].jumlah * parseInt(state.cart.foods[i].harga);
       }
       state.cart.bill = t;
+    },
+    CHANGE_PROGRESS_STATUS: function CHANGE_PROGRESS_STATUS(state) {
+      state.onProcess = !state.onProcess;
     }
   },
   getters: {
@@ -15232,6 +15276,9 @@ var store = exports.store = new _vuex2.default.Store({
     },
     tableData: function tableData(state) {
       return state.meja;
+    },
+    progressStatus: function progressStatus(state) {
+      return state.onProcess;
     }
   },
   actions: {
@@ -15249,6 +15296,12 @@ var store = exports.store = new _vuex2.default.Store({
         state.commit('LOAD_FOOD_DATA', addAttribute(data));
       });
     },
+    loadPickedFoods: function loadPickedFoods(state) {
+      state.commit('LOAD_PICKED_FOOD_DATA');
+    },
+    clearCart: function clearCart(state) {
+      state.commit('CLEAR_CART');
+    },
     pickFood: function pickFood(state, data) {
       state.commit('PICK_FOOD', data);
       state.commit('LOAD_PICKED_FOOD_DATA');
@@ -15259,6 +15312,9 @@ var store = exports.store = new _vuex2.default.Store({
     },
     updateBill: function updateBill(state) {
       state.commit('BILL');
+    },
+    switchProgressStatus: function switchProgressStatus(state) {
+      state.commit('CHANGE_PROGRESS_STATUS');
     }
   }
 });
@@ -15287,7 +15343,7 @@ function addAttribute(data) {
 // }
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

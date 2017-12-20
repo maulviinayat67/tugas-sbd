@@ -24,6 +24,7 @@
     <div>
         <script src="<?php echo base_url('assets/jquery/jquery-3.2.1.min.js') ?>"></script>
         <script src="<?php echo base_url('assets/bootstrap/js/bootstrap.min.js') ?>"></script>
+        <script src="<?php echo base_url('assets/plugins/bootbox/bootbox.min.js') ?>"></script>
         <script src="<?php echo base_url('assets/plugins/slick-1.8.0/slick/slick.min.js') ?>"></script>
         <script src="<?php echo base_url('assets/js/main-home.js') ?>"></script>
     </div>
