@@ -1,7 +1,18 @@
 .navbar {
+  transition: all ease 0.3s;
   min-height: 80px;
   display: flex;
   justify-content: center; }
+  .navbar.shrink {
+    background-color: #CD1A38 !important;
+    border-bottom: none !important; }
+  .navbar > .container-fluid,
+  .navbar > .container {
+    width: 100%;
+    padding: 0px 16px; }
+  .navbar.navbar-default {
+    background-color: #CD1A38 !important;
+    border-bottom: none !important; }
   .navbar.navbar-transparent {
     background-color: transparent !important;
     border-bottom: none !important; }
@@ -9,14 +20,31 @@
     z-index: 100; }
   .navbar .navbar-header {
     height: 100%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center; }
+    align-items: center;
+    justify-content: space-between; }
     .navbar .navbar-header .navbar-brand {
+      justify-content: space-around;
+      min-width: 100px;
+      display: flex;
+      align-items: center;
+      flex: 1;
+      order: 1;
       font-size: 2em;
       text-transform: uppercase;
       font-weight: bold;
       color: white; }
+    .navbar .navbar-header .navbar-menu-left {
+      min-width: 300px;
+      flex: 2;
+      order: 0;
+      text-align: left; }
+    .navbar .navbar-header .navbar-menu-right {
+      min-width: 300px;
+      flex: 2;
+      order: 2;
+      text-align: right; }
 
 #hero .hero-welcome {
   width: 100%;
@@ -93,7 +121,7 @@
         color: white;
         margin: 0; }
         #food-list .item figcaption p:first-child {
-          font-size: 1.5em;
+          font-size: 1em;
           font-weight: bold; }
         #food-list .item figcaption p:last-child {
           font-size: 1.25em;
@@ -111,6 +139,7 @@
       background-color: #D2D7D3; }
 
 #cart {
+  transition: all ease 0.3s;
   z-index: 101;
   position: fixed;
   background-color: white;
@@ -118,21 +147,44 @@
   top: 0;
   bottom: 0;
   padding: 8px 16px;
-  width: 499px; }
-  #cart .send .btn {
-    border-radius: 0px;
-    text-transform: uppercase;
-    font-weight: bold;
-    padding-top: 10px;
-    padding-bottom: 10px; }
-    #cart .send .btn.btn-default {
-      background-color: #CD1A38;
-      border: none;
-      color: white; }
-      #cart .send .btn.btn-default:hover {
-        background-color: #98091B; }
-    #cart .send .btn.full-width {
-      width: 100%; }
+  width: 499px;
+  overflow-x: hidden;
+  overflow-y: overlay;
+  border-left: 1px solid #CD1A38;
+  padding-bottom: 8px; }
+  #cart > * {
+    transition: opacity 1s ease 0.3s; }
+  #cart.closed {
+    width: 0px;
+    opacity: 0;
+    padding: 8px 0px; }
+    #cart.closed > * {
+      transition: opacity 0s ease 0s;
+      opacity: 0; }
+  #cart .cart-header {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    #cart .cart-header * {
+      margin-top: 0px;
+      margin-bottom: 0px; }
+  #cart .send {
+    margin-bottom: 8px; }
+    #cart .send .btn {
+      border-radius: 0px;
+      text-transform: uppercase;
+      font-weight: bold;
+      padding-top: 10px;
+      padding-bottom: 10px; }
+      #cart .send .btn.btn-default {
+        background-color: #CD1A38;
+        border: none;
+        color: white; }
+        #cart .send .btn.btn-default:hover {
+          background-color: #98091B; }
+      #cart .send .btn.full-width {
+        width: 100%; }
   #cart .list {
     padding: 4px 8px; }
     #cart .list .meja {
@@ -207,17 +259,30 @@
     max-width: 50px;
     text-align: center; }
 
-.btn.btn-custom-dark {
-  color: white;
-  font-weight: bold;
-  padding: 8px 16px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 2.5px;
-  border: 2px solid white;
-  transition: all ease 0.3s; }
-  .btn.btn-custom-dark:hover {
-    color: #F32C33;
-    background-color: white; }
+.btn {
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 2.5px; }
+  .btn.btn-custom-dark {
+    color: white;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px solid white;
+    transition: all ease 0.3s; }
+    .btn.btn-custom-dark:hover, .btn.btn-custom-dark:focus {
+      color: #F32C33 !important;
+      background-color: white !important; }
+  .btn.btn-custom {
+    color: white;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: #CD1A38;
+    border: 2px solid #CD1A38;
+    transition: all ease 0.3s; }
+    .btn.btn-custom:hover, .btn.btn-custom:focus {
+      color: #CD1A38 !important;
+      background-color: white !important; }
 
 .loader-container {
   display: none;

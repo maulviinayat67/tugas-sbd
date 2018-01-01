@@ -109,7 +109,8 @@ $hero-hg: 699px;
 				margin: 0;
 
 				&:first-child {
-					font-size: 1.5em;
+					// font-size: 1.5em;
+					font-size: 1em;
 					font-weight: bold;
 				}
 
@@ -144,6 +145,7 @@ $hero-hg: 699px;
 }
 
 #cart {
+	transition: all ease 0.3s;
 	z-index: 101;
 	position: fixed;
 	background-color: white;
@@ -152,8 +154,39 @@ $hero-hg: 699px;
 	bottom: 0;
 	padding: 8px 16px;
 	width: 499px;
+	overflow-x: hidden;
+	overflow-y: overlay;
+	border-left: 1px solid $color-primary;
+	padding-bottom:8px;
 
+	> *{
+		transition: opacity 1s ease 0.3s;
+	}
+
+	&.closed{
+		width: 0px;
+		opacity: 0;
+		padding: 8px 0px;
+		> *{
+			transition: opacity 0s ease 0s;
+			opacity: 0;
+		}
+	}
+
+	.cart-header{
+		height: 60px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+			*{
+				margin-top:0px;
+				margin-bottom: 0px;
+			}
+
+	}
 	.send{
+		margin-bottom: 8px;
 		.btn{
 			border-radius: 0px;
 			text-transform: uppercase;

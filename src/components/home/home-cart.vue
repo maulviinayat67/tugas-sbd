@@ -1,8 +1,10 @@
 <template lang="html">
-
-  <section id="cart">
-    <div class="">
+  <section id="cart" class="closed">
+    <div class="cart-header">
         <h3>Pesanan</h3>
+        <button type="button" name="button" class="btn btn-custom" @click="openCart()">
+          Tutup
+        </button>
     </div>
     <div class="">
       <h5>Meja</h5>
@@ -83,15 +85,31 @@ import {
 	mapGetters
 } from 'vuex'
 
-
 export default {
 	mounted() {
-		// console.log(this.cartData);
+
 	},
 	data() {
-		return {}
+		return {
+      cartWidth:0
+    }
 	},
 	methods: {
+    openCart() {
+      let cartWidth = document.getElementById("cart").style.width
+      console.log(cartWidth);
+      if(cartWidth == 0 ||cartWidth == '0px') {
+
+        // document.getElementById("cart").style.display = "fixed";
+        document.getElementById("cart").style.width = "499px";
+        $('#cart').removeClass('closed')
+      } else {
+
+        document.getElementById("cart").style.width = "0";
+        $('#cart').addClass('closed')
+        // document.getElementById("cart").style.display = "none";
+      }
+    },
     send(){
       // console.log(this.cartData);
 
@@ -152,6 +170,7 @@ export default {
 		}
 	},
 	computed: {
+
     hasOrder(){
       if(this.cartData.foods.length != 0 && this.cartData.tableNumber.length != 0){
         return true
