@@ -39,10 +39,10 @@ class Meja extends CI_Controller {
 			// $no++;
 			$row   = array();
 			$row[] = '<input type="checkbox" class="data-check" value="'.$meja->id_meja .'">';
-			$row[] = $meja->nama;
+			$row[] = $meja->id_meja;
 			$row[] = $meja->isTersedia;
 			$row[] = '<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_meja('."'".$meja->id_meja."'".') "><span class="fa fa-pencil"></span> Edit</a>&nbsp; 
-			<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="hapus_meja('."'".$meja->isTersedia."'".') "><span class="fa fa-trash"></span> Hapus</a>';
+			<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="hapus_meja('."'".$meja->id_meja."'".') "><span class="fa fa-trash"></span> Hapus</a>';
 
 			$data[] = $row;
 
@@ -56,6 +56,63 @@ class Meja extends CI_Controller {
 				);
 
 		echo json_encode($output);
+	}
+
+	public function ajax_add()
+	{
+		// $this->validasi_data();
+
+			$data = array(
+				'id_meja'		=> $this->input->post('id_meja'),
+				'isTersedia'	=> $this->input->post('status'),
+			
+			);
+
+
+			$this->M_meja->add_data($data);
+			echo json_encode(array('status'=>TRUE));
+	}
+
+		
+	public function ajax_edit($id)
+	{
+		$data = $this->M_meja->get_by_id($id);
+
+		echo json_encode($data);
+	}
+
+	public function ajax_update()
+	{
+
+
+		$data = array(
+			'id_meja'		=> $this->input->post('id_meja'),
+			'isTersedia'	=> $this->input->post('status'),
+		
+		);
+
+		$this->M_meja->update_data(array('id_meja'=>$this->input->post('id_meja')),$data);
+
+		echo json_encode(array('status'=>TRUE));
+	}
+	
+
+	public function ajax_delete($id)
+	{
+		$this->M_meja->delete_by_id($id);
+
+		echo json_encode(array('status'=>TRUE));
+	}
+
+	public function ajax_bulk_delete()
+	{
+		$list_id = $this->input->post('id_meja');
+		foreach ($list_id as $id) 
+		{
+			$this->M_meja->delete_by_id($id);
+		}
+		echo json_encode(array('status'=>TRUE));
+	
 	}
   
 }
