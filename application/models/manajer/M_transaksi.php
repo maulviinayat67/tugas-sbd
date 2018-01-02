@@ -16,16 +16,16 @@ class M_transaksi extends CI_Model {
 		$this->datatables->add_column('view', '<a href="transaksi/detail_harga/$1 " class="btn btn-primary btn-xs" "><span class="fa fa-book"> </span> Detail </a> ', 'id_pemesanan');
 		// $this->datatables->query("
 		// 		SELECT tbl_makanan.id_makanan,tbl_makanan.nama,tbl_makanan.harga,tbl_pemesanan.id_pegawai
-		//  		FROM tbl_struk JOIN tbl_makanan USING(id_makanan) JOIN tbl_pemesanan USING(id_pemesanan) 
+		//  		FROM tbl_struk JOIN tbl_makanan USING(id_makanan) JOIN tbl_pemesanan USING(id_pemesanan)
 		//  		");
         return $this->datatables->generate();
 	}
-	
+
 
 	function data_detail($id)
 	{
 		$query = $this->db->query('
-		SELECT tbl_struk.id_pemesanan,tbl_makanan.nama AS nama_makanan,tbl_makanan.harga,tbl_pemesanan.tanggal,tbl_pegawai.nama AS nama_pegawai
+		SELECT tbl_struk.id_pemesanan,tbl_makanan.nama AS nama_makanan,tbl_makanan.harga,tbl_pemesanan.tanggal,tbl_pegawai.nama AS nama_pegawai, tbl_struk.jmlh AS jumlah
 		FROM tbl_struk JOIN tbl_makanan ON tbl_struk.id_makanan = tbl_makanan.id_makanan
 		JOIN tbl_pemesanan ON tbl_struk.id_pemesanan = tbl_pemesanan.id_pemesanan
 		JOIN tbl_pegawai ON tbl_pemesanan.id_pegawai = tbl_pegawai.id_pegawai
@@ -58,16 +58,12 @@ class M_transaksi extends CI_Model {
 	function total_harga($id)
 	{
 		$query = $this->db->query('
-		SELECT SUM(tbl_makanan.harga) AS total_harga
+		SELECT SUM(tbl_makanan.harga*tbl_struk.jmlh) AS total_harga
 		FROM tbl_makanan JOIN tbl_struk USING(id_makanan)
 		WHERE tbl_struk.id_pemesanan = "'.$id.'"
 		');
 		return $query;
 	}
-
-
-
-	
 
 }
 

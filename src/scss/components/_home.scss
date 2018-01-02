@@ -187,27 +187,6 @@ $hero-hg: 699px;
 	}
 	.send{
 		margin-bottom: 8px;
-		.btn{
-			border-radius: 0px;
-			text-transform: uppercase;
-			font-weight: bold;
-			padding-top:10px;
-			padding-bottom: 10px;
-
-			&.btn-default{
-				background-color: $color-primary;
-				border:none;
-				color:white;
-
-				&:hover{
-					background-color: $color-primary-dark;
-				}
-			}
-
-			&.full-width{
-				width: 100%;
-			}
-		}
 	}
 
 

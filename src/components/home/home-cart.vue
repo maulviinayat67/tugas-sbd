@@ -6,7 +6,13 @@
           Tutup
         </button>
     </div>
-    <div class="">
+    <div class="" v-if="hasOrdered">
+      <h5>Pesan Lagi?</h5>
+      <p>Ini nomor pesanan Anda <b>{{noStruk}}</b></p>
+      <p>Apabila Anda sudah tidak ingin memesan lagi, silahkan tekan tombol di bawah ini</p>
+      <button @click="newOrder()" type="button" name="button" class="btn btn-default full-width">Sudahi Pemesanan</button>
+    </div>
+    <div class="" v-if="!hasOrdered">
       <h5>Meja</h5>
       <div class="list">
         <p>Pilih meja : </p>
@@ -73,7 +79,8 @@
         </tr>
       </table>
       <div class="send">
-        <button @click="send()" :disabled="!hasOrder" type="button" class="btn btn-default full-width" name="button">Pesan</button>
+        <button @click="sendAgain()" :disabled="!hasOrderAgain" v-if="hasOrdered" type="button" class="btn btn-default-red full-width" name="button">Pesan Lagi</button>
+        <button @click="send()" :disabled="!hasOrder" v-if="!hasOrdered" type="button" class="btn btn-default-red full-width" name="button">Pesan</button>
       </div>
     </div>
   </section>
@@ -91,10 +98,16 @@ export default {
 	},
 	data() {
 		return {
+      noStruk:'',
+      hasOrdered:false,
       cartWidth:0
     }
 	},
 	methods: {
+    newOrder(){
+      this.noStruk = ''
+      this.hasOrdered = false
+    },
     openCart() {
       let cartWidth = document.getElementById("cart").style.width
       console.log(cartWidth);
@@ -111,8 +124,6 @@ export default {
       }
     },
     send(){
-      // console.log(this.cartData);
-
       this.$http.post('api/v1/order',this.cartData,{emulateJSON:true})
         .then((response)=>{
           // console.log(response);
@@ -121,10 +132,30 @@ export default {
           this.$store.dispatch('loadFoods')
           this.$store.dispatch('clearCart')
           this.$store.dispatch('updateBill')
+          this.hasOrdered = true
+          this.noStruk = response.data.order_id
           bootbox.alert('Terima Kasih Sudah Memesan')
           this.$store.dispatch('switchProgressStatus')
         })
     },
+    sendAgain(){
+      let data = {
+        order_id : this.noStruk,
+        order : this.cartData
+      }
+      this.$http.post('api/v1/order-again', data,{emulateJSON:true})
+        .then((response) =>{
+          console.log(response);
+          this.$store.dispatch('switchProgressStatus')
+          this.$store.dispatch('loadTable')
+          this.$store.dispatch('loadFoods')
+          this.$store.dispatch('clearCart')
+          this.$store.dispatch('updateBill')
+          bootbox.alert('Terima Kasih Sudah Memesan')
+          this.$store.dispatch('switchProgressStatus')
+        })
+    }
+    ,
     pickTable(table){
       this.$store.dispatch('pickTable', table)
     },
@@ -170,7 +201,14 @@ export default {
 		}
 	},
 	computed: {
-
+    hasOrderAgain(){
+      if(this.cartData.foods.length != 0){
+        return true
+      }
+      else{
+        return false
+      }
+    },
     hasOrder(){
       if(this.cartData.foods.length != 0 && this.cartData.tableNumber.length != 0){
         return true

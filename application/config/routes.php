@@ -58,3 +58,4 @@ $route['translate_uri_dashes'] = FALSE;
 $route['api/v1/makanan']['GET'] = 'API/APIHomePage/getMakanan';
 $route['api/v1/meja']['GET'] = 'API/APIHomePage/getMeja';
 $route['api/v1/order']['POST'] = 'API/APIHomePage/setOrder';
+$route['api/v1/order-again']['POST'] = 'API/APIHomePage/setOrderAgain';

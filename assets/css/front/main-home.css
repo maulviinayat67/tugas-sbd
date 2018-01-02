@@ -171,20 +171,6 @@
       margin-bottom: 0px; }
   #cart .send {
     margin-bottom: 8px; }
-    #cart .send .btn {
-      border-radius: 0px;
-      text-transform: uppercase;
-      font-weight: bold;
-      padding-top: 10px;
-      padding-bottom: 10px; }
-      #cart .send .btn.btn-default {
-        background-color: #CD1A38;
-        border: none;
-        color: white; }
-        #cart .send .btn.btn-default:hover {
-          background-color: #98091B; }
-      #cart .send .btn.full-width {
-        width: 100%; }
   #cart .list {
     padding: 4px 8px; }
     #cart .list .meja {
@@ -260,9 +246,19 @@
     text-align: center; }
 
 .btn {
-  text-align: center;
+  border-radius: 0px;
   text-transform: uppercase;
-  border-radius: 2.5px; }
+  font-weight: bold;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+  .btn.full-width {
+    width: 100%; }
+  .btn.btn-default-red {
+    background-color: #CD1A38;
+    border: none;
+    color: white; }
+    .btn.btn-default-red:hover {
+      background-color: #98091B; }
   .btn.btn-custom-dark {
     color: white;
     font-weight: bold;
@@ -345,6 +341,9 @@
       color: white; }
       .modal .modal-dialog .modal-content .modal-footer button.btn.btn-primary:hover {
         background-color: #98091B; }
+
+.input-group-btn .btn {
+  padding: 6px 12px; }
 
 html, body, h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto", sans-serif !important;

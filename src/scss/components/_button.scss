@@ -1,7 +1,23 @@
 .btn{
-  text-align: center;
+  border-radius: 0px;
   text-transform: uppercase;
-  border-radius: 2.5px;
+  font-weight: bold;
+  padding-top:10px;
+  padding-bottom: 10px;
+
+  &.full-width{
+    width: 100%;
+  }
+
+  &.btn-default-red{
+    background-color: $color-primary;
+    border:none;
+    color:white;
+
+    &:hover{
+      background-color: $color-primary-dark;
+    }
+  }
 
   &.btn-custom-dark{
     color : white;

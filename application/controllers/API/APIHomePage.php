@@ -37,6 +37,15 @@ class APIHomePage extends CI_Controller{
     echo json_encode($data);
   }
 
+  public function setOrderAgain(){
+    $order = $this->input->post();
+    $data['data'] = $order['order'];
+    $data['order_id'] = $order['order_id'];
+    $this->M_struk->addData($this->parseTblStruk($data));
+
+    echo json_encode($data);
+  }
+
   protected function parseTblMeja($data)
   {
     return $data['data']['tableNumber'];
@@ -52,13 +61,12 @@ class APIHomePage extends CI_Controller{
   protected function parseTblStruk($data){
     $temp['id_pemesanan'] = $data['order_id'];
     $temp['pesanan'] = $data['data']['foods'];
-
     return $temp;
   }
 
   protected function parseTblPemesanan($data){
     $temp['id_pemesanan'] = $data['order_id'];
-    $temp['id_pegawai'] = "P001";
+    $temp['id_pegawai'] = "P000"; // means not yet confirmed
     // $temp['total_harga'] = $data['data']['bill'];
     $temp['tanggal'] = $data['date'];
 
