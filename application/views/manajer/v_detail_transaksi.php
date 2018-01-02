@@ -18,6 +18,10 @@
 				<h6 class="box-title">Tanggal Transaksi : <?php foreach($tgl_transaksi as $row ){
 					echo $row->tanggal;
 				} ?></h6>
+					<br>
+					<h6 class="box-title">Nama Pegawai : <?php foreach($nama_pegawai as $row ){
+					echo $row->nama;
+				} ?></h6>
 					<div class="controls pull-right">
 						<div class="box-tools pull-right">
 							<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -34,7 +38,7 @@
 							<tr>
                                 <th>Nama Makanan</th>
                                 <th>Harga Makanan (IDR)</th>
-                                <th>Nama Pegawai</th> 
+
 								
 	
 									</tr>
@@ -47,7 +51,6 @@
                                         <tr>
 											<td><?php echo $row->nama_makanan ?></td>
 											<td><?php echo $row->harga ?></td>
-											<td><?php echo $row->nama_pegawai ?></td>
                                         </tr>
 									<?php }?>
 

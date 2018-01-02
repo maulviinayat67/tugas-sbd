@@ -48,6 +48,7 @@ class Transaksi extends CI_Controller {
 		$data['kode_transaksi'] 	= $id;
 		$data['tgl_transaksi']		= $this->M_transaksi->tanggal_transaksi($id);
 		$data['total_harga']		= $this->M_transaksi->total_harga($id);
+		$data['nama_pegawai']		= $this->M_transaksi->nama_pegawai($id);
 
 		$this->load->view('v_home',$data);	
 	}
