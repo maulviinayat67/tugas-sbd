@@ -18,10 +18,29 @@
 
 	$(document).ready(function() {
 
-		$('[name="gambar_makanan').on('change', function(){
-					console.log(this.files)
-					
-		})
+
+
+    //  $('#tabeltransaksi').DataTable( {
+
+    //         "language": {
+    //             "sProcessing":   "Sedang memproses...",
+    //             "sLengthMenu":   "Tampilkan _MENU_ data",
+    //             "sZeroRecords":  "Tidak ditemukan data yang sesuai",
+    //             "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+    //             "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 data",
+    //             "sInfoFiltered": "(disaring dari _MAX_ data keseluruhan)",
+    //             "sInfoPostFix":  "",
+    //             "sSearch":       "Cari:",
+    //             "sUrl":          "",
+    //             "oPaginate": {
+    //                 "sFirst":    "Pertama",
+    //                 "sPrevious": "Sebelumnya",
+    //                 "sNext":     "Selanjutnya",
+    //                 "sLast":     "Terakhir"
+    //             }
+    //         },
+
+    //         } );
 
 		table = $('#tabelmakanan').DataTable( {
 
@@ -73,49 +92,49 @@
 
 
 
-// 		table = $('#tabeltransaksi').DataTable( {
+		table = $('#tabelMeja').DataTable( {
 
-// 			"language": {
-// 				"sProcessing":   "Sedang memproses...",
-// 				"sLengthMenu":   "Tampilkan _MENU_ data",
-// 				"sZeroRecords":  "Tidak ditemukan data yang sesuai",
-// 				"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-// 				"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 data",
-// 				"sInfoFiltered": "(disaring dari _MAX_ data keseluruhan)",
-// 				"sInfoPostFix":  "",
-// 				"sSearch":       "Cari:",
-// 				"sUrl":          "",
-// 				"oPaginate": {
-// 					"sFirst":    "Pertama",
-// 					"sPrevious": "Sebelumnya",
-// 					"sNext":     "Selanjutnya",
-// 					"sLast":     "Terakhir"
-// 				}
-// 			},
-//         "processing": true, //Feature control the processing indicator.
-//         "serverSide": true, //Feature control DataTables' server-side processing mode.
-//         "order": [], //Initial no order.
+			"language": {
+				"sProcessing":   "Sedang memproses...",
+				"sLengthMenu":   "Tampilkan _MENU_ data",
+				"sZeroRecords":  "Tidak ditemukan data yang sesuai",
+				"sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
+				"sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 data",
+				"sInfoFiltered": "(disaring dari _MAX_ data keseluruhan)",
+				"sInfoPostFix":  "",
+				"sSearch":       "Cari:",
+				"sUrl":          "",
+				"oPaginate": {
+					"sFirst":    "Pertama",
+					"sPrevious": "Sebelumnya",
+					"sNext":     "Selanjutnya",
+					"sLast":     "Terakhir"
+				}
+			},
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
 
-//          // Load data for the table's content from an Ajax source
-// 			"ajax": {
-//             	"url": "<?php echo site_url('manajer/transaksi/get_data')?>",
-//             	"type": "POST"
-//         },
+         // Load data for the table's content from an Ajax source
+			"ajax": {
+            	"url": "<?php echo site_url('manajer/meja/get_data')?>",
+            	"type": "POST"
+        },
 
-//         //Set column definition initialisation properties.
-//                 "columnDefs": [
-//             { 
-//                 "targets": [ 0 ], //first column
-//                 "orderable": false, //set not orderable
-//             },
-//             { 
-//                 "targets": [ -1 ], //last column
-//                 "orderable": false, //set not orderable
-//             },
+        //Set column definition initialisation properties.
+                "columnDefs": [
+            { 
+                "targets": [ 0 ], //first column
+                "orderable": false, //set not orderable
+            },
+            { 
+                "targets": [ -1 ], //last column
+                "orderable": false, //set not orderable
+            },
 
-//         ],
+        ],
 
-// } );
+} );
 
 $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
                 {
@@ -148,10 +167,10 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
                     serverSide: true,
                     ajax: {"url": "<?php echo site_url('manajer/transaksi/json')?>", "type": "POST"},
                     columns: [
-                        {"data": "id_pemesanan", "orderable": true
+                        {"data": "id_pemesanan", "orderable": false
 						},
-                        {"data": "tanggal"},
-						{"data": "nama"},
+                        {"data": "tanggal", "orderable": false},
+						{"data": "nama", "orderable": false},
                         {"data": "view"}
                     ],
                     order: [[1, 'asc']],
