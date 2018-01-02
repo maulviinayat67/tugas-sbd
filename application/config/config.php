@@ -23,7 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+global $SConfig;
+$config['base_url'] = 'http://localhost/tugas-sbd';
+// $config['base_url'] = 'http://localhost/tugas-sbd-2/tugas-sbd';
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +37,7 @@ $config['base_url'] = '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
