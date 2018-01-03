@@ -5,7 +5,7 @@ $level = $this->session->userdata('level');
   <section class="sidebar">
     <ul class="sidebar-menu tree" data-widget="tree">
 
-      <li><a href="#"><i class="fa fa-home text-primary"></i> <span>Acces to the Website</span></a></li>
+      <li><a href="<?php echo base_url()?>"><i class="fa fa-home text-primary"></i> <span>Acces to the Website</span></a></li>
       <li class="header">MAIN NAVIGATION</li>
 
       <?php if($level == 'manajer') 
@@ -40,7 +40,7 @@ $level = $this->session->userdata('level');
           <li class="<?php if($this->uri->segment(2)=="transaksi"){echo "active";}?>">
             <a href="<?php echo base_url('manajer/transaksi') ?>">
               <i class="fa fa-money" aria-hidden="true"></i>
-              <span>Transaksi</span>
+              <span>Log Transaksi</span>
               <span class="pull-right-container">
               </span>
             </a>

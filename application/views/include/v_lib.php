@@ -74,12 +74,12 @@
         //Set column definition initialisation properties.
                 "columnDefs": [
             { 
-                "targets": [ 0 ], //first column
-                "orderable": false, //set not orderable
+                "targets": [ 0 ] //first column
+                //set not orderable
             },
             { 
-                "targets": [ -1 ], //last column
-                "orderable": false, //set not orderable
+                "targets": [ -1 ] //last column
+                //set not orderable
             },
 
         ],
@@ -124,12 +124,12 @@
         //Set column definition initialisation properties.
                 "columnDefs": [
             { 
-                "targets": [ 0 ], //first column
-                "orderable": false, //set not orderable
+                "targets": [ 0 ] //first column
+                //set not orderable
             },
             { 
-                "targets": [ -1 ], //last column
-                "orderable": false, //set not orderable
+                "targets": [ -1 ]//last column
+                //set not orderable
             },
 
         ],
@@ -167,10 +167,10 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
                     serverSide: true,
                     ajax: {"url": "<?php echo site_url('manajer/transaksi/json')?>", "type": "POST"},
                     columns: [
-                        {"data": "id_pemesanan", "orderable": false
+                        {"data": "id_pemesanan", "orderable": true
 						},
-                        {"data": "tanggal", "orderable": false},
-						{"data": "nama", "orderable": false},
+                        {"data": "tanggal", "orderable": true},
+						{"data": "nama", "orderable": true},
                         {"data": "view"}
                     ],
                     order: [[1, 'asc']],
