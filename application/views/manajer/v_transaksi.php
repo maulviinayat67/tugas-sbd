@@ -30,6 +30,7 @@
 								<!-- <th><input type="checkbox" id="check-all"></th> -->
 		<!-- 						<th>ID Makanan</th>
 		-->								<th>ID Transaksi</th>
+										<th>Nama Pemesan</th>
 										<th>Tanggal</th>
 										<th>Nama Pegawai</th>
 										

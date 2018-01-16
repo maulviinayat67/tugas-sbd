@@ -47,68 +47,34 @@ class Transaksi extends CI_Controller {
 		$data['detail_transaksi'] 	= $this->M_transaksi->data_detail($id);
 		$data['kode_transaksi'] 	= $id;
 		$data['tgl_transaksi']		= $this->M_transaksi->tanggal_transaksi($id);
+		$data['nama_pemesan']		= $this->M_transaksi->nama_pemesan($id);
 		$data['total_harga']		= $this->M_transaksi->total_harga($id);
 		$data['nama_pegawai']		= $this->M_transaksi->nama_pegawai($id);
 
-		$this->load->view('v_home',$data);	
+		$this->load->view('v_home',$data);
+
+		
 	}
 
-	// public function get_data()
-	// {
-	// 	$list = $this->M_transaksi->get_datatables();
-	// 	$data = array();
-	// 	// $no = $_POST['start'];
-	// 	foreach ($list as $transaksi) 
-	// 	{
+	function struk_pdf($id)
+	{
+		$this->load->library('pdf');
+		$data['detail_transaksi'] 	= $this->M_transaksi->data_detail($id);
+		$data['kode_transaksi'] 	= $id;
+		$data['tgl_transaksi']		= $this->M_transaksi->tanggal_transaksi($id);
+		$data['nama_pemesan']		= $this->M_transaksi->nama_pemesan($id);
+		$data['total_harga']		= $this->M_transaksi->total_harga($id);
+		$data['nama_pegawai']		= $this->M_transaksi->nama_pegawai($id);
 
-	// 		$row[] = '<input type="checkbox" class="data-check" value="'.$transaksi->id_makanan .'">'	;
-	// 		// $row[] = $no;
-	// 		$row[] = $transaksi->id_makanan;
-	// 		$row[] = $transaksi->nama;
-	// 		$row[] = $transaksi->harga;
-	// 		$row[] = $transaksi->id_pegawai;
+		
+		
 
-	// 		$row[] = '<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_makanan('."'".$transaksi->id_makanan."'".') "><span class="fa fa-pencil"></span> Edit</a>&nbsp; 
-	// 		<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="hapus_makanan('."'".$transaksi->id_makanan."'".') "><span class="fa fa-trash"></span> Hapus</a>';
+		$this->pdf->setPaper('A4', 'potrait');
+		$this->pdf->filename = "struk-transaksi.pdf";
+		$this->pdf->load_view('struk_pdf', $data);
+		
+	}
 
-	// 		$data[] = $row;
-
-	// 	}
-
-	// 	$output = array(
-	// 					"draw" =>$_POST['draw'],
-	// 					"recordsTotal" => $this->M_transaksi->count_all(),
-	// 					"recordsFiltered" => $this->M_transaksi->count_filtered(),
-	// 					"data" => $data,
-	// 			);
-
-	// 	echo json_encode($output);
-	// }
-
-	// public function showalldata()
-	// {
-	// 	$list = $this->M_transaksi->get_data();
-	// 	echo json_encode($list);
-	// }
-
-	// public function ajax_add()
-	// {
-	// 	$this->validasi_data();
-				
-
-    //     {
-
-	// 		$data = array(
-	// 			'id_pemesanan'	=> $this->input->post('id_pemesanan'),
-	// 			'id_makanan'	=> $this->input->post('id_makanan'),
-	// 		);
-
-
-	// 		$this->M_transaksi->add_data($data);
-	// 		echo json_encode(array('status'=>TRUE));
-	// 	}
-
-	// }
 
 
 	public function validasi_data()

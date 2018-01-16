@@ -15,6 +15,11 @@
 				<div class="box-header">
 				<h2 class="box-title">Kode Transaksi	: 	<?php echo $kode_transaksi ?></h2>
 				<br>
+				<h6 class="box-title">Nama Pemesan : <?php foreach ($nama_pemesan as $row) {
+            echo $row->nama_pemesan;
+          } ?>
+        </h6>
+				<br>
 				<h6 class="box-title">Tanggal Transaksi : <?php foreach ($tgl_transaksi as $row) {
             echo $row->tanggal;
           } ?>
@@ -70,6 +75,7 @@
 
 							</h2></div>
 							<a href="<?php echo base_url().'manajer/transaksi' ?>"><button type="button" class="btn btn-primary ">Kembali</button></a>
+							<a href="<?php echo base_url().'manajer/transaksi/struk_pdf/'.$kode_transaksi ?>"><button type="button" class="btn btn-primary pull-right">Cetak Struk</button></a>
 							</div>
 							</div>
 							</div>

@@ -6,7 +6,7 @@ class M_transaksi extends CI_Model {
 
 
 	function json() {
-        $this->datatables->select('tbl_struk.id_pemesanan,tbl_pemesanan.tanggal,tbl_pegawai.nama');
+        $this->datatables->select('tbl_struk.id_pemesanan,tbl_pemesanan.nama_pemesan,tbl_pemesanan.tanggal,tbl_pegawai.nama');
 		$this->datatables->from('tbl_struk');
 		$this->datatables->join('tbl_pemesanan','tbl_struk.id_pemesanan = tbl_pemesanan.id_pemesanan');
 		$this->datatables->join('tbl_pegawai','tbl_pemesanan.id_pegawai = tbl_pegawai.id_pegawai');
@@ -35,10 +35,21 @@ class M_transaksi extends CI_Model {
 		return $query;
 	}
 
+
 	function tanggal_transaksi($id)
 	{
 		$query = $this->db->query('
 		SELECT tanggal
+		FROM tbl_pemesanan
+		WHERE id_pemesanan = "'.$id.'"
+		');
+		return $query->result();
+	}
+
+	function nama_pemesan($id)
+	{
+		$query = $this->db->query('
+		SELECT nama_pemesan
 		FROM tbl_pemesanan
 		WHERE id_pemesanan = "'.$id.'"
 		');
