@@ -1,5 +1,19 @@
+
+.form{
+  padding:0px 8px;
+}
+
 .input-group-btn{
   .btn{
     padding : 6px 12px;
+  }
+}
+
+input[type="text"]{
+  font-size: 1.2em;
+  padding : 4px 8px;
+
+  &.full-width{
+    width: 100%;
   }
 }
