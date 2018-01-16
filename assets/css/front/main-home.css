@@ -152,6 +152,12 @@
   overflow-y: overlay;
   border-left: 1px solid #CD1A38;
   padding-bottom: 8px; }
+  #cart p {
+    margin: 5px 0px;
+    text-align: justify; }
+    #cart p.note {
+      color: #777977;
+      font-style: italic; }
   #cart > * {
     transition: opacity 1s ease 0.3s; }
   #cart.closed {
@@ -342,8 +348,17 @@
       .modal .modal-dialog .modal-content .modal-footer button.btn.btn-primary:hover {
         background-color: #98091B; }
 
+.form {
+  padding: 0px 8px; }
+
 .input-group-btn .btn {
   padding: 6px 12px; }
+
+input[type="text"] {
+  font-size: 1.2em;
+  padding: 4px 8px; }
+  input[type="text"].full-width {
+    width: 100%; }
 
 html, body, h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto", sans-serif !important;

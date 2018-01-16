@@ -159,6 +159,15 @@ $hero-hg: 699px;
 	border-left: 1px solid $color-primary;
 	padding-bottom:8px;
 
+	p{
+	  margin:5px 0px;
+	  text-align: justify;
+	  &.note{
+	    color: $color-gray-darker;
+	    font-style: italic;
+	  }
+	}
+
 	> *{
 		transition: opacity 1s ease 0.3s;
 	}
