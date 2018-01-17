@@ -8,6 +8,11 @@ class Transaksi extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('manajer/M_makanan');
+		$this->load->model('manajer/M_meja');
+		$this->load->model('manajer/M_pemesanan');
+		$this->load->model('manajer/M_pesan_meja');
+		$this->load->model('manajer/M_struk');
 		$this->load->model('M_security');
 		$this->load->model('manajer/M_transaksi');
 		$this->load->library('datatables');
@@ -21,11 +26,17 @@ class Transaksi extends CI_Controller {
 
 		$data['judul']		= 'Home';
 		$data['sub_judul']	= 'Transaksi';
-		$data['user'] 		= 'MANAJER';
+		if($level == 'manajer'){
+				$data['user'] 		= 'MANAJER';
+		}
+		elseif (($level == 'kasir')) {
+			$data['user'] 		= 'KASIR';
+		}
+		$data['id_pegawai'] = $key;
 		$data['base_link'] 	= '';
 		$data['content'] 	= 'manajer/v_transaksi';
 
-		$this->load->view('v_home',$data);			
+		$this->load->view('v_home',$data);
 	}
 
 	function json()
@@ -33,14 +44,21 @@ class Transaksi extends CI_Controller {
         header('Content-Type: application/json');
         echo $this->M_transaksi->json();
 	}
-	
+
 	function detail_harga($id)
 	{
-		
+
+		$level = $this->session->userdata('level');
+		$key   = $this->session->userdata('id_pegawai');
 		$this->M_security->cek_security();
 		$data['judul']		= 'Transaksi';
 		$data['sub_judul']	= 'Detail Transaksi';
-		$data['user'] 		= 'MANAJER';
+		if($level == 'manajer'){
+				$data['user'] 		= 'MANAJER';
+		}
+		elseif (($level == 'kasir')) {
+			$data['user'] 		= 'KASIR';
+		}
 		$data['base_link'] 	= '';
 		$data['content'] 	= 'manajer/v_detail_transaksi';
 
@@ -50,10 +68,11 @@ class Transaksi extends CI_Controller {
 		$data['nama_pemesan']		= $this->M_transaksi->nama_pemesan($id);
 		$data['total_harga']		= $this->M_transaksi->total_harga($id);
 		$data['nama_pegawai']		= $this->M_transaksi->nama_pegawai($id);
+		$data['id_pegawai'] = $key;
 
 		$this->load->view('v_home',$data);
 
-		
+
 	}
 
 	function struk_pdf($id)
@@ -66,16 +85,12 @@ class Transaksi extends CI_Controller {
 		$data['total_harga']		= $this->M_transaksi->total_harga($id);
 		$data['nama_pegawai']		= $this->M_transaksi->nama_pegawai($id);
 
-		
-		
 
 		$this->pdf->setPaper('A4', 'potrait');
-		$this->pdf->filename = "struk-transaksi.pdf";
+		$this->pdf->filename = "struk-transaksi-".$id.".pdf";
 		$this->pdf->load_view('struk_pdf', $data);
-		
+
 	}
-
-
 
 	public function validasi_data()
 	{
@@ -107,6 +122,14 @@ class Transaksi extends CI_Controller {
 		}
 	}
 
+	public function konfirmasi()
+	{
+		$data = $this->input->post();
+		$this->M_pemesanan->konfirmSetPegawai($data);
+		$dataMeja = ($this->M_pesan_meja->getDataByID($data['id_pemesan']));
+		$this->M_meja->resetMejaByid($dataMeja);
+		echo json_encode($data);
+	}
 }
 
 /* End of file Transaksi.php */

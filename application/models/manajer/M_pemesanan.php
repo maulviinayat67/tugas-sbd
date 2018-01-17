@@ -23,4 +23,9 @@ class M_pemesanan extends CI_Model{
       $this->db->insert($this->table, $data);
       return $this->db->insert_id();
   }
+
+  public function konfirmSetPegawai($data)
+  {
+    return $this->db->update($this->table,['id_pegawai'=>$data['id_pegawai']],['id_pemesanan'=>$data['id_pemesan']]);
+  }
 }

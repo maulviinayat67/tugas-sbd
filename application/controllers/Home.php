@@ -20,25 +20,26 @@ class Home extends CI_Controller {
 		$data['base_link'] 	= '';
 
 
-		
+
 		if($level == 'manajer')
 		{
-			$data['jml_meja']		= $this->M_dashboard->meja_count(); 
+			$data['jml_meja']		= $this->M_dashboard->meja_count();
 			$data['jml_pemesanan']  = $this->M_dashboard->pemesanan_count();
 			$data['jml_pegawai']	= $this->M_dashboard->pegawai_count();
 			$data['jml_makanan']	= $this->M_dashboard->makanan_count();
 			$data['data_transaksi'] = $this->M_dashboard->laporan_transaksi();
-			
-			$data['user'] 			= 'MANAJER';	
+
+			$data['user'] 			= 'MANAJER';
 			$data['content'] 		= 'manajer/v_dashboard';
 
 		}
 		else if($level == 'kasir')
-		{	
+		{
+			$data['jml_pemesanan']  = $this->M_dashboard->pemesanan_count();
 
 			$data['user'] 			= 'KASIR';
 			$data['content'] 		= 'kasir/v_dashboard';
-		}	
+		}
 
 		$this->load->view('v_home',$data);
 	}
@@ -46,7 +47,7 @@ class Home extends CI_Controller {
 	public function export(){
 		// Load plugin PHPExcel nya
 		include APPPATH.'third_party/PHPExcel/PHPExcel.php';
-		
+
 		// Panggil class PHPExcel nya
 		$excel = new PHPExcel();
 		// Settingan awal fil excel
@@ -109,14 +110,14 @@ class Home extends CI_Controller {
 		  $excel->setActiveSheetIndex(0)->setCellValue('C'.$numrow, $data->nama_pemesan);
 		  $excel->setActiveSheetIndex(0)->setCellValue('D'.$numrow, $data->tanggal);
 		  $excel->setActiveSheetIndex(0)->setCellValue('E'.$numrow, $data->nama_pegawai);
-		  
+
 		  // Apply style row yang telah kita buat tadi ke masing-masing baris (isi tabel)
 		  $excel->getActiveSheet()->getStyle('A'.$numrow)->applyFromArray($style_row);
 		  $excel->getActiveSheet()->getStyle('B'.$numrow)->applyFromArray($style_row);
 		  $excel->getActiveSheet()->getStyle('C'.$numrow)->applyFromArray($style_row);
 		  $excel->getActiveSheet()->getStyle('D'.$numrow)->applyFromArray($style_row);
 		  $excel->getActiveSheet()->getStyle('E'.$numrow)->applyFromArray($style_row);
-		  
+
 		  $no++; // Tambah 1 setiap kali looping
 		  $numrow++; // Tambah 1 setiap kali looping
 		}
@@ -126,7 +127,7 @@ class Home extends CI_Controller {
 		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(25); // Set width kolom C
 		$excel->getActiveSheet()->getColumnDimension('D')->setWidth(20); // Set width kolom D
 		$excel->getActiveSheet()->getColumnDimension('E')->setWidth(30); // Set width kolom E
-		
+
 		// Set height semua kolom menjadi auto (mengikuti height isi dari kolommnya, jadi otomatis)
 		$excel->getActiveSheet()->getDefaultRowDimension()->setRowHeight(-1);
 		// Set orientasi kertas jadi LANDSCAPE
