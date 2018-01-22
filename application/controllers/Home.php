@@ -188,34 +188,29 @@ class Home extends CI_Controller {
 	{
 		$this->load->helper('file');
         $config['upload_path']="./assets/database/";
-        $config['allowed_types']="sql|x-sql";
+		$config['allowed_types']="sql|x-sql";
+		
         $this->load->library('upload',$config);
         $this->upload->initialize($config);
 
         if(!$this->upload->do_upload("datafile")){
          $error = array('error' => $this->upload->display_errors());
-         echo "GAGAL UPLOAD";
-         
+		 echo "GAGAL UPLOAD"; 
+		 print_r($error);
          exit();
         }
-        $file = $this->upload->data();  //DIUPLOAD DULU KE DIREKTORI assets/database/
+		$file = $this->upload->data();  
         $fotoupload = $file['file_name'];
                     
-          $isi_file = file_get_contents('./assets/database/' . $fotoupload); //PANGGIL FILE YANG TERUPLOAD
+          $isi_file = file_get_contents('./assets/database/' . $fotoupload);
           $string_query = rtrim( $isi_file, "\n;" );
-          $array_query = explode(";", $string_query);   //JALANKAN QUERY MERESTORE KEDATABASE
+          $array_query = explode(";", $string_query);   
               foreach($array_query as $query)
               {
                     $this->db->query($query);
-              }
-
-          $path_to_file = './assets/database/' . $fotoupload;
-            if(unlink($path_to_file)) {   // HAPUS FILE YANG TERUPLOAD
-                 redirect('home');
-            }
-            else {
-                 echo 'errors occured';
-            }
+			  }
+			  redirect('home');
+ 
 	}
 
 

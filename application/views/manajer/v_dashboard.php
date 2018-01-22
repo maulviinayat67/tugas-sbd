@@ -170,13 +170,13 @@
                             </form>
                             <br>
                             <br>
-                            <?php echo form_open_multipart('home/restoredb');?>
-                            <div class="form-group">
-                                <input type="file" name="datafile" id="datafile"/>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Upload Database</button>
-                        </form>
+                            <form enctype="multipart/form-data" action="<?php echo base_url();?>home/restoredb" method="post">
+                                <div class="form-group">
+                                    <input type="file" name="datafile" id="datafile"/>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload Database</button>
+                            </form>
 
-                    </div>
-                </section>
-            </div>
+                        </div>
+                    </section>
+                </div>
