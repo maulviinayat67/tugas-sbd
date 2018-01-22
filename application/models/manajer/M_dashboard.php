@@ -38,6 +38,22 @@ class M_dashboard extends CI_Model {
 		return $query->result();
 	}
 
+	function db_count()
+	{
+		$query= $this->db->query('
+		SELECT COUNT(*) 
+		FROM information_schema.tables 
+		WHERE table_schema = "db_tugas_sbd"');
+
+		return $query->result();
+
+	}
+
+	public function tampiltabel()
+    {
+       return $this->db->query("show tables")->result();
+    }
+
 	
 
 }
