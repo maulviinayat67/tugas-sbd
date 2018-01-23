@@ -196,7 +196,7 @@ class Home extends CI_Controller {
         if(!$this->upload->do_upload("datafile")){
          $error = array('error' => $this->upload->display_errors());
 		 echo "GAGAL UPLOAD"; 
-		 print_r($error);
+		
          exit();
         }
 		$file = $this->upload->data();  
@@ -204,13 +204,14 @@ class Home extends CI_Controller {
                     
           $isi_file = file_get_contents('./assets/database/' . $fotoupload);
           $string_query = rtrim( $isi_file, "\n;" );
-          $array_query = explode(";", $string_query);   
-              foreach($array_query as $query)
-              {
-                    $this->db->query($query);
-			  }
+		  $array_query = explode(";", $string_query);   
+	
+			foreach($array_query as $query)
+			{
+			  $this->db->query($query);
 			  redirect('home');
- 
+			  }
+		     
 	}
 
 
