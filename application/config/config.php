@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+$config['composer_autoload'] = "./vendor/autoload.php";
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 global $SConfig;
+
 $config['base_url'] = 'http://localhost/tugas-sbd';
 // $config['base_url'] = 'http://localhost/tugas-sbd-2/tugas-sbd';
 
@@ -225,7 +226,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------

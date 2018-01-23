@@ -14857,6 +14857,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -15066,17 +15068,28 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c(
-            "button",
+            "a",
             {
-              staticClass: "btn btn-default full-width",
-              attrs: { type: "button", name: "button" },
-              on: {
-                click: function($event) {
-                  _vm.newOrder()
-                }
+              attrs: {
+                download: "struk-" + _vm.noStruk + ".pdf",
+                href: "api/v1/get-struk/" + _vm.noStruk
               }
             },
-            [_vm._v("Sudahi Pemesanan")]
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default full-width",
+                  attrs: { type: "button", name: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.newOrder()
+                    }
+                  }
+                },
+                [_vm._v("Sudahi Pemesanan")]
+              )
+            ]
           ),
           _vm._v(" "),
           _c("p", { staticClass: "note" }, [

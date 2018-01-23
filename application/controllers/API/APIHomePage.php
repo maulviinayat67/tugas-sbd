@@ -1,4 +1,7 @@
 <?php
+// timezone
+date_default_timezone_set("Asia/Jakarta");
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class APIHomePage extends CI_Controller{
@@ -10,9 +13,6 @@ class APIHomePage extends CI_Controller{
     $this->load->model('manajer/M_pemesanan');
     $this->load->model('manajer/M_pesan_meja');
     $this->load->model('manajer/M_struk');
-
-    // timezone
-    date_default_timezone_set("	Asia/Jakarta");
 	}
 
   public function getMakanan()

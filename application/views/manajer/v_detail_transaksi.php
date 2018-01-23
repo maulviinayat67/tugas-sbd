@@ -13,19 +13,34 @@
 		<div class="col-xs-12">
 			<div class="box box-solid box-primary">
 				<div class="box-header">
-				<h2 class="box-title">Kode Transaksi	: 	<?php echo $kode_transaksi ?></h2>
+				<h2 class="box-title">Kode Transaksi	: <span id="pemesan-kode-data"><?php echo $kode_transaksi ?></span></h2>
+				<br>
+				<h6 class="box-title">Nama Pemesan : <?php foreach ($nama_pemesan as $row) {
+            echo $row->nama_pemesan;
+          } ?>
+        </h6>
 				<br>
 				<h6 class="box-title">Tanggal Transaksi : <?php foreach ($tgl_transaksi as $row) {
             echo $row->tanggal;
           } ?>
         </h6>
   			<br>
+  			<h6 class="box-title">Status : <?php foreach ($nama_pegawai as $row) {
+            if($row->nama !== '-'){
+              echo 'Sudah dibayar';
+            }
+            else{
+              echo "Belum dibayar";
+            }
+          } ?>
+        </h6>
+        <br>
   			<h6 class="box-title">Nama Pegawai : <?php foreach ($nama_pegawai as $row) {
             if($row->nama !== '-'){
               echo $row->nama;
             }
             else{
-              echo "Belum dibayar";
+              echo "-";
             }
           } ?>
         </h6>
@@ -45,7 +60,8 @@
 							<tr>
                 <th>Nama Makanan</th>
                 <th>Harga Makanan (IDR)</th>
-                <th>Jumlah</th>
+                <th>Kuantitas</th>
+                <th>Jumlah (IDR)</th>
 							</tr>
 						</thead>
 								<tbody>
@@ -56,6 +72,7 @@
 										<td><?php echo $row->nama_makanan ?></td>
 										<td><?php echo $row->harga ?></td>
 										<td><?php echo $row->jumlah ?></td>
+										<td><?php echo $row->jumlah*$row->harga ?></td>
                   </tr>
 									<?php
                     }
@@ -70,8 +87,69 @@
 
 							</h2></div>
 							<a href="<?php echo base_url().'manajer/transaksi' ?>"><button type="button" class="btn btn-primary ">Kembali</button></a>
+							<button type="button" onclick="konfirmOpenModal()" class="btn btn-primary pull-right">Konfirmasi</button>
+							<a target="_blank" href="<?php echo base_url().'manajer/transaksi/struk_pdf/'.$kode_transaksi ?>"><button type="button" class="btn btn-primary pull-right">Cetak Struk</button></a>
 							</div>
 							</div>
 							</div>
 							</div>
 							</div>
+
+              <!-- Modal -->
+              <div class="modal fade" id="modal-konfirmasi" role="dialog">
+              	<div class="modal-dialog" >
+              		<div class="modal-content">
+
+              			<div class="modal-header">
+              				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              				<h3 class="modal-title">Konfirmasi Pembayaran</h3>
+              			</div>
+
+              			<div class="modal-body">
+              				Konfirmasi pemesanan no. <span id="pemesanan-kode"></span>
+              			</div>
+
+              			<div class="modal-footer">
+              				<button type="button" onclick="konfirm(<?php echo "'".$id_pegawai."'" ?>)" class="btn btn-primary">Konfirmasi</button>
+              				<button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+              			</div>
+
+              		</div>
+              	</div>
+              </div>
+
+              <script type="text/javascript">
+
+                function konfirm(id_pegawai){
+                  table = $('tabeltransaksi')
+
+                  id = $('#pemesanan-kode').text()
+                  $.ajax({
+                    method:'post',
+                    url:'<?php echo base_url()?>api/v1/konfirmasi',
+                    dataType:'JSON',
+                    data : {
+                      id_pegawai : id_pegawai,
+                      id_pemesan : id
+                    },
+                    success : function(response){
+                      console.log(response);
+                      $('#modal-konfirmasi').modal('toggle')
+                      window.location.reload()
+                      // window.location.href = '<?php echo base_url()?>manajer/transaksi'
+
+                    },
+                    error : function(response){
+                      console.log(response);
+                    }
+                  })
+                }
+
+                function konfirmOpenModal(){
+                  // console.log(id);
+                  id = $('#pemesan-kode-data').text()
+                  console.log(id);
+                  $('#pemesanan-kode').text(id)
+                  $('#modal-konfirmasi').modal('toggle')
+                }
+              </script>

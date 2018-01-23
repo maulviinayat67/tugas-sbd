@@ -11,7 +11,9 @@
       <p>Pemesan : <b>{{cartData.nama}}</b>.</p>
       <p>Ini nomor pesanan Anda <b>{{noStruk}}</b></p>
       <p>Apabila Anda sudah tidak ingin memesan lagi, silahkan tekan tombol di bawah ini</p>
-      <button @click="newOrder()" type="button" name="button" class="btn btn-default full-width">Sudahi Pemesanan</button>
+      <a :download="'struk-'+noStruk+'.pdf'" :href="'api/v1/get-struk/'+noStruk">
+        <button @click="newOrder()" type="button" name="button" class="btn btn-default full-width">Sudahi Pemesanan</button>
+      </a>
       <p class="note">Dengan menekan tombol di atas, Anda akan mengakhiri pemesanan yang Anda lakukan dan Anda akan mendapat struk untuk melanjutkan pembayaran.</p>
     </div>
     <div class="" v-if="!hasOrdered">

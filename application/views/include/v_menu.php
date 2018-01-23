@@ -1,18 +1,18 @@
-<?php 
+<?php
 $level = $this->session->userdata('level');
 ?>
 <aside class="main-sidebar">
   <section class="sidebar">
     <ul class="sidebar-menu tree" data-widget="tree">
 
-      <li><a href="#"><i class="fa fa-home text-primary"></i> <span>Acces to the Website</span></a></li>
+      <li><a href="<?php echo base_url()?>"><i class="fa fa-home text-primary"></i> <span>Acces to the Website</span></a></li>
       <li class="header">MAIN NAVIGATION</li>
 
-      <?php if($level == 'manajer') 
+      <?php if($level == 'manajer')
       {?>
         <li class="<?php if($this->uri->segment(1)=="home"){echo "active";}?>">
           <a href="<?php echo base_url('home') ?>">
-            <i class="fa fa-dashboard" aria-hidden="true"></i> 
+            <i class="fa fa-dashboard" aria-hidden="true"></i>
             <span>Dashboard</span>
             <span class="pull-right-container">
             </span>
@@ -40,7 +40,7 @@ $level = $this->session->userdata('level');
           <li class="<?php if($this->uri->segment(2)=="transaksi"){echo "active";}?>">
             <a href="<?php echo base_url('manajer/transaksi') ?>">
               <i class="fa fa-money" aria-hidden="true"></i>
-              <span>Transaksi</span>
+              <span>Log Transaksi</span>
               <span class="pull-right-container">
               </span>
             </a>
@@ -51,16 +51,16 @@ $level = $this->session->userdata('level');
           {
            ?>
            <li class="<?php if($this->uri->segment(1)=="home"){echo "active";}?>">
-            <a href="#">
-              <i class="fa fa-dashboard"></i> 
-              <span>Dashboard</span>
-              <span class="pull-right-container">
-              </span>
-            </a>
-          </li>
+             <a href="<?php echo base_url('home') ?>">
+               <i class="fa fa-dashboard" aria-hidden="true"></i>
+               <span>Dashboard</span>
+               <span class="pull-right-container">
+               </span>
+             </a>
+           </li>
 
-          <li class="treeview menu-open">
-            <a href="#">
+          <li class="<?php if($this->uri->segment(2)=="transaksi"){echo "active";}?>">
+            <a href="<?php echo base_url('manajer/transaksi') ?>">
               <i class="fa fa-address-book" aria-hidden="true"></i>
               <span>Pemesanan</span>
               <span class="pull-right-container">

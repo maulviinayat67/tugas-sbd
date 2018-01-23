@@ -65,6 +65,18 @@ class M_meja extends CI_Model
         return $query->row();
     }
 
+    public function resetMejaByid($data)
+    {
+      $meja = array();
+      foreach ($data as $d) {
+        $item['isTersedia'] = 'tersedia';
+        $item['id_meja'] = $d->id_meja;
+        array_push($meja,$item);
+      }
+      $this->db->update_batch($this->table,$meja,'id_meja');
+      return $meja;
+    }
+
     public function update_data($where, $data)
     {
         $this->db->update($this->table, $data, $where);
