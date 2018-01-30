@@ -32,7 +32,7 @@
 							<tr>
 								<th><input type="checkbox" id="check-all"></th>
 		<!-- 						<th>ID Makanan</th>
-		-->								
+		-->
 										<th>Nama Makanan/Minuman</th>
 										<th>Jenis</th>
 										<th>Harga (IDR)</th>
@@ -42,7 +42,7 @@
 								</thead>
 								<tbody>
 					<!-- 		<?php foreach ($data_makanan as $row) {
-								
+
 								?>
 								<tr>
 									<td><input type="checkbox" class="data-check" value="<?php echo $row->id_makanan ?>"></td>
@@ -50,10 +50,10 @@
 													<td><?php echo $row->nama ?></td>
 													<td><?php echo $row->tipe ?></td>
 													<td><?php echo $row->harga ?></td>
-													<td><a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_person(<?php echo $row->id_makanan ?>)"><span class="fa fa-pencil"></span> Edit</a>&nbsp; 
+													<td><a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_person(<?php echo $row->id_makanan ?>)"><span class="fa fa-pencil"></span> Edit</a>&nbsp;
 										<a href="javascript:void(0)" class="btn btn-primary btn-xs" onclick="edit_person(<?php echo $row->id_makanan ?>)"><span class="fa fa-trash"></span> Hapus</a></td>
 									</tr>
-									<?php } ?>	 -->				
+									<?php } ?>	 -->
 								</tbody>
 							</table>
 						</div>
@@ -77,7 +77,7 @@
 					{
 						var html;
 						var i;
-						for ( i = 0 ; i < data.length; i++) 
+						for ( i = 0 ; i < data.length; i++)
 						{
 							html +='<tr>'+
 							'<td><input type="checkbox" class="data-check" value="'+data.id_makanan+'"></td>'+
@@ -140,7 +140,7 @@ function edit_makanan(id)
 
   		document.getElementById('gambarMakanan').src = "<?php echo base_url(); ?>/assets/gambar/" + data.gambar;
 
-  		
+
   		$("#makanan_modal").modal("show");
   		$(".modal-title").text("Edit Makanan");
   	},
@@ -159,9 +159,9 @@ function hapus_makanan(id)
 	// $('#makanan_modal form').hide();
  //    $('#makanan_modal .modal-header #myModalLabel').text('Hapus Artikel');
  //    $('#makanan_modal .modal-footer #btnSave').text('Hapus!!!');
- //    $('#myModal #form-artikel').attr('action','hapus');   
+ //    $('#myModal #form-artikel').attr('action','hapus');
  //    $('#makanan_modal .modal-body').prepend('<p id="hapus-notif">Apakah Anda yakin akan menghapus data ini?</p>');
- //     $('#makanan_modal').modal('show'); 
+ //     $('#makanan_modal').modal('show');
  if(confirm('Apakah Anda yakin ingin menghapus data ini ?'))
  {
  	$.ajax({
@@ -174,7 +174,7 @@ function hapus_makanan(id)
      		$('#myModal #hapus-notif').remove();
      		reload_table();
      	},
-     	error:function(jqXHR, textStatus, errorThrown) 
+     	error:function(jqXHR, textStatus, errorThrown)
      	{
      		alert('Error hapus data');
      	}
@@ -204,19 +204,19 @@ function bulk_delete()
 					{
 						reload_table();
 					}
-					else 
+					else
 					{
-						alert('Failed');	
+						alert('Failed');
 					}
 				},
-				error:function(jqXHR, textStatus, errorThrown) 
+				error:function(jqXHR, textStatus, errorThrown)
 				{
 					alert('Error hapus data');
 				}
 
 
 			});
-			
+
 		}
 	}
 	else
@@ -232,8 +232,8 @@ function reload_table()
 
 function simpan()
 {
-	$('#btnSave').text('saving...'); //change button text
-    $('#btnSave').attr('disabled',true); //set button disable 
+		$('#btnSave').text('saving...'); //change button text
+    $('#btnSave').attr('disabled',true); //set button disable
 
     var url;
     if(save_method == 'add')
@@ -245,7 +245,23 @@ function simpan()
     	url = "<?php echo base_url('manajer/makanan/ajax_update') ?>";
     }
 
-    var formData = new FormData($('#form_makanan')[0]);
+		var formData
+
+		console.log($('#gambar_makanan'));
+		console.log($('#gambar_makanan')[0].files);
+
+		gambar = $('#gambar_makanan')[0].files;
+		if (gambar) {
+			formData= new FormData($('#form_makanan')[0]);
+		}
+		else{
+			formData = new FormData()
+			formData.append('id_makanan',$('input#id_makanan').val())
+			formData.append('id_makanan',$('input#nama_makanan').val())
+			formData.append('id_makanan',$('input#jenis_makanan').val())
+			formData.append('id_makanan',$('input#harga_makanan').val())
+		}
+
     $.ajax({
     	url: url,
     	type: 'POST',
@@ -253,26 +269,25 @@ function simpan()
     	data: formData,
     	contentType: false,
     	processData: false,
-    	success:function(data)
+    	success:function(response)
     	{
-    		if(data.status)
-    		{
-    			console.log(data.status);
-    			$('#makanan_modal').modal('hide');
-    			reload_table();
 
-    		}
+  			console.log(response);
+  			$('#makanan_modal').modal('hide');
+  			reload_table();
 
     		$('#btnSave').text('save'); //change button text
-            $('#btnSave').attr('disabled',false); //set button
+        $('#btnSave').attr('disabled',false); //set button
 
-        },
-        error:function(jqXHR, textStatus, errorThrown) 
-        {
-        	alert('Error adding / update data');
-        	console.log(data.status);
-        }
-    });
+        window.location.reload()
+
+      }
+    }).fail(function(xhr, text, errorThrown){
+      	alert('Error adding / update data')
+				$('#btnSave').text('save'); //change button text
+        $('#btnSave').attr('disabled',false); //set button
+      	console.log(text);
+		});
 
 
 }
@@ -329,7 +344,7 @@ function simpan()
 							<label id="imgGambarMakanan" class="control-label col-md-3" >Gambar</label>
 							<div class="col-md-9">
 								<img src="" alt="" id="gambarMakanan" width="100">
-								<input type="file" title="Pilih Gambar" name="gambar_makanan" id="gambar_makanan"  class="form-control" value="" >
+								<input type="file" title="Pilih Gambar" name="gambar_makanan" id="gambar_makanan"  class="form-control" value=""  accept="image/*">
 							</div>
 						</div>
 
@@ -346,5 +361,3 @@ function simpan()
 	</div>
 </div>
 </div>
-
-
