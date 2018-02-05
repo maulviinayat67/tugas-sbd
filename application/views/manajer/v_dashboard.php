@@ -157,17 +157,18 @@
                         <div class="table-responsive">
 
                             <form action="<?php echo base_url();?>home/backupdb" method="post">
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <select required="" name="tabeldb">
                                         <?php
                            foreach ($tabel as $baris) {  ?>
                                         <option value="<?php echo $baris->Tables_in_db_tugas_sbd; ?>"><?php echo $baris->Tables_in_db_tugas_sbd; ?></option>
                                         <?php } ?>
                                     </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Backup Database</button>
-                                <a href="<?php echo base_url();?>home/backupalldb" type="button" class="btn btn-primary pull-right">Backup Semua Database</a>
+                                </div> -->
+                                <!-- <button type="submit" class="btn btn-primary">Backup Database</button> -->
+                                <a href="<?php echo base_url();?>home/backupalldb" type="button" class="btn btn-primary pull-left">Backup Semua Database</a>
                             </form>
+                            <br>
                             <br>
                             <br>
                             <form enctype="multipart/form-data" action="<?php echo base_url();?>home/restoredb" method="post">

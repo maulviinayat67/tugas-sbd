@@ -212,7 +212,7 @@ class Home extends CI_Controller {
 			{
 				$this->db->query($query);
 				$panjang--;
-				log_message("ERROR",print_r($panjang,true));
+				// log_message("ERROR",print_r($panjang,true));
 				if($panjang==1)redirect('home'); 
 			}
 			
