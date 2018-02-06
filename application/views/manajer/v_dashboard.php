@@ -164,7 +164,7 @@
                               <div class="form-group">
                                   <input type="file" accept=".sql" name="datafile" id="datafile"/>
                               </div>
-                              <button id="db-restore" type="button" class="btn btn-primary">Upload Database</button>
+                              <button id="db-restore" type="button" class="btn btn-primary disabled">Upload Database</button>
                             </form>
                           </span>
                         </div>
@@ -181,9 +181,19 @@
 
       $(document).ready(function() {
 
+
         $('#db-backup').on('click', function(){
           $('#notification').modal('toggle')
           $('#notification #notification-text').text('Berhasil Dicadangkan')
+        })
+
+        $('#datafile').on('change', function(){
+          hasFile = $(this).prop('file')
+          if(hasFile != null){
+            $('button#db-restore').addClass('disabled')
+          }else{
+            $('button#db-restore').removeClass('disabled')
+          }
         })
 
         $('button#db-restore').on('click', function(){
@@ -203,7 +213,16 @@
             }
           }).done(function(response){
             console.log(response);
-            $('#notification #notification-text').text('Berhasil')
+            switch (response.code) {
+              case 200:
+                $('#notification #notification-text').text('Berhasil')
+                break;
+              case 500:
+                $('#notification #notification-text').text('Terjadi Kesalahan')
+                break;
+              default:
+            }
+
             window.location.reload()
           }).fail(function(xhr, statusTexgt, errorThrone){
             console.log(xhr);
@@ -216,6 +235,14 @@
 
       </script>
 
+      <style media="screen" scoped="true">
+        #notification p#notification-text{
+          margin:0px;
+          text-align: center;
+          font-size: 1.25em;
+          font-weight: bold;
+        }
+      </style>
       <!-- Modal -->
       <div id="notification" class="modal fade" role="dialog">
         <div class="modal-dialog">
