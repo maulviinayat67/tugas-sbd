@@ -181,7 +181,6 @@
 
       $(document).ready(function() {
 
-
         $('#db-backup').on('click', function(){
           $('#notification').modal('toggle')
           $('#notification #notification-text').text('Berhasil Dicadangkan')

@@ -90,6 +90,7 @@ class Transaksi extends CI_Controller {
 		$this->pdf->filename = "struk-transaksi-".$id.".pdf";
 		$this->pdf->load_view('struk_pdf', $data);
 
+
 	}
 
 	public function validasi_data()
