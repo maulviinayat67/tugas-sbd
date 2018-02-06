@@ -231,11 +231,6 @@ class Home extends CI_Controller
         }
     }
 
-    protected function do_upload($name)
-    {
-      return $_FILES['datafile'];
-    }
-
     public function restoredb()
     {
         $filePath = './assets/databases';
@@ -243,14 +238,12 @@ class Home extends CI_Controller
         $config['allowed_types'] = 'x-sql|sql';
 
         $this->load->library('upload', $config);
-
-        $request = $this->input->post();
-
         $response = array();
 
         if (!$this->upload->do_upload('datafile')) {
             $error = array('error' => $this->upload->display_errors());
             $response['status'] = 'Error';
+            $response['code'] = 500;
             $response['result'] = $error;
         } else {
             $file = $this->upload->data();
@@ -269,10 +262,9 @@ class Home extends CI_Controller
             }
 
             $response['status'] = 'Success';
-            $response['result'] = 'Database Berhasil Dipulihkan';
+            $response['code'] = 200;
         }
 
-        $response['data'] = $this->do_upload('datafile');
         echo json_encode($response);
     }
 }
