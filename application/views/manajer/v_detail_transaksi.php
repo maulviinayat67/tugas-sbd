@@ -21,7 +21,8 @@
         </h6>
 				<br>
 				<h6 class="box-title">Tanggal Transaksi : <?php foreach ($tgl_transaksi as $row) {
-            echo $row->tanggal;
+          $tanggal = date("j F Y h:m:s",strtotime($row->tanggal)); 
+            echo $tanggal;
           } ?>
         </h6>
   			<br>

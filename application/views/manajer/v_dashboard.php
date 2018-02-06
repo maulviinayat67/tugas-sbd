@@ -114,9 +114,10 @@
                                 <?php foreach ($data_transaksi as $row) {
     ?>
                                 <tbody>
+                                <?php $tanggal = date("j F Y h:m:s",strtotime($row->tanggal)) ?>
                                     <td><?php echo $row->id_transaksi ?></td>
                                     <td><?php echo $row->nama_pemesan ?></td>
-                                    <td><?php echo $row->tanggal ?></td>
+                                    <td><?php echo $tanggal;?></td>
                                     <td><?php echo $row->nama_pegawai ?></td>
 
                                 </tbody>
