@@ -37,7 +37,6 @@
                 <div class="small-box bg-yellow">
                     <div class="inner">
                         <h3><?php echo $jml_meja ?></h3>
-
                         <p>Meja</p>
                     </div>
                     <div class="icon">
@@ -54,7 +53,6 @@
                 <div class="small-box bg-green">
                     <div class="inner">
                         <h3><?php echo $jml_pegawai ?></h3>
-
                         <p>Pegawai</p>
                     </div>
                     <div class="icon">
@@ -71,7 +69,6 @@
                 <div class="small-box bg-red">
                     <div class="inner">
                         <h3><?php echo $jml_makanan ?></h3>
-
                         <p>Makanan</p>
                     </div>
                     <div class="icon">
@@ -114,8 +111,8 @@
                                         <th>Nama Pegawai</th>
                                     </tr>
                                 </thead>
-                                <?php foreach($data_transaksi as $row)
-                                    { ?>
+                                <?php foreach ($data_transaksi as $row) {
+    ?>
                                 <tbody>
                                     <td><?php echo $row->id_transaksi ?></td>
                                     <td><?php echo $row->nama_pemesan ?></td>
@@ -123,7 +120,8 @@
                                     <td><?php echo $row->nama_pegawai ?></td>
 
                                 </tbody>
-                                <?php }?>
+                                <?php
+}?>
                             </table>
                         </div>
                         <!-- /.table-responsive -->
@@ -157,15 +155,15 @@
                         <div class="table-responsive" style="display:flex;justify-content:space-between">
                           <span class="">
                             <h4>Cadangkan Database</h4>
-                            <a href="<?php echo base_url();?>home/backupalldb" type="button" class="btn btn-primary">Backup Database</a>
+                            <a id="db-backup" href="<?php echo base_url();?>home/backupalldb" type="button" class="btn btn-primary">Backup Database</a>
                           </span>
                           <span>
                             <h4>Pulihkan Database</h4>
-                            <form enctype="multipart/form-data" action="<?php echo base_url();?>home/restoredb" method="post">
+                            <form id="sql-file" enctype="multipart/form-data" action="<?php echo base_url();?>home/restoredb" method="post">
                               <div class="form-group">
                                   <input type="file" accept=".sql" name="datafile" id="datafile"/>
                               </div>
-                              <button type="submit" class="btn btn-primary">Upload Database</button>
+                              <button id="db-restore" type="button" class="btn btn-primary">Upload Database</button>
                             </form>
                           </span>
                         </div>
@@ -175,6 +173,47 @@
               </div>
             </div>
       </section>
+
+      <script src="<?php echo base_url('assets/jquery/jquery-3.2.1.min.js') ?>"></script>
+      <script type="text/javascript">
+
+
+      $(document).ready(function() {
+
+        $('#db-backup').on('click', function(){
+          $('#notification').modal('toggle')
+          $('#notification #notification-text').text('Berhasil Dicadangkan')
+        })
+
+        $('button#db-restore').on('click', function(){
+          data = new FormData($('#sql-file')[0])
+          $.ajax({
+            method : 'post',
+            url : 'home/restoredb',
+            mimeType: "multipart/form-data",
+            cache : false,
+            processData : false,
+            contentType : false,
+            data : data,
+            beforeSend : function(response){
+              console.log('processing...');
+              $('#notification').modal('toggle')
+              $('#notification #notification-text').text('Sedang Diproses')
+            }
+          }).done(function(response){
+            console.log(response);
+            $('#notification #notification-text').text('Berhasil')
+            window.location.reload()
+          }).fail(function(xhr, statusTexgt, errorThrone){
+            console.log(xhr);
+            $('#notification').modal('toggle')
+            $('#notification #notification-text').text('Gagal')
+          })
+
+        })
+      })
+
+      </script>
 
       <!-- Modal -->
       <div id="notification" class="modal fade" role="dialog">

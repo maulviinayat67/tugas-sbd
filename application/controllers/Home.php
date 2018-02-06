@@ -52,11 +52,11 @@ class Home extends CI_Controller
         $excel = new PHPExcel();
         // Settingan awal fil excel
         $excel->getProperties()->setCreator('MDI')
-                     ->setLastModifiedBy('MDI')
-                     ->setTitle("Laporan Transaksi")
-                     ->setSubject("Transaksi")
-                     ->setDescription("Laporan Semua Data Transaksi")
-                     ->setKeywords("Laporan Transaksi");
+               ->setLastModifiedBy('MDI')
+               ->setTitle("Laporan Transaksi")
+               ->setSubject("Transaksi")
+               ->setDescription("Laporan Semua Data Transaksi")
+               ->setKeywords("Laporan Transaksi");
         // Buat sebuah variabel untuk menampung pengaturan style dari header tabel
         $style_col = array(
           'font' => array('bold' => true), // Set font nya jadi bold
@@ -215,20 +215,25 @@ class Home extends CI_Controller
         $this->load->dbforge();
         $tables = $this->db->list_tables();
         foreach (array_reverse($tables) as $table) {
-            if ($table == 'tbl_struk') {
-                $this->db->query($this->drop_foreign_key($table, 'tbl_struk_ibfk_1'));
-                $this->db->query($this->drop_foreign_key($table, 'tbl_struk_ibfk_2'));
-            } elseif ($table == 'tbl_pesanmeja') {
-                $this->db->query($this->drop_foreign_key($table, 'tbl_pesanmeja_ibfk_1'));
-                $this->db->query($this->drop_foreign_key($table, 'tbl_pesanmeja_ibfk_2'));
-            } elseif ($table == 'tbl_pemesanan') {
-                $this->db->query($this->drop_foreign_key($table, 'tbl_pemesanan_ibfk_1'));
-            } elseif ($table == 'tbl_pegawai') {
-                $this->db->query($this->drop_foreign_key($table, 'tbl_pegawai_ibfk_1'));
-            }
-            $this->db->truncate($table);
-            $this->dbforge->drop_table($table, true);
+          if ($table == 'tbl_struk') {
+              $this->db->query($this->drop_foreign_key($table, 'tbl_struk_ibfk_1'));
+              $this->db->query($this->drop_foreign_key($table, 'tbl_struk_ibfk_2'));
+          } elseif ($table == 'tbl_pesanmeja') {
+              $this->db->query($this->drop_foreign_key($table, 'tbl_pesanmeja_ibfk_1'));
+              $this->db->query($this->drop_foreign_key($table, 'tbl_pesanmeja_ibfk_2'));
+          } elseif ($table == 'tbl_pemesanan') {
+              $this->db->query($this->drop_foreign_key($table, 'tbl_pemesanan_ibfk_1'));
+          } elseif ($table == 'tbl_pegawai') {
+              $this->db->query($this->drop_foreign_key($table, 'tbl_pegawai_ibfk_1'));
+          }
+          $this->db->truncate($table);
+          $this->dbforge->drop_table($table, true);
         }
+    }
+
+    protected function do_upload($name)
+    {
+      return $_FILES['datafile'];
     }
 
     public function restoredb()
@@ -239,9 +244,14 @@ class Home extends CI_Controller
 
         $this->load->library('upload', $config);
 
+        $request = $this->input->post();
+
+        $response = array();
+
         if (!$this->upload->do_upload('datafile')) {
             $error = array('error' => $this->upload->display_errors());
-
+            $response['status'] = 'Error';
+            $response['result'] = $error;
         } else {
             $file = $this->upload->data();
             $fotoupload = $file['file_name'];
@@ -258,9 +268,12 @@ class Home extends CI_Controller
                 $this->db->query($statement);
             }
 
-            redirect('home');
-
+            $response['status'] = 'Success';
+            $response['result'] = 'Database Berhasil Dipulihkan';
         }
+
+        $response['data'] = $this->do_upload('datafile');
+        echo json_encode($response);
     }
 }
 
