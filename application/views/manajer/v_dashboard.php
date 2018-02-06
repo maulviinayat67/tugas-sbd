@@ -154,29 +154,45 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <div class="table-responsive">
-
-                            <form action="<?php echo base_url();?>home/backupdb" method="post">
-                                <div class="form-group">
-                                    <select required="" name="tabeldb">
-                                        <?php
-                           foreach ($tabel as $baris) {  ?>
-                                        <option value="<?php echo $baris->Tables_in_db_tugas_sbd; ?>"><?php echo $baris->Tables_in_db_tugas_sbd; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Backup Database</button>
-                                <a href="<?php echo base_url();?>home/backupalldb" type="button" class="btn btn-primary pull-right">Backup Semua Database</a>
-                            </form>
-                            <br>
-                            <br>
+                        <div class="table-responsive" style="display:flex;justify-content:space-between">
+                          <span class="">
+                            <h4>Cadangkan Database</h4>
+                            <a href="<?php echo base_url();?>home/backupalldb" type="button" class="btn btn-primary">Backup Database</a>
+                          </span>
+                          <span>
+                            <h4>Pulihkan Database</h4>
                             <form enctype="multipart/form-data" action="<?php echo base_url();?>home/restoredb" method="post">
-                                <div class="form-group">
-                                    <input type="file" name="datafile" id="datafile"/>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Upload Database</button>
+                              <div class="form-group">
+                                  <input type="file" accept=".sql" name="datafile" id="datafile"/>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Upload Database</button>
                             </form>
-
+                          </span>
                         </div>
-                    </section>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+      </section>
+
+      <!-- Modal -->
+      <div id="notification" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Pemberitahuan</h4>
+            </div>
+            <div class="modal-body">
+              <p id="notification-text"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>

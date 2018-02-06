@@ -5,6 +5,7 @@
         "email": "maulvi67@gmail.com"
     }],
     "require": {
-        "dompdf/dompdf": "0.6.*"
+        "dompdf/dompdf": "0.6.*",
+        "ifsnop/mysqldump-php": "2.*"
     }
 }

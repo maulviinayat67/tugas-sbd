@@ -176,7 +176,7 @@ function hapus_makanan(id)
      	},
      	error:function(jqXHR, textStatus, errorThrown)
      	{
-     		alert('Error hapus data');
+     		console.log(jqXHR);
      	}
      });
  }
