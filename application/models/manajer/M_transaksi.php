@@ -6,7 +6,7 @@ class M_transaksi extends CI_Model {
 
 
 	function json() {
-    $this->datatables->select('tbl_struk.id_pemesanan,tbl_pemesanan.nama_pemesan,tbl_pemesanan.tanggal,tbl_pegawai.nama');
+    $this->datatables->select('tbl_struk.id_pemesanan,tbl_pemesanan.nama_pemesan, DATE_FORMAT(tbl_pemesanan.tanggal, "%d %M %Y %k:%i:%s") AS tanggal ,tbl_pegawai.nama');
 		$this->datatables->from('tbl_struk');
 		$this->datatables->join('tbl_pemesanan','tbl_struk.id_pemesanan = tbl_pemesanan.id_pemesanan');
 		$this->datatables->join('tbl_pegawai','tbl_pemesanan.id_pegawai = tbl_pegawai.id_pegawai');
