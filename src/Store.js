@@ -8,6 +8,7 @@ export const store = new Vuex.Store({
     meja : [],
     foods : [],
     cart : {
+      nama : '',
       tableNumber : [],
       foods : [],
       bill : 0

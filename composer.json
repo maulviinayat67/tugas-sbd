@@ -1,0 +1,11 @@
+{
+    "name": "maulvi67/tugas-sbd",
+    "authors": [{
+        "name": "maulvi",
+        "email": "maulvi67@gmail.com"
+    }],
+    "require": {
+        "dompdf/dompdf": "0.6.*",
+        "ifsnop/mysqldump-php": "2.*"
+    }
+}

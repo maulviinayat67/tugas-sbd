@@ -22,15 +22,15 @@ class Makanan extends CI_Controller {
 		$data['base_link'] 	= '';
 		$data['content'] 	= 'manajer/v_makanan';
 
-		$data['data_makanan'] = $this->M_makanan->get_data();	
+		$data['data_makanan'] = $this->M_makanan->get_data();
 
-		$this->load->view('v_home',$data);			
+		$this->load->view('v_home',$data);
 	}
 
 	public function ajax_add()
 	{
 		$this->validasi_data();
-				
+
 				$config['upload_path']          = './assets/gambar/';
                 $config['allowed_types']        = 'gif|jpg|png';
                 $config['max_size']             = 2048;
@@ -58,7 +58,7 @@ class Makanan extends CI_Controller {
 			echo json_encode(array('status'=>TRUE));
 		}
 
-		
+
 
 	}
 
@@ -71,32 +71,35 @@ class Makanan extends CI_Controller {
 
 	public function ajax_update()
 	{
-			$config['upload_path']          = './assets/gambar/';
-            $config['allowed_types']        = 'gif|jpg|png';
-            $config['max_size']             = 2048;
-            // $config['max_width']            = 1024;
-            // $config['max_height']           = 768;
-           	$config['remove_space'] = TRUE;
+		$data = '';
+		$config['upload_path']          = './assets/gambar/';
+    $config['allowed_types']        = 'gif|jpg|png';
+    $config['max_size']             = 2048;
+    // $config['max_width']            = 1024;
+    // $config['max_height']           = 768;
+   	$config['remove_space'] = TRUE;
 
-            $this->load->library('upload',$config);
-
-    if($this->upload->do_upload('gambar_makanan'))
-      {
-    	$upload_data = $this->upload->data();
-        $path_gambar = $upload_data['file_name'];
+    $this->load->library('upload',$config);
 
 		$data = array(
 			'id_makanan'	=> $this->input->post('id_makanan'),
 			'nama'			=> $this->input->post('nama_makanan'),
 			'tipe'			=> $this->input->post('jenis_makanan'),
-			'harga'			=> $this->input->post('harga_makanan'),
-			'gambar'		=> $path_gambar
+			'harga'			=> $this->input->post('harga_makanan')
 		);
 
-		$this->M_makanan->update_data(array('id_makanan'=>$this->input->post('id_makanan')),$data);
+    if($this->upload->do_upload('gambar_makanan'))
+    {
+    	$upload_data = $this->upload->data();
+      $path_gambar = $upload_data['file_name'];
 
-		echo json_encode(array('status'=>TRUE));
+			$data['gambar']= $path_gambar;
+
 		}
+
+		
+		$result = $this->M_makanan->update_data(array('id_makanan'=>$this->input->post('id_makanan')),$data);
+		echo json_encode(array('status'=>200,'result'=>$result));
 	}
 
 	public function ajax_delete($id)
@@ -109,12 +112,12 @@ class Makanan extends CI_Controller {
 	public function ajax_bulk_delete()
 	{
 		$list_id = $this->input->post('id_makanan');
-		foreach ($list_id as $id) 
+		foreach ($list_id as $id)
 		{
 			$this->M_makanan->delete_by_id($id);
 		}
 		echo json_encode(array('status'=>TRUE));
-	
+
 	}
 
 	public function get_data()
@@ -122,7 +125,7 @@ class Makanan extends CI_Controller {
 		$list = $this->M_makanan->get_datatables();
 		$data = array();
 		// $no = $_POST['start'];
-		foreach ($list as $makanan) 
+		foreach ($list as $makanan)
 		{
 			// $no++;
 			$row = array();
@@ -132,7 +135,7 @@ class Makanan extends CI_Controller {
 			}
 			else
 			{
-				$filefoto =''.base_url().'assets/gambar/'.$makanan->gambar.''; 
+				$filefoto =''.base_url().'assets/gambar/'.$makanan->gambar.'';
 			}
 			$row[] = '<input type="checkbox" class="data-check" value="'.$makanan->id_makanan .'">'	;
 			// $row[] = $no;
@@ -142,7 +145,7 @@ class Makanan extends CI_Controller {
 			$row[] = $makanan->harga;
 			$row[] = '<img src="'.$filefoto.'" width="100">';
 
-			$row[] = '<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_makanan('."'".$makanan->id_makanan."'".') "><span class="fa fa-pencil"></span> Edit</a>&nbsp; 
+			$row[] = '<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_makanan('."'".$makanan->id_makanan."'".') "><span class="fa fa-pencil"></span> Edit</a>&nbsp;
 			<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="hapus_makanan('."'".$makanan->id_makanan."'".') "><span class="fa fa-trash"></span> Hapus</a>';
 
 			$data[] = $row;
@@ -206,7 +209,7 @@ class Makanan extends CI_Controller {
 			exit();
 		}
 	}
-	
+
 
 }
 

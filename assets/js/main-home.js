@@ -14850,6 +14850,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -14865,6 +14874,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   methods: {
     newOrder() {
       this.noStruk = '';
+      this.cartData.nama = '';
       this.hasOrdered = false;
     },
     openCart() {
@@ -14883,8 +14893,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }
     },
     send() {
-      this.$http.post('api/v1/order', this.cartData, { emulateJSON: true }).then(response => {
-        // console.log(response);
+      this.$http.post('api/v1/order', this.cartData, { emulateJSON: true }).then(
+      //success
+      response => {
+        console.log(response);
         this.$store.dispatch('switchProgressStatus');
         this.$store.dispatch('loadTable');
         this.$store.dispatch('loadFoods');
@@ -14894,6 +14906,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.noStruk = response.data.order_id;
         bootbox.alert('Terima Kasih Sudah Memesan');
         this.$store.dispatch('switchProgressStatus');
+      },
+      //fail
+      response => {
+        console.log(response);
       });
     },
     sendAgain() {
@@ -15035,6 +15051,12 @@ var render = function() {
           _c("h5", [_vm._v("Pesan Lagi?")]),
           _vm._v(" "),
           _c("p", [
+            _vm._v("Pemesan : "),
+            _c("b", [_vm._v(_vm._s(_vm.cartData.nama))]),
+            _vm._v(".")
+          ]),
+          _vm._v(" "),
+          _c("p", [
             _vm._v("Ini nomor pesanan Anda "),
             _c("b", [_vm._v(_vm._s(_vm.noStruk))])
           ]),
@@ -15046,23 +15068,72 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c(
-            "button",
+            "a",
             {
-              staticClass: "btn btn-default full-width",
-              attrs: { type: "button", name: "button" },
-              on: {
-                click: function($event) {
-                  _vm.newOrder()
-                }
+              attrs: {
+                download: "struk-" + _vm.noStruk + ".pdf",
+                href: "api/v1/get-struk/" + _vm.noStruk
               }
             },
-            [_vm._v("Sudahi Pemesanan")]
-          )
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default full-width",
+                  attrs: { type: "button", name: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.newOrder()
+                    }
+                  }
+                },
+                [_vm._v("Sudahi Pemesanan")]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("p", { staticClass: "note" }, [
+            _vm._v(
+              "Dengan menekan tombol di atas, Anda akan mengakhiri pemesanan yang Anda lakukan dan Anda akan mendapat struk untuk melanjutkan pembayaran."
+            )
+          ])
         ])
       : _vm._e(),
     _vm._v(" "),
     !_vm.hasOrdered
       ? _c("div", {}, [
+          _c("h5", [_vm._v("Nama Anda")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form" }, [
+            _c("p", [_vm._v("Masukkan Nama Anda")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.cartData.nama,
+                  expression: "cartData.nama"
+                }
+              ],
+              staticClass: "full-width",
+              attrs: {
+                type: "text",
+                placeholder: "Masukkan Nama Anda Di Sini ...",
+                value: ""
+              },
+              domProps: { value: _vm.cartData.nama },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.cartData, "nama", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
           _c("h5", [_vm._v("Meja")]),
           _vm._v(" "),
           _c("div", { staticClass: "list" }, [
@@ -15455,6 +15526,7 @@ var store = exports.store = new _vuex2.default.Store({
     meja: [],
     foods: [],
     cart: {
+      nama: '',
       tableNumber: [],
       foods: [],
       bill: 0

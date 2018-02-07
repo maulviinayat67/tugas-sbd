@@ -9,38 +9,19 @@
 <script src="<?php echo base_url('assets/plugins/slimScroll/jquery.slimscroll.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/plugins/DataTables/js/jquery.dataTables.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/plugins/DataTables/js/dataTables.bootstrap.min.js') ?>"></script>
+<script src="<?php echo base_url('assets/plugins/datepicker/bootstrap-datepicker.js')?>"></script>
+<script src="<?php echo base_url('assets/plugins/datepicker/locales/bootstrap-datepicker.id.js')?>"></script>
+
 <!-- <script src="<?php echo base_url('assets/dist/pages/dashboard2.js') ?>"></script> -->
 
 <script type="text/javascript">
+//filter data
+
 	var save_method; //for save method string
 	var table;
 	var base_url = '<?php echo base_url();?>';
 
 	$(document).ready(function() {
-
-
-
-    //  $('#tabeltransaksi').DataTable( {
-
-    //         "language": {
-    //             "sProcessing":   "Sedang memproses...",
-    //             "sLengthMenu":   "Tampilkan _MENU_ data",
-    //             "sZeroRecords":  "Tidak ditemukan data yang sesuai",
-    //             "sInfo":         "Menampilkan _START_ sampai _END_ dari _TOTAL_ data",
-    //             "sInfoEmpty":    "Menampilkan 0 sampai 0 dari 0 data",
-    //             "sInfoFiltered": "(disaring dari _MAX_ data keseluruhan)",
-    //             "sInfoPostFix":  "",
-    //             "sSearch":       "Cari:",
-    //             "sUrl":          "",
-    //             "oPaginate": {
-    //                 "sFirst":    "Pertama",
-    //                 "sPrevious": "Sebelumnya",
-    //                 "sNext":     "Selanjutnya",
-    //                 "sLast":     "Terakhir"
-    //             }
-    //         },
-
-    //         } );
 
 		table = $('#tabelmakanan').DataTable( {
 
@@ -73,13 +54,13 @@
 
         //Set column definition initialisation properties.
                 "columnDefs": [
-            { 
-                "targets": [ 0 ], //first column
-                "orderable": false, //set not orderable
+            {
+                "targets": [ 0 ] //first column
+                //set not orderable
             },
-            { 
-                "targets": [ -1 ], //last column
-                "orderable": false, //set not orderable
+            {
+                "targets": [ -1 ] //last column
+                //set not orderable
             },
 
         ],
@@ -123,13 +104,13 @@
 
         //Set column definition initialisation properties.
                 "columnDefs": [
-            { 
-                "targets": [ 0 ], //first column
-                "orderable": false, //set not orderable
+            {
+                "targets": [ 0 ] //first column
+                //set not orderable
             },
-            { 
-                "targets": [ -1 ], //last column
-                "orderable": false, //set not orderable
+            {
+                "targets": [ -1 ]//last column
+                //set not orderable
             },
 
         ],
@@ -148,7 +129,7 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
                         "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
                     };
                 };
- 
+
                 var t = $("#tabeltransaksi").dataTable({
                     // initComplete: function() {
                     //     var api = this.api();
@@ -167,10 +148,10 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
                     serverSide: true,
                     ajax: {"url": "<?php echo site_url('manajer/transaksi/json')?>", "type": "POST"},
                     columns: [
-                        {"data": "id_pemesanan", "orderable": false
-						},
-                        {"data": "tanggal", "orderable": false},
-						{"data": "nama", "orderable": false},
+                        {"data": "id_pemesanan", "orderable": true},
+                        {"data": "nama_pemesan", "orderable": true},
+                        {"data": "tanggal", "orderable": true},
+												{"data": "nama", "orderable": true},
                         {"data": "view"}
                     ],
                     order: [[1, 'asc']],
@@ -182,11 +163,7 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings)
                     //     $('td:eq(0)', row).html(index);
                     // }
                 });
-            
-
-
-
-	});
+            	});
 </script>
 </body>
 </html>

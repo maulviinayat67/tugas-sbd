@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/dist/AdminLTE.min.css') ?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/dist/skins/_all-skins.min.css') ?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datepicker/datepicker3.css')?>">
+
   
 
 </head>

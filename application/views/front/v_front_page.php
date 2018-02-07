@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php echo $title ?></title>
+    <link href='<?php echo base_url('assets/img/icon_title.png') ?>' rel='shortcut icon'>
     <link rel="stylesheet" href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/fonts/css/font-awesome.min.css') ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/plugins/slick-1.8.0/slick/slick.css') ?>">

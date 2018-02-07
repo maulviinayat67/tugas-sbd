@@ -8,6 +8,11 @@ class Transaksi extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('manajer/M_makanan');
+		$this->load->model('manajer/M_meja');
+		$this->load->model('manajer/M_pemesanan');
+		$this->load->model('manajer/M_pesan_meja');
+		$this->load->model('manajer/M_struk');
 		$this->load->model('M_security');
 		$this->load->model('manajer/M_transaksi');
 		$this->load->library('datatables');
@@ -21,11 +26,17 @@ class Transaksi extends CI_Controller {
 
 		$data['judul']		= 'Home';
 		$data['sub_judul']	= 'Transaksi';
-		$data['user'] 		= 'MANAJER';
+		if($level == 'manajer'){
+				$data['user'] 		= 'MANAJER';
+		}
+		elseif (($level == 'kasir')) {
+			$data['user'] 		= 'KASIR';
+		}
+		$data['id_pegawai'] = $key;
 		$data['base_link'] 	= '';
 		$data['content'] 	= 'manajer/v_transaksi';
 
-		$this->load->view('v_home',$data);			
+		$this->load->view('v_home',$data);
 	}
 
 	function json()
@@ -33,83 +44,52 @@ class Transaksi extends CI_Controller {
         header('Content-Type: application/json');
         echo $this->M_transaksi->json();
 	}
-	
+
 	function detail_harga($id)
 	{
-		
+
+		$level = $this->session->userdata('level');
+		$key   = $this->session->userdata('id_pegawai');
 		$this->M_security->cek_security();
 		$data['judul']		= 'Transaksi';
 		$data['sub_judul']	= 'Detail Transaksi';
-		$data['user'] 		= 'MANAJER';
+		if($level == 'manajer'){
+				$data['user'] 		= 'MANAJER';
+		}
+		elseif (($level == 'kasir')) {
+			$data['user'] 		= 'KASIR';
+		}
 		$data['base_link'] 	= '';
 		$data['content'] 	= 'manajer/v_detail_transaksi';
 
 		$data['detail_transaksi'] 	= $this->M_transaksi->data_detail($id);
 		$data['kode_transaksi'] 	= $id;
 		$data['tgl_transaksi']		= $this->M_transaksi->tanggal_transaksi($id);
+		$data['nama_pemesan']		= $this->M_transaksi->nama_pemesan($id);
+		$data['total_harga']		= $this->M_transaksi->total_harga($id);
+		$data['nama_pegawai']		= $this->M_transaksi->nama_pegawai($id);
+		$data['id_pegawai'] = $key;
+
+		$this->load->view('v_home',$data);
+
+
+	}
+
+	function struk_pdf($id)
+	{
+		$this->load->library('pdf');
+		$data['detail_transaksi'] 	= $this->M_transaksi->data_detail($id);
+		$data['kode_transaksi'] 	= $id;
+		$data['tgl_transaksi']		= $this->M_transaksi->tanggal_transaksi($id);
+		$data['nama_pemesan']		= $this->M_transaksi->nama_pemesan($id);
 		$data['total_harga']		= $this->M_transaksi->total_harga($id);
 		$data['nama_pegawai']		= $this->M_transaksi->nama_pegawai($id);
 
-		$this->load->view('v_home',$data);	
+		$this->pdf->setPaper('A4', 'potrait');
+		$this->pdf->filename = "struk-transaksi-".$id.".pdf";
+		$this->pdf->load_view('struk_pdf', $data);
+
 	}
-
-	// public function get_data()
-	// {
-	// 	$list = $this->M_transaksi->get_datatables();
-	// 	$data = array();
-	// 	// $no = $_POST['start'];
-	// 	foreach ($list as $transaksi) 
-	// 	{
-
-	// 		$row[] = '<input type="checkbox" class="data-check" value="'.$transaksi->id_makanan .'">'	;
-	// 		// $row[] = $no;
-	// 		$row[] = $transaksi->id_makanan;
-	// 		$row[] = $transaksi->nama;
-	// 		$row[] = $transaksi->harga;
-	// 		$row[] = $transaksi->id_pegawai;
-
-	// 		$row[] = '<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="edit_makanan('."'".$transaksi->id_makanan."'".') "><span class="fa fa-pencil"></span> Edit</a>&nbsp; 
-	// 		<a href="javascript:void(0) " class="btn btn-primary btn-xs" onclick="hapus_makanan('."'".$transaksi->id_makanan."'".') "><span class="fa fa-trash"></span> Hapus</a>';
-
-	// 		$data[] = $row;
-
-	// 	}
-
-	// 	$output = array(
-	// 					"draw" =>$_POST['draw'],
-	// 					"recordsTotal" => $this->M_transaksi->count_all(),
-	// 					"recordsFiltered" => $this->M_transaksi->count_filtered(),
-	// 					"data" => $data,
-	// 			);
-
-	// 	echo json_encode($output);
-	// }
-
-	// public function showalldata()
-	// {
-	// 	$list = $this->M_transaksi->get_data();
-	// 	echo json_encode($list);
-	// }
-
-	// public function ajax_add()
-	// {
-	// 	$this->validasi_data();
-				
-
-    //     {
-
-	// 		$data = array(
-	// 			'id_pemesanan'	=> $this->input->post('id_pemesanan'),
-	// 			'id_makanan'	=> $this->input->post('id_makanan'),
-	// 		);
-
-
-	// 		$this->M_transaksi->add_data($data);
-	// 		echo json_encode(array('status'=>TRUE));
-	// 	}
-
-	// }
-
 
 	public function validasi_data()
 	{
@@ -141,6 +121,14 @@ class Transaksi extends CI_Controller {
 		}
 	}
 
+	public function konfirmasi()
+	{
+		$data = $this->input->post();
+		$this->M_pemesanan->konfirmSetPegawai($data);
+		$dataMeja = ($this->M_pesan_meja->getDataByID($data['id_pemesan']));
+		$this->M_meja->resetMejaByid($dataMeja);
+		echo json_encode($data);
+	}
 }
 
 /* End of file Transaksi.php */

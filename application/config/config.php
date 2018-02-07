@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+$config['composer_autoload'] = "./vendor/autoload.php";
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 global $SConfig;
+
 $config['base_url'] = 'http://localhost/tugas-sbd';
 // $config['base_url'] = 'http://localhost/tugas-sbd-2/tugas-sbd';
 
@@ -225,7 +226,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------
@@ -379,6 +380,15 @@ $config['encryption_key'] = '';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
+
+// $config['sess_driver'] = 'database';
+// $config['sess_cookie_name'] = 'ci_session';
+// $config['sess_expiration'] = 7200;
+// $config['sess_save_path'] = NULL;
+// $config['sess_match_ip'] = FALSE;
+// $config['sess_time_to_update'] = 300;
+// $config['sess_regenerate_destroy'] = FALSE;
+
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;

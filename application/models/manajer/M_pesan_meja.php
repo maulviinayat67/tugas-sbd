@@ -9,7 +9,11 @@ class M_pesan_meja extends CI_Model{
 
   public function getData()
   {
-    return $this->db->get($this->table)->result();
+    return $this->db->get($this->table)->group_by('id_pemesanan')->result();
+  }
+  public function getDataByID($id)
+  {
+    return $this->db->get_where($this->table,['id_pemesanan'=>$id])->result();
   }
 
   public function addData($data)

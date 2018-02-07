@@ -8,11 +8,20 @@
     </div>
     <div class="" v-if="hasOrdered">
       <h5>Pesan Lagi?</h5>
+      <p>Pemesan : <b>{{cartData.nama}}</b>.</p>
       <p>Ini nomor pesanan Anda <b>{{noStruk}}</b></p>
       <p>Apabila Anda sudah tidak ingin memesan lagi, silahkan tekan tombol di bawah ini</p>
-      <button @click="newOrder()" type="button" name="button" class="btn btn-default full-width">Sudahi Pemesanan</button>
+      <a :download="'struk-'+noStruk+'.pdf'" :href="'api/v1/get-struk/'+noStruk">
+        <button @click="newOrder()" type="button" name="button" class="btn btn-default full-width">Sudahi Pemesanan</button>
+      </a>
+      <p class="note">Dengan menekan tombol di atas, Anda akan mengakhiri pemesanan yang Anda lakukan dan Anda akan mendapat struk untuk melanjutkan pembayaran.</p>
     </div>
     <div class="" v-if="!hasOrdered">
+      <h5>Nama Anda</h5>
+      <div class="form">
+        <p>Masukkan Nama Anda</p>
+        <input class="full-width" v-model="cartData.nama" type="text" placeholder="Masukkan Nama Anda Di Sini ..." value="">
+      </div>
       <h5>Meja</h5>
       <div class="list">
         <p>Pilih meja : </p>
@@ -106,6 +115,7 @@ export default {
 	methods: {
     newOrder(){
       this.noStruk = ''
+      this.cartData.nama = ''
       this.hasOrdered = false
     },
     openCart() {
@@ -125,8 +135,10 @@ export default {
     },
     send(){
       this.$http.post('api/v1/order',this.cartData,{emulateJSON:true})
-        .then((response)=>{
-          // console.log(response);
+        .then(
+          //success
+          (response)=>{
+          console.log(response);
           this.$store.dispatch('switchProgressStatus')
           this.$store.dispatch('loadTable')
           this.$store.dispatch('loadFoods')
@@ -136,7 +148,12 @@ export default {
           this.noStruk = response.data.order_id
           bootbox.alert('Terima Kasih Sudah Memesan')
           this.$store.dispatch('switchProgressStatus')
-        })
+        },
+        //fail
+        (response) =>{
+          console.log(response);
+        }
+      )
     },
     sendAgain(){
       let data = {

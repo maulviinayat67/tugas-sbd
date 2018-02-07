@@ -1,4 +1,7 @@
 <?php
+// timezone
+date_default_timezone_set("Asia/Jakarta");
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class APIHomePage extends CI_Controller{
@@ -27,7 +30,7 @@ class APIHomePage extends CI_Controller{
   public function setOrder()
   {
     $data['data'] = $this->input->post();
-    $data['date'] = date('Y-m-d');
+    $data['date'] = date('Y-m-d H:i:s');
     $data['order_id'] = $this->generateOrderID();
 
     $this->M_pemesanan->addData($this->parseTblPemesanan($data));
@@ -65,6 +68,7 @@ class APIHomePage extends CI_Controller{
   }
 
   protected function parseTblPemesanan($data){
+    $temp['nama_pemesan'] = $data['data']['nama'];
     $temp['id_pemesanan'] = $data['order_id'];
     $temp['id_pegawai'] = "P000"; // means not yet confirmed
     // $temp['total_harga'] = $data['data']['bill'];
