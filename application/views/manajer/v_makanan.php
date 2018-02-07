@@ -271,7 +271,6 @@ function simpan()
     	processData: false,
     	success:function(response)
     	{
-
   			console.log(response);
   			$('#makanan_modal').modal('hide');
   			reload_table();
@@ -286,7 +285,7 @@ function simpan()
       	alert('Error adding / update data')
 				$('#btnSave').text('save'); //change button text
         $('#btnSave').attr('disabled',false); //set button
-      	console.log(text);
+      	console.log(xhr);
 		});
 
 

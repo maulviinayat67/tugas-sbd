@@ -30,35 +30,37 @@ class Makanan extends CI_Controller {
 	public function ajax_add()
 	{
 		$this->validasi_data();
+		$config['upload_path']          = './assets/gambar/';
+    $config['allowed_types']        = 'gif|jpg|png';
+    $config['max_size']             = 2048;
+    // $config['max_width']            = 1024;
+    // $config['max_height']           = 768;
+    $config['remove_space'] = TRUE;
+   	$this->load->library('upload',$config);
 
-				$config['upload_path']          = './assets/gambar/';
-                $config['allowed_types']        = 'gif|jpg|png';
-                $config['max_size']             = 2048;
-                // $config['max_width']            = 1024;
-                // $config['max_height']           = 768;
-                $config['remove_space'] = TRUE;
+		$response = [];
 
-               $this->load->library('upload',$config);
+		$data['id_makanan'] = $this->input->post('id_makanan');
+		$data['nama'] = $this->input->post('nama_makanan');
+		$data['tipe'] = $this->input->post('jenis_makanan');
+		$data['harga'] = $this->input->post('harga_makanan');
 
-    if($this->upload->do_upload('gambar_makanan'))
-        {
-        	$upload_data = $this->upload->data();
-        	$path_gambar = $upload_data['file_name'];
+    if($this->upload->do_upload('gambar_makanan')) {
+    	$upload_data = $this->upload->data();
+    	$path_gambar = $upload_data['file_name'];
+			$data['gambar'] = $path_gambar;
 
-			$data = array(
-				'id_makanan'	=> $this->input->post('id_makanan'),
-				'nama'			=> $this->input->post('nama_makanan'),
-				'tipe'			=> $this->input->post('jenis_makanan'),
-				'harga'			=> $this->input->post('harga_makanan'),
-				'gambar'		=> $path_gambar
-			);
-
-
-			$this->M_makanan->add_data($data);
-			echo json_encode(array('status'=>TRUE));
+			$response['status'] = "Success";
+			$response['code'] = 200;
 		}
+		else{
+			$data['gambar'] = "";
+			$response['status'] = "Success - no image uploaded";
+			$response['code'] = 200;
+		}
+		$response['result'] =	$this->M_makanan->add_data($data);
 
-
+		echo json_encode($response);
 
 	}
 
@@ -97,7 +99,7 @@ class Makanan extends CI_Controller {
 
 		}
 
-		
+
 		$result = $this->M_makanan->update_data(array('id_makanan'=>$this->input->post('id_makanan')),$data);
 		echo json_encode(array('status'=>200,'result'=>$result));
 	}
