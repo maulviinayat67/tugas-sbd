@@ -102,7 +102,45 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="table-responsive">
-                            <table class="table no-margin">
+                          <form
+                              action="<?php echo base_url().'home/tanggal'?>"
+                              method="post"
+                              name="postform">
+                              <table width="854" border="0">
+                                  <tr>
+                                      <label>Tanggal Awal</label>
+
+                                      <div class="input-group date">
+                                          <div class="input-group-addon">
+                                              <i class="fa fa-calendar"></i>
+                                          </div>
+                                          <input type="text" class="form-control" id="datepicker1" name="tanggal_awal">
+                                      </div>
+
+                                  </tr>
+                                  <tr>
+                                      <label>Tanggal Akhir</label>
+
+                                      <div class="input-group date">
+                                          <div class="input-group-addon">
+                                              <i class="fa fa-calendar"></i>
+                                          </div>
+                                          <input type="text" class="form-control" id="datepicker2" name="tanggal_akhir" >
+                                      </div>
+
+                                      <tr>
+                                          <td width="188">
+                                              <button type="submit" name="cari" class="btn btn-white btn-info btn-bold">Tampilkan Data</button>
+                                          </td>
+                                      </tr>
+
+                                  </table>
+                              </form>
+                              <?php
+                              if (empty($tgl_awal) and empty($tgl_akhir)) {
+                                  ?>
+
+                              <table id="dynamic-table" class="table no-margin">
                                 <thead>
                                     <tr>
                                         <th>ID Transaksi</th>
@@ -112,17 +150,41 @@
                                     </tr>
                                 </thead>
                                 <?php foreach ($data_transaksi as $row) {
-    ?>
+                                      ?>
                                 <tbody>
-                                <?php $tanggal = date("j F Y h:m:s",strtotime($row->tanggal)) ?>
+                                <?php $tanggal = date("j F Y h:m:s", strtotime($row->tanggal)) ?>
                                     <td><?php echo $row->id_transaksi ?></td>
                                     <td><?php echo $row->nama_pemesan ?></td>
-                                    <td><?php echo $tanggal;?></td>
+                                    <td><?php echo $tanggal; ?></td>
                                     <td><?php echo $row->nama_pegawai ?></td>
 
                                 </tbody>
-                                <?php
-}?>
+                              <?php
+                                  }
+                              } else {
+                                  ?>
+                                      <table id="dynamic-table" class="table no-margin">
+                                  <thead>
+                                      <tr>
+                                          <th>ID Transaksi</th>
+                                          <th>Nama Pemesan</th>
+                                          <th>Tanggal</th>
+                                          <th>Nama Pegawai</th>
+                                      </tr>
+                                  </thead>
+                               <?php
+                                  foreach ($tanggal_transaksi as $row) {
+                                      ?>
+                                  <tbody>
+                                 <?php $tanggal = date("j F Y h:m:s", strtotime($row->tanggal)) ?>
+                                      <td><?php echo $row->id_transaksi ?></td>
+                                      <td><?php echo $row->nama_pemesan ?></td>
+                                      <td><?php echo $tanggal; ?></td>
+                                      <td><?php echo $row->nama_pegawai ?></td>
+                                      </tbody>
+                                  <?php
+                                  }
+                              }?>
                             </table>
                         </div>
                         <!-- /.table-responsive -->
