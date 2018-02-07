@@ -104,7 +104,7 @@
       <p>Nama Pemesan : <?php foreach ($nama_pemesan as $row) {
       echo $row->nama_pemesan;} ?></p>
       <p>Tanggal Transaksi :     <?php foreach ($tgl_transaksi as $row) {
-          echo $row->tanggal;
+          echo date("j F Y h:m:s",strtotime($row->tanggal));
       } ?></p>
       <p>Status : <?php foreach ($nama_pegawai as $row) {
           if ($row->nama !== '-') {

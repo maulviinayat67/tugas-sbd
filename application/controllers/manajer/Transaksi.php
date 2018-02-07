@@ -85,11 +85,9 @@ class Transaksi extends CI_Controller {
 		$data['total_harga']		= $this->M_transaksi->total_harga($id);
 		$data['nama_pegawai']		= $this->M_transaksi->nama_pegawai($id);
 
-
 		$this->pdf->setPaper('A4', 'potrait');
 		$this->pdf->filename = "struk-transaksi-".$id.".pdf";
 		$this->pdf->load_view('struk_pdf', $data);
-
 
 	}
 
