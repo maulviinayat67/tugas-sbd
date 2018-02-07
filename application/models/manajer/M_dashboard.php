@@ -8,7 +8,7 @@ class M_dashboard extends CI_Model {
 		$query = $this->db->get('tbl_pemesanan');
 		return $query->num_rows();
 
-	}	
+	}
 
 	function pegawai_count()
 	{
@@ -38,9 +38,16 @@ class M_dashboard extends CI_Model {
 		return $query->result();
 	}
 
-	
-	function tanggal_transaksi($tgl_awal,$tgl_akhir)
+
+	function tanggal_transaksi($tgl_awal = "0",$tgl_akhir = "0")
 	{
+		// if($tgl_awal == ''){
+		// 	$tgl_awal = strtotime('0000-00-00 00:00:00');
+		// }
+    //
+		// if($tgl_akhir == ''){
+		// 	$tgl_akhir = date("Y-m-d H:i:s");
+		// }
 		$query = $this->db->query('
 		SELECT tbl_struk.`id_pemesanan` AS id_transaksi,tbl_pemesanan.`nama_pemesan` AS nama_pemesan,tbl_pemesanan.`tanggal` AS tanggal,tbl_pegawai.`nama` AS nama_pegawai
 		FROM tbl_struk JOIN tbl_pemesanan ON tbl_struk.`id_pemesanan` = tbl_pemesanan.`id_pemesanan` JOIN tbl_pegawai ON tbl_pemesanan.`id_pegawai` = tbl_pegawai.`id_pegawai`
@@ -52,8 +59,8 @@ class M_dashboard extends CI_Model {
 	function db_count()
 	{
 		$query= $this->db->query('
-		SELECT COUNT(*) 
-		FROM information_schema.tables 
+		SELECT COUNT(*)
+		FROM information_schema.tables
 		WHERE table_schema = "db_tugas_sbd"');
 
 		return $query->result();
@@ -65,7 +72,7 @@ class M_dashboard extends CI_Model {
        return $this->db->query("show tables")->result();
     }
 
-	
+
 
 }
 

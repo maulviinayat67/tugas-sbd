@@ -10,6 +10,8 @@
 <script src="<?php echo base_url('assets/plugins/DataTables/js/jquery.dataTables.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/plugins/DataTables/js/dataTables.bootstrap.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/plugins/datepicker/bootstrap-datepicker.js')?>"></script>
+<script src="<?php echo base_url('assets/plugins/datepicker/locales/bootstrap-datepicker.id.js')?>"></script>
+
 <!-- <script src="<?php echo base_url('assets/dist/pages/dashboard2.js') ?>"></script> -->
 
 <script type="text/javascript">
@@ -20,20 +22,6 @@
 	var base_url = '<?php echo base_url();?>';
 
 	$(document).ready(function() {
-
-    $('#datepicker1').datepicker({
-      autoclose: true,
-      format: "yyyy-mm-dd",
-            changeMonth: true,
-            changeYear: true
-    });
-
-    $('#datepicker2').datepicker({
-      autoclose: true,
-      format: "yyyy-mm-dd",
-            changeMonth: true,
-            changeYear: true
-    });
 
 		table = $('#tabelmakanan').DataTable( {
 

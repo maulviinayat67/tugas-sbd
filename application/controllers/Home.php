@@ -71,15 +71,18 @@ class Home extends CI_Controller
     $data['tanggal_transaksi'] = $this->M_dashboard->tanggal_transaksi($tgl_awal,$tgl_akhir);
 
     $this->load->view('v_home',$data);
-
-
   }
+
+    public function export_(){
+      $data['transaksi'] = $this->M_dashboard->laporan_transaksi();
+
+      echo json_encode($data);
+    }
 
     public function export()
     {
         // Load plugin PHPExcel nya
         include APPPATH.'third_party/PHPExcel/PHPExcel.php';
-
         // Panggil class PHPExcel nya
         $excel = new PHPExcel();
         // Settingan awal fil excel
@@ -134,7 +137,8 @@ class Home extends CI_Controller
         $excel->getActiveSheet()->getStyle('E3')->applyFromArray($style_col);
         // Panggil function view yang ada di SiswaModel untuk menampilkan semua data siswanya
         $transaksi = $this->M_dashboard->laporan_transaksi();
-        $tanggal   = $this->M_dashboard->tanggal_transaksi();
+        // echo json_encode($this->input->post());
+        // $tanggal   = $this->M_dashboard->tanggal_transaksi();
         $no = 1; // Untuk penomoran tabel, di awal set dengan 1
         $numrow = 4; // Set baris pertama untuk isi tabel adalah baris ke 4
         foreach ($transaksi as $data) { // Lakukan looping pada variabel siswa
@@ -304,4 +308,3 @@ class Home extends CI_Controller
 
 /* End of file Home.php */
 /* Location: ./application/controllers/Home.php */
-	

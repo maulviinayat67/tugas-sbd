@@ -102,98 +102,50 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="table-responsive">
-                          <form
-                              action="<?php echo base_url().'home/tanggal'?>"
-                              method="post"
-                              name="postform">
-                              <table width="854" border="0">
-                                  <tr>
-                                      <label>Tanggal Awal</label>
-
-                                      <div class="input-group date">
-                                          <div class="input-group-addon">
-                                              <i class="fa fa-calendar"></i>
-                                          </div>
-                                          <input type="text" class="form-control" id="datepicker1" name="tanggal_awal">
-                                      </div>
-
-                                  </tr>
-                                  <tr>
-                                      <label>Tanggal Akhir</label>
-
-                                      <div class="input-group date">
-                                          <div class="input-group-addon">
-                                              <i class="fa fa-calendar"></i>
-                                          </div>
-                                          <input type="text" class="form-control" id="datepicker2" name="tanggal_akhir" >
-                                      </div>
-
-                                      <tr>
-                                          <td width="188">
-                                              <button type="submit" name="cari" class="btn btn-white btn-info btn-bold">Tampilkan Data</button>
-                                          </td>
-                                      </tr>
-
-                                  </table>
-                              </form>
-                              <?php
-                              if (empty($tgl_awal) and empty($tgl_akhir)) {
-                                  ?>
-
+                            <div style="margin-bottom:8px;" class="row">
+                              <div class="col-md-6">
+                                <label>Tanggal Awal</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control date-range" id="datepicker1" name="tanggal_awal">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <label>Tanggal Akhir</label>
+                                <div class="input-group date">
+                                  <div class="input-group-addon">
+                                      <i class="fa fa-calendar"></i>
+                                  </div>
+                                  <input type="text" class="form-control date-range" id="datepicker2" name="tanggal_akhir" >
+                                </div>
+                              </div>
+                            </div>
                               <table id="dynamic-table" class="table no-margin">
                                 <thead>
-                                    <tr>
-                                        <th>ID Transaksi</th>
-                                        <th>Nama Pemesan</th>
-                                        <th>Tanggal</th>
-                                        <th>Nama Pegawai</th>
-                                    </tr>
+                                  <tr>
+                                    <th>ID Transaksi</th>
+                                    <th>Nama Pemesan</th>
+                                    <th>Tanggal</th>
+                                    <th>Nama Pegawai</th>
+                                  </tr>
                                 </thead>
-                                <?php foreach ($data_transaksi as $row) {
-                                      ?>
                                 <tbody>
-                                <?php $tanggal = date("j F Y h:m:s", strtotime($row->tanggal)) ?>
-                                    <td><?php echo $row->id_transaksi ?></td>
-                                    <td><?php echo $row->nama_pemesan ?></td>
-                                    <td><?php echo $tanggal; ?></td>
-                                    <td><?php echo $row->nama_pegawai ?></td>
-
+                                  <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                  </tr>
                                 </tbody>
-                              <?php
-                                  }
-                              } else {
-                                  ?>
-                                      <table id="dynamic-table" class="table no-margin">
-                                  <thead>
-                                      <tr>
-                                          <th>ID Transaksi</th>
-                                          <th>Nama Pemesan</th>
-                                          <th>Tanggal</th>
-                                          <th>Nama Pegawai</th>
-                                      </tr>
-                                  </thead>
-                               <?php
-                                  foreach ($tanggal_transaksi as $row) {
-                                      ?>
-                                  <tbody>
-                                 <?php $tanggal = date("j F Y h:m:s", strtotime($row->tanggal)) ?>
-                                      <td><?php echo $row->id_transaksi ?></td>
-                                      <td><?php echo $row->nama_pemesan ?></td>
-                                      <td><?php echo $tanggal; ?></td>
-                                      <td><?php echo $row->nama_pegawai ?></td>
-                                      </tbody>
-                                  <?php
-                                  }
-                              }?>
                             </table>
                         </div>
                         <!-- /.table-responsive -->
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
-                        <a
-                            href="<?php echo base_url().'home/export'?>"
-                            class="btn btn-sm btn-info btn-flat pull-left">Download</a>
+                        <button id="download-laporan" class="btn btn-sm btn-info btn-flat pull-left">Download</button>
                     </div>
                     <!-- /.box-footer -->
                 </div>
@@ -238,10 +190,79 @@
       </section>
 
       <script src="<?php echo base_url('assets/jquery/jquery-3.2.1.min.js') ?>"></script>
+
+      <script src="<?php echo base_url('assets/plugins/datepicker/bootstrap-datepicker.js')?>"></script>
+      <script src="<?php echo base_url('assets/plugins/datepicker/locales/bootstrap-datepicker.id.js')?>"></script>
+
       <script type="text/javascript">
-
-
       $(document).ready(function() {
+
+
+        reportTable = $('#dynamic-table').DataTable({
+          ajax : {
+            url : 'home/export_',
+            dataSrc : 'transaksi'
+          },
+          columns : [
+            {data:'id_transaksi'},
+            {data:'nama_pemesan'},
+            {data:'tanggal'},
+            {data:'nama_pegawai'}
+          ]
+        })
+
+        $('#datepicker1').datepicker({
+          language: 'id'
+        })
+        $('#datepicker1').datepicker('setDate','01/01/2018')
+        // $('#datepicker1').val('01/01/2018')
+
+        $('#datepicker2').datepicker({
+          language: 'id'
+        })
+        $('#datepicker2').datepicker('setDate',new Date())
+
+        $.fn.dataTable.ext.search.push(
+          function( settings, data, dataIndex ) {
+            var min  = new Date($('#datepicker1').val());
+            var max  = new Date($('#datepicker2').val());
+            var createdAt = data[2] || 0; // Our date column in the table
+
+            if  (( min == "" || max == "" )||( Date.parse(createdAt) >= min&& Date.parse(createdAt) <= max))
+            {
+                return true;
+            }
+            return false;
+          }
+        );
+
+        $('.date-range').on('change',function(){
+          reportTable.draw()
+          console.log(reportTable.data().toArray());
+        })
+
+        $('button#download-laporan').on('click', function(){
+          $.ajax({
+            url:'home/export',
+            method:'post',
+            xhrFields: {
+              responseType: 'blob'
+            },
+            data:reportTable.data().toArray()
+          }).done(function(response){
+            console.log(response);
+            var a = document.createElement('a');
+            // file = []
+            // file.push(response)
+            var url = (window.URL ? URL : webkitURL).createObjectURL(response);
+            a.href = url;
+            a.download = 'Data Transaksi.xlsx';
+            a.click();
+            URL.revokeObjectURL(url);
+          }).fail(function(xhr, text, thrown){
+            console.log(xhr);
+          })
+        })
 
         $('#db-backup').on('click', function(){
           $('#notification').modal('toggle')
