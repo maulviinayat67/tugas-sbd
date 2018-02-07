@@ -105,80 +105,140 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <div class="table-responsive">
-                            <table class="table no-margin">
-                                <thead>
+
+                            <form
+                                action="<?php echo base_url().'home/tanggal'?>"
+                                method="post"
+                                name="postform">
+                                <table width="854" border="0">
                                     <tr>
-                                        <th>ID Transaksi</th>
-                                        <th>Nama Pemesan</th>
-                                        <th>Tanggal</th>
-                                        <th>Nama Pegawai</th>
+                                        <label>Tanggal Awal</label>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control" id="datepicker1" name="tanggal_awal">
+                                        </div>
+
                                     </tr>
-                                </thead>
-                                <?php foreach($data_transaksi as $row)
+                                    <tr>
+                                        <label>Tanggal Akhir</label>
+
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control" id="datepicker2" name="tanggal_akhir" >
+                                        </div>
+
+                                        <tr>
+                                            <td width="188">
+                                                <button type="submit" name="cari" class="btn btn-white btn-info btn-bold">Tampilkan Data</button>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </form>
+                                <?php 
+                                if(empty($tgl_awal) AND empty($tgl_akhir))
+                                { ?>
+
+                                <table id="dynamic-table" class="table no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th>ID Transaksi</th>
+                                            <th>Nama Pemesan</th>
+                                            <th>Tanggal</th>
+                                            <th>Nama Pegawai</th>
+                                        </tr>
+                                    </thead>
+                                    <?php foreach($data_transaksi as $row)
                                     { ?>
-                                <tbody>
-                                <?php $tanggal = date("j F Y h:m:s",strtotime($row->tanggal)) ?>
-                                    <td><?php echo $row->id_transaksi ?></td>
-                                    <td><?php echo $row->nama_pemesan ?></td>
-                                    <td><?php echo $tanggal;?></td>
-                                    <td><?php echo $row->nama_pegawai ?></td>
+                                    <tbody>
+                                        <?php $tanggal = date("j F Y h:m:s",strtotime($row->tanggal)) ?>
+                                        <td><?php echo $row->id_transaksi ?></td>
+                                        <td><?php echo $row->nama_pemesan ?></td>
+                                        <td><?php echo $tanggal;?></td>
+                                        <td><?php echo $row->nama_pegawai ?></td>
 
-                                </tbody>
-                                <?php }?>
-                            </table>
+                                    </tbody>
+                                    <?php } }else{?>
+                                        <table id="dynamic-table" class="table no-margin">
+                                    <thead>
+                                        <tr>
+                                            <th>ID Transaksi</th>
+                                            <th>Nama Pemesan</th>
+                                            <th>Tanggal</th>
+                                            <th>Nama Pegawai</th>
+                                        </tr>
+                                    </thead>
+                                 <?php 
+                                    foreach($tanggal_transaksi as $row){?>
+                                    <tbody>
+                                   <?php $tanggal = date("j F Y h:m:s",strtotime($row->tanggal)) ?>
+                                        <td><?php echo $row->id_transaksi ?></td>
+                                        <td><?php echo $row->nama_pemesan ?></td>
+                                        <td><?php echo $tanggal;?></td>
+                                        <td><?php echo $row->nama_pegawai ?></td>
+                                        </tbody>
+                                    <?php }}?>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
                         </div>
-                        <!-- /.table-responsive -->
+                        <!-- /.box-body -->
+                        <div class="box-footer clearfix">
+                            <a
+                                href="<?php echo base_url().'home/export'?>"
+                                class="btn btn-sm btn-info btn-flat pull-left">Download</a>
+                        </div>
+                        <!-- /.box-footer -->
                     </div>
-                    <!-- /.box-body -->
-                    <div class="box-footer clearfix">
-                        <a
-                            href="<?php echo base_url().'home/export'?>"
-                            class="btn btn-sm btn-info btn-flat pull-left">Download</a>
-                    </div>
-                    <!-- /.box-footer -->
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <!-- JUMLAH MEJA -->
-                <div class="box box-info">
-                    <div class="box-header with-border">
-                        <h3 class="box-title">
-                            Manajemen Database</h3>
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove">
-                                <i class="fa fa-times"></i>
-                            </button>
+                <div class="col-lg-6">
+                    <!-- JUMLAH MEJA -->
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">
+                                Manajemen Database</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
                         </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+
+                                <form action="<?php echo base_url();?>home/backupdb" method="post">
+                                    <!-- <div class="form-group"> <select required="" name="tabeldb"> <?php foreach
+                                    ($tabel as $baris) { ?> <option value="<?php echo
+                                    $baris->Tables_in_db_tugas_sbd; ?>"><?php echo $baris->Tables_in_db_tugas_sbd;
+                                    ?></option> <?php } ?> </select> </div> -->
+                                    <!-- <button type="submit" class="btn btn-primary">Backup Database</button> -->
+                                    <a
+                                        href="<?php echo base_url();?>home/backupalldb"
+                                        type="button"
+                                        class="btn btn-primary pull-left">Backup Semua Database</a>
+                                </form>
+                                <br>
+                                <br>
+                                <br>
+                                <form
+                                    enctype="multipart/form-data"
+                                    action="<?php echo base_url();?>home/restoredb"
+                                    method="post">
+                                    <div class="form-group">
+                                        <input type="file" name="datafile" id="datafile"/>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Upload Database</button>
+                                </form>
+
+                            </div>
+                        </section>
                     </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="table-responsive">
-
-                            <form action="<?php echo base_url();?>home/backupdb" method="post">
-                                <!-- <div class="form-group">
-                                    <select required="" name="tabeldb">
-                                        <?php
-                           foreach ($tabel as $baris) {  ?>
-                                        <option value="<?php echo $baris->Tables_in_db_tugas_sbd; ?>"><?php echo $baris->Tables_in_db_tugas_sbd; ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div> -->
-                                <!-- <button type="submit" class="btn btn-primary">Backup Database</button> -->
-                                <a href="<?php echo base_url();?>home/backupalldb" type="button" class="btn btn-primary pull-left">Backup Semua Database</a>
-                            </form>
-                            <br>
-                            <br>
-                            <br>
-                            <form enctype="multipart/form-data" action="<?php echo base_url();?>home/restoredb" method="post">
-                                <div class="form-group">
-                                    <input type="file" name="datafile" id="datafile"/>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Upload Database</button>
-                            </form>
-
-                        </div>
-                    </section>
-                </div>

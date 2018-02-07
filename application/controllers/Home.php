@@ -46,6 +46,37 @@ class Home extends CI_Controller {
 		$this->load->view('v_home',$data);
 	}
 
+	public function tanggal()
+	{
+		$this->M_security->cek_security();
+		$data['judul']		= 'Home';
+		$data['sub_judul']	= 'Dashboard';
+		$data['base_link'] 	= '';
+
+		$data['jml_meja']		= $this->M_dashboard->meja_count();
+		$data['jml_pemesanan']  = $this->M_dashboard->pemesanan_count();
+		$data['jml_pegawai']	= $this->M_dashboard->pegawai_count();
+		$data['jml_makanan']	= $this->M_dashboard->makanan_count();
+		$data['jml_database']	= $this->M_dashboard->db_count();
+		$data['data_transaksi'] = $this->M_dashboard->laporan_transaksi();
+		$data['tabel'] 			= $this->M_dashboard->tampiltabel(); 
+
+		$data['user'] 			= 'MANAJER';
+		$data['content'] 		= 'manajer/v_dashboard';
+
+		
+		$tgl_awal  = $this->input->post('tanggal_awal');
+		$tgl_akhir = $this->input->post('tanggal_akhir');
+
+		$data['tgl_awal']  = $tgl_awal;
+		$data['tgl_akhir'] = $tgl_akhir;
+
+		$data['tanggal_transaksi'] = $this->M_dashboard->tanggal_transaksi($tgl_awal,$tgl_akhir);
+
+		$this->load->view('v_home',$data);
+
+		
+	}
 	public function export(){
 		// Load plugin PHPExcel nya
 		include APPPATH.'third_party/PHPExcel/PHPExcel.php';
@@ -104,6 +135,7 @@ class Home extends CI_Controller {
 		$excel->getActiveSheet()->getStyle('E3')->applyFromArray($style_col);
 		// Panggil function view yang ada di SiswaModel untuk menampilkan semua data siswanya
 		$transaksi = $this->M_dashboard->laporan_transaksi();
+		$tanggal   = $this->M_dashboard->tanggal_transaksi();
 		$no = 1; // Untuk penomoran tabel, di awal set dengan 1
 		$numrow = 4; // Set baris pertama untuk isi tabel adalah baris ke 4
 		foreach($transaksi as $data){ // Lakukan looping pada variabel siswa
