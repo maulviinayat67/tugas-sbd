@@ -248,12 +248,12 @@
             xhrFields: {
               responseType: 'blob'
             },
-            data:reportTable.data().toArray()
+            data:{
+              'data':reportTable.data().toArray()
+            }
           }).done(function(response){
             console.log(response);
             var a = document.createElement('a');
-            // file = []
-            // file.push(response)
             var url = (window.URL ? URL : webkitURL).createObjectURL(response);
             a.href = url;
             a.download = 'Data Transaksi.xlsx';
